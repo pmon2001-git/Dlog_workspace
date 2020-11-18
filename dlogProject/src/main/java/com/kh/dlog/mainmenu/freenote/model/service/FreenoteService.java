@@ -1,5 +1,12 @@
 package com.kh.dlog.mainmenu.freenote.model.service;
 
-public class FreenoteService {
+import java.util.ArrayList;
 
+import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+
+public interface FreenoteService {
+	
+	int selectListCount();
+	ArrayList<Freenote> selectList();
+	
 }
