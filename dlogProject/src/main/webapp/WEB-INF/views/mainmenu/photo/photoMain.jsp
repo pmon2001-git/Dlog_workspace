@@ -12,7 +12,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
     <!-- Custom Stylesheet -->
-    <link href="resources/css/style.css" rel="stylesheet">
+    <link href="resources/css/osageuStyle.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
