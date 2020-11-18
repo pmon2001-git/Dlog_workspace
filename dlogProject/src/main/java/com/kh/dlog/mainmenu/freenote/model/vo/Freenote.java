@@ -22,7 +22,7 @@ public class Freenote {
 	private String freenoteTopic;
 	private String freenotePrivacy;
 	private String freenotePrivacyComm;
-	private String freenoteComment;
+	private String freenoteCommentYN;
 	private int freenoteCount;
 	private int freenoteLike;
 	private Date createDate;

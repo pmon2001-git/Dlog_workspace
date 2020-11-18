@@ -7,7 +7,7 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/> -->
+		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.Freenote" alias="Freenote"/>
 	</typeAliases>
 	
 	<!-- 
@@ -24,7 +24,7 @@
  	-->
  	
  	<mappers>
- 		<!-- <mapper resource="/mappers/member-mapper.xml" /> -->
+ 		<mapper resource="/mappers/freenote-mapper.xml" />
  	</mappers>
  	
 </configuration>

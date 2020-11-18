@@ -51,7 +51,7 @@
 	                            <br>
 	
 	                            <!-- 목록 -->
-	                            <table class="table table-hover">
+	                            <table class="table table-hover" id="listArea">
 	                                <thead align="center">
 	                                    <tr>
 	                                        <th>번호</th>
@@ -60,58 +60,31 @@
 	                                    </tr>
 	                                </thead>
 	                                <tbody align="center">
-	                                    <tr>
-	                                        <th>5</th>
-	                                        <td>제목입니다&nbsp;<span class="badge badge-pill badge-light">&nbsp;비공개&nbsp;</span></td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>4</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>3</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>2</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>1</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>5</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>4</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>3</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>2</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <th>1</th>
-	                                        <td>제목입니다</td>
-	                                        <td>2020-11-01</td>
-	                                    </tr>
+	                                    <c:forEach var="f" items="${ list }">
+	                                    	<tr>
+		                                        <th>${ f.freenoteNo }</th>
+		                                        <td>
+		                                        	${ f.freenoteTitle }&nbsp;
+		                                        	<c:if test="${ f.freenotePrivacy eq 'N' }">
+		                                        		<span class="badge badge-pill badge-light">&nbsp;비공개&nbsp;</span>
+		                                        	</c:if>
+		                                        </td>
+		                                        <td>${ f.createDate }</td>
+		                                    </tr>
+	                                    </c:forEach>
 	                                </tbody>
 	                            </table>
+	                            <script>
+	                            	$(function(){
+	                            		$("#listArea>tbody>tr").each(function(){
+	                            			$(this).find("td:eq(0)").css("cursor", "pointer");
+	                            			
+	                            			$(this).find("td:eq(0)").click(function(){
+	                            				location.href="detail.fn?fno=" + $(this).prev().text();
+	                            			});
+	                            		});
+	                            	});
+	                            </script>
 	                            <br>
 	                            <!-- 페이징 -->
 	                            <table align="center">

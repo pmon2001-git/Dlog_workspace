@@ -2,11 +2,15 @@ package com.kh.dlog.mainmenu.freenote.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
 
 public interface FreenoteService {
 	
-	int selectListCount();
-	ArrayList<Freenote> selectList();
+	// 1. 프리노트 목록 조회용 서비스
+	int selectListCount(int mNo);
+	ArrayList<Freenote> selectList(int mNo, PageInfo pi);
+	
+	
 	
 }
