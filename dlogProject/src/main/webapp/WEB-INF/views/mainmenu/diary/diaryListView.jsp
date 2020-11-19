@@ -38,8 +38,8 @@
                                       </td>
                                   </tr>
                               </table>
-                              <br>
-
+                              <br><br>
+								
                               <!-- 목록 -->
                               <table class="table table-hover">
                                   <thead align="center">
@@ -71,7 +71,7 @@
                                           <ul class="pagination justify-content-center">
                                           
                                           <c:choose>
-                                          	  <c:when test="${ pi.currentpage eq 1} }">
+                                          	  <c:when test="${ pi.currentPage eq 1} }">
                                               	<li class="page-item disaled"><a class="page-link" href="#">Previous</a></li>
                                               </c:when>
                                               <c:otherwise>
@@ -82,7 +82,7 @@
                                               
                                               
                                             <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">  
-                                              <li class="page-item active"><a class="page-link" href="list.di?currentPAGE=${ P }">${ p }</a></li>
+                                              <li class="page-item active"><a class="page-link" href="list.di?currentPage=${ P }">${ p }</a></li>
                                          	</c:forEach>
                                               
                                               

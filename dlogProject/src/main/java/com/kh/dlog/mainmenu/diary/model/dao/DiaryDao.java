@@ -25,7 +25,7 @@ public class DiaryDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("diaryMapper", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("diaryMapper.selectList", null, rowBounds);
 	}
 	
 }
