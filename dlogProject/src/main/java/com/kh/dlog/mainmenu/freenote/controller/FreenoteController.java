@@ -12,6 +12,7 @@ import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.common.template.Pagination;
 import com.kh.dlog.mainmenu.freenote.model.service.FreenoteService;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 @Controller
 public class FreenoteController {
@@ -20,19 +21,32 @@ public class FreenoteController {
 	private FreenoteService fService;
 	
 	@RequestMapping("list.fn")
-	public String selectList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, int mNo, Model model) {
+	public String selectList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, SearchCondition sc, Model model) {
 		
 		
-		int listCount = fService.selectListCount(mNo);
+		int listCount = fService.selectListCount(sc);
+
+		if(sc.getBoardLimit() == 0) {
+			sc.setBoardLimit(5);
+		}
 		
-//		System.out.println(listCount);
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		if(sc.getCategory() == null) {
+			sc.setCategory("");
+		}
+
+		if(sc.getTitle() == null) {
+			sc.setTitle("");
+		}
 		
-		ArrayList<Freenote> list = fService.selectList(mNo, pi);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, sc.getBoardLimit());
+		
+		ArrayList<Freenote> list = fService.selectList(sc, pi);
+		ArrayList<String> cateList = fService.selectCategory(sc.getMno());
 		
 		model.addAttribute("pi", pi);
+		model.addAttribute("cateList", cateList);
 		model.addAttribute("list", list);
-		
+		model.addAttribute("sc", sc);
 		return "mainmenu/freenote/freenoteListView";
 	}
 	

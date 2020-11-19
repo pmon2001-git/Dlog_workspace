@@ -6,7 +6,7 @@ import com.kh.dlog.mainmenu.photo.model.vo.Photo;
 
 public interface PhotoService {
 	
-	int insertPhoto(Photo p);
+	int insertPhoto(ArrayList<Photo> p);
 	int deletePhoto(int photoNo);
 	ArrayList<Photo> selectPhotoList(int photoWriter);
 	

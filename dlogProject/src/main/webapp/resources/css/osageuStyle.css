@@ -27,37 +27,38 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 /* 여기 부터는 나의 css */
 /* 사진 게시판 */
-#photo_main{
-  width: 100%;
-  height: auto;
-}
-#photo_main td{
-  width: 23%;
-  height: 50%;
-  padding: 10px;
+/* #photo_outer div{
+	float:left;
+} */
+.photo_main{
+  width: 192px;
+  height: 230px;
+  margin:7px;
+  display:inline-block;
 }
 .photo_main_photo{
-  width:100%;
-  height: 80%;
-  border: 1px solid lightgray;
+  width:192px;
+  height: 192px;
+  border: 1px solid rgb(230,230,230);
 }
 .photo_main_photo img{
-  width: 100%;
-  height: 100%;
+  width: 192px;
+  height: 192px;
+  object-fit: contain;
 }
 .photo_main_date{
   width: 100%;
-  height: 10%;
+  height: 25px;
   font-size: 20px;
   font-weight: bold;
-  color: #3b3b3b;
+  color:rgb(100,100,100);
   padding-left: 5px;
 }
 .photo_main_content{
   width: 100%;
-  height: 10%;
+  height: 15px;
   font-size: 15px;
-  color: #3b3b3b;
+  color:rgb(100,100,100);
   padding-left: 5px;
 }
 
@@ -72,19 +73,11 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   width: 100%;
   height: 70%;
   border:1px solid lightgray;
-  overflow:hidden;
-  font-size:0px;
-}
-.photo_insertForm_thumbnail:after{
-	display:inline-block; 
-	height:100%; 
-	content:""; 
-	vertical-align:middle;
 }
 .photo_insertForm_thumbnail img{
-  max-width: 100%;
-  height: auto;
-  vertical-align:middle;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .photo_insertForm_date input[type=date]{
 	color:#3b3b3b;
@@ -121,10 +114,20 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   clip:rect(0,0,0,0); 
   border: 0; 
 }
-.photo_insertForm_file span{
+.photo_insertForm_file{
+	position:relative;
+}
+.photo_insertForm_file div{
+	width:250px;
 	font-size:18px;
 	color:#3b3b3b;
-	margin-left:11px;
+	left:105px;
+	top:5px;
+	position:absolute;
+	display:inline-block;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
 }
 .photo_insertFom_choice{
   width: 100%;
@@ -147,10 +150,16 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   padding-left: 10px;
 }
 #addFrame{
-	width:50px !important;
-	height:50px !important;
+	width:40px !important;
+	height:40px !important;
 	color:gray !important;
-	margin-left:850px;
+	margin-left:830px;
+	margin-right:10px;
+}
+#removeFrame{
+	width:40px !important;
+	height:40px !important;
+	color:gray !important;
 }
 
 

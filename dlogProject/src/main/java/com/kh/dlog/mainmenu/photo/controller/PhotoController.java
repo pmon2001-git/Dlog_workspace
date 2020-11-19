@@ -44,11 +44,16 @@ public class PhotoController {
 				}
 			}
 		}
-		for(Photo a : list) {
-			System.out.println(a);
+		
+		int result = pService.insertPhoto(list);
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시판 등록 성공!!");
+			return "redirect:selectList.ph";
+		}else {
+			session.setAttribute("alertMsg", "게시판 등록 실패..");
+			return "redirect:selectList.ph";
 		}
 		
-		return "redirect:selectList.ph";
 	}
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
@@ -73,8 +78,12 @@ public class PhotoController {
 	}
 	
 	@RequestMapping("selectList.ph")
-	public String selectList() {
+	public String selectList(Model model) {
+		
+		ArrayList<Photo> list = pService.selectPhotoList(2);
+		model.addAttribute("list", list);
 		return "mainmenu/photo/photoMain";
+		
 	}
 	
 	

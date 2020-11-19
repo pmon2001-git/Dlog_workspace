@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.dao.FreenoteDao;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 @Service
 public class FreenoteServiceImpl implements FreenoteService {
@@ -19,13 +20,18 @@ public class FreenoteServiceImpl implements FreenoteService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int selectListCount(int mNo) {
-		return fDao.selectListCount(sqlSession, mNo);
+	public int selectListCount(SearchCondition sc) {
+		return fDao.selectListCount(sqlSession, sc);
 	}
 
 	@Override
-	public ArrayList<Freenote> selectList(int mNo, PageInfo pi) {
-		return fDao.selectList(sqlSession, mNo, pi);
+	public ArrayList<Freenote> selectList(SearchCondition sc, PageInfo pi) {
+		return fDao.selectList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public ArrayList<String> selectCategory(int mno) {
+		return fDao.selectCategory(sqlSession, mno);
 	}
 
 }

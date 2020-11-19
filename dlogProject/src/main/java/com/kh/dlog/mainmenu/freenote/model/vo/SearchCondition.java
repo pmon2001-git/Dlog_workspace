@@ -13,9 +13,13 @@ import lombok.ToString;
 @ToString
 public class SearchCondition {
 	
-	private String writer;
+	private int mno;
+	private String category;
+	private int boardLimit;
 	private String title;
-	private String topic;
-	private String sort;
+//	private String writer;
+//	private String wirterTitle;
+//	private String topic;
+//	private String sort;
 
 }
