@@ -306,44 +306,103 @@
                 </div>
                 <!-- row -->
                 <a class="btn mb-1 btn-success" style="margin-left: 690px; margin-right:15px; font-size: 20px;" href="enroll.ph">사진 올리기</a>
-                <a class="btn mb-1 btn-success" style="font-size: 20px;">삭제</a>
+                <a class="btn mb-1 btn-success deleteButton" style="font-size: 20px;">삭제</a>
                 <div class="container-fluid" style="margin-top:15px;">
                     <div class="row">
                         <div class="col-12">
                             <div class="card" style="width:900px;">
                                 <div class="card-body" >
                                 	
-                                    <c:forEach var="p" items="${ list }" varStatus="status">
-		                                <div class="photo_main">
-		                                    <div class="photo_main_photo">
-		                                        <img src="${ p.photoChangeName }" alt="">
-		                                    </div>
-		                                    <div class="photo_main_date">
-		                                        ${ p.photoDate }
-		                                    </div>
-		                                    <div class="photo_main_content">
-		                                        ${ p.photoContent }
-		                                    </div>
-		                                </div>
-                                    </c:forEach>
-								
+                                	<form action = "delete.ph" method="get" id="photo_form">
+	                                    <c:forEach var="p" items="${ list }" varStatus="status">
+			                                <div class="photo_main">
+			                                    <div class="photo_main_photo">
+			                                    	<input type="checkbox" class="removeBox" name="deleteNums" value="${ p.photoNo }">
+			                                        <img src="${ p.photoChangeName }" alt="">
+			                                    </div>
+			                                    <div class="photo_main_date">
+			                                        ${ p.photoDate }
+			                                    </div>
+			                                    <div class="photo_main_content">
+			                                        ${ p.photoContent }
+			                                    </div>
+			                                </div>
+	                                    </c:forEach>
+									</form>
+									
+									<script>
+										// 게시글 삭제
+										$(function(){
+											$(".removeBox").css("display","none");
+											$(".deleteButton").click(function(){
+												if($(".deleteButton").html()=="삭제"){
+													$(this).html("확인");
+													$(".removeBox").css("display","");
+													$(".photo_main_photo img").click(function(){
+														if($(this).prev().attr("checked")==true){
+															$(this).prev().prop("checked",false);
+														}else{
+															$(this).prev().prop("checked",true);
+														}
+													});
+												}else{
+													if($("input:checkbox[class=removeBox]:checked").length > 0){
+														var test = confirm("정말 삭제하시겠습니까?");
+														if(test == true){
+															$("#photo_form").submit();
+														}else{
+															$("input:checkbox[class=removeBox]:checked").prop("checked", false);
+														}
+													}
+													$(this).html("삭제");
+													$(".removeBox").css("display","none");
+												}
+											})
+										})
+									</script>
+									
 	                                <div class="bootstrap-pagination" style="margin-left: 300px; margin-top:50px;">
-	                                    <nav>
-	                                        <ul class="pagination">
-	                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
-	                                            </li>
-	                                            <li class="page-item"><a class="page-link" href="#">1</a>
-	                                            </li>
-	                                            <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-	                                            </li>
-	                                            <li class="page-item"><a class="page-link" href="#">3</a>
-	                                            </li>
-	                                            <li class="page-item"><a class="page-link" href="#">Next</a>
-	                                            </li>
-	                                        </ul>
-	                                    </nav>
+	                                	<div id="pagingArea">
+							                <ul class="pagination">
+							                
+							                	<c:choose>
+							                		<c:when test="${ pi.currentPage eq 1 }">
+									                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+							                		</c:when>
+							                		<c:otherwise>
+									                    <li class="page-item"><a class="page-link" href="selectList.ph?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+							                		</c:otherwise>
+							                    </c:choose>
+							                    
+							                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							                    	<li class="page-item"><a class="page-link" href="selectList.ph?currentPage=${ p }">${ p }</a></li>
+							                    </c:forEach>
+							                    
+							                    <c:choose>
+							                		<c:when test="${ pi.currentPage eq pi.maxPage }">
+									                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+							                		</c:when>
+							                		<c:otherwise>
+							                    		<li class="page-item"><a class="page-link" href="selectList.ph?currentPage=${ pi.currentPage+1 }">Next</a></li>
+							                		</c:otherwise>
+							                    </c:choose>
+							                    
+							                    
+							                </ul>
+							            </div>
 	                                </div>
-                                
+	                                
+				                    <script>
+				                    	// 현재 페이지 색칠
+				                    	$(function(){
+				                    		$(".page-link").each(function(){
+				                    			if($(this).text()==${ pi.currentPage }){
+				                    				$(this).css({"background":"rgb(132,200,185)", "color":"white"});
+				                    			}
+				                    		});
+				                    	})
+				                    </script>
+				                    
                                 </div>
                             </div>
                         </div>
@@ -448,7 +507,7 @@
     <script src="resources/js/settings.js"></script>
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>
-
+	
 </body>
 
 </html>

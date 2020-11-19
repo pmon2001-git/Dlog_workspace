@@ -26,5 +26,5 @@ public class Photo {
 	private String photoContent;
 	private String photoStatus;
 	private ArrayList<Photo> list; // 여러 개의 글을 동시에 DB에 넣고자 할 때 사용!
-	
+	private String[] deleteNums;
 }
