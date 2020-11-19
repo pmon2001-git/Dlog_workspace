@@ -17,7 +17,7 @@
 		select
 		        count(*)
 		  from  diary
-		 where status = 'Y'
+		 where diary_status = 'Y'
 	</select>
 	
 	<select id="selectList" parameterType="_int" resultMap="diaryResultSet">
