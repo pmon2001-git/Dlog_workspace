@@ -242,17 +242,7 @@
                         </li>
                         <li>
                             <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon-docs"></i> <span class="nav-text">메뉴관리</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon-directions"></i><span class="nav-text">위젯관리</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                                <i class="icon-social-dropbox"></i> <span class="nav-text">테마관리</span>
+                                <i class="icon-social-dropbox"></i> <span class="nav-text">통합관리</span>
                             </a>
                         </li>
                         <li>
