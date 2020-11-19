@@ -303,6 +303,7 @@
                 <!-- row -->
 
                 <i id="addFrame" class="fas fa-plus-square" onclick="addFrame();"></i>
+                <i id="removeFrame" class="fas fa-minus-square" onclick="removeFrame();"></i>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
@@ -318,7 +319,7 @@
 		                                        <div class="photo_insertForm_file photo_insertFom_choice">
 		                                            <label for="ex_file1">사진 선택</label> 
 		                                            <input type="file" name="upfiles" id="ex_file1" onchange="loadImg(this,1); loadUrl(1);" required>
-		                                            <span id="showUrl1"></span>
+		                                            <div id="showUrl1"></div>
 		                                        </div>
 		                                        <div class="photo_insertForm_date photo_insertFom_choice">
 		                                            <div class="photo_enroll_info">날짜 선택</div>
@@ -447,8 +448,9 @@
 		
 		$(function(){
             
-			// [+] 버튼에 클릭 모양 추가
+			// [+],[-] 버튼에 클릭 모양 추가
 			$("#addFrame").hover().css("cursor","pointer");
+			$("#removeFrame").hover().css("cursor","pointer");
 			
 			// 날짜 선택 시 글자색이 회색에서 검은색으로 변경 --> 보류
 			
@@ -468,10 +470,16 @@
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('label').attr('for', 'ex_file'+(frameCount+1));
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('onchange', 'loadImg(this,'+(frameCount+1)+'); loadUrl('+(frameCount+1)+');');
 			$('.photo_insertForm').eq(frameCount).children().eq(0).attr('id', 'thumbnail'+(frameCount+1));
-			$('.photo_insertForm').eq(frameCount).children().eq(1).children('span').attr('id', 'showUrl'+(frameCount+1));
+			$('.photo_insertForm').eq(frameCount).children().eq(1).children('div').attr('id', 'showUrl'+(frameCount+1));
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('name', 'upfiles');
 			$('.photo_insertForm').eq(frameCount).children().eq(2).children('input').attr('name', 'list['+frameCount+'].photoDate');
 			$('.photo_insertForm').eq(frameCount).children().eq(3).children('input').attr('name', 'list['+frameCount+'].photoContent');
+		}
+		
+		// frame 제거
+		removeFrame = function(){
+			$(".photo_outer").children().last().remove();
+			frameCount--;
 		}
 		
 		// frame 초기화

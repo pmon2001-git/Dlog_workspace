@@ -21,7 +21,7 @@ public class PhotoServiceImpl implements PhotoService{
 	
 	// method
 	@Override
-	public int insertPhoto(Photo p) { // 사진게시판 작성 
+	public int insertPhoto(ArrayList<Photo> p) { // 사진게시판 작성 
 		return pDao.insertPhoto(sqlSession, p);
 	}
 
@@ -32,7 +32,7 @@ public class PhotoServiceImpl implements PhotoService{
 
 	@Override
 	public ArrayList<Photo> selectPhotoList(int photoWriter) { // 사진게시판 전체 조회
-		return null;
+		return pDao.selectPhotoList(sqlSession, photoWriter);
 	}
 
 
