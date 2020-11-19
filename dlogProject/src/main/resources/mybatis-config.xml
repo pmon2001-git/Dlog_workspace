@@ -8,8 +8,10 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.Freenote" alias="Freenote"/>
-
 		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition" alias="SearchCondition" />
+		<typeAlias type="com.kh.dlog.mainmenu.photo.model.vo.Photo" alias="Photo" />
+		<typeAlias type="com.kh.dlog.mainmenu.calendar.model.vo.Calendar" alias="Calendar" />
+		<typeAlias type="com.kh.dlog.widget.memo.model.vo.Memo" alias="Memo" />
 		<typeAlias type="com.kh.dlog.mainmenu.diary.model.vo.Diary" alias="Diary"/>
 	</typeAliases>
 	
@@ -28,6 +30,9 @@
  	
  	<mappers>
  		<mapper resource="/mappers/freenote-mapper.xml" />
+ 		<mapper resource="/mappers/calendar-mapper.xml" />
+ 		<mapper resource="/mappers/memo-mapper.xml" />
+ 		<mapper resource="/mappers/photo-mapper.xml" />
  		<mapper resource="/mappers/diary-mapper.xml" />
  	</mappers>
  	
