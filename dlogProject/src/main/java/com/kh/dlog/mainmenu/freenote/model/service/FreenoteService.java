@@ -13,5 +13,12 @@ public interface FreenoteService {
 	ArrayList<Freenote> selectList(SearchCondition sc, PageInfo pi);
 	ArrayList<String> selectCategory(int mno);
 	
+	// 2. 프리노트 작성용 서비스
+	int insertFreenote(Freenote fn);
+	
+	
+	// 3. 프리노트 조회용 서비스
+	
+	
 	
 }

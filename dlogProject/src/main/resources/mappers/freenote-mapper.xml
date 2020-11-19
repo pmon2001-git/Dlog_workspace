@@ -52,5 +52,33 @@
 		 order
 		    by freenote_category
 	</select>
+	
+	<insert id="insertFreenote" parameterType="Freenote">
+		insert
+		  into freenote
+		  (
+		     freenote_no
+		   , freenote_title
+		   , freenote_content
+		   , freenote_category
+		   , freenote_topic
+		   , freenote_privacy
+		   , freenote_privacy_comm
+		   , freenote_comment_yn
+		   , member_no
+		  )
+		  values
+		  (
+		     seq_freenoteno.nextval
+		   , #{freenoteTitle}
+		   , #{freenoteContent}
+		   , #{freenoteCategory}
+		   , #{freenoteTopic}
+		   , #{freenotePrivacy}
+		   , #{freenotePrivacyComm}
+		   , #{freenoteCommentYN}
+		   , #{freenoteWriter}
+		  )
+	</insert>
 
 </mapper>

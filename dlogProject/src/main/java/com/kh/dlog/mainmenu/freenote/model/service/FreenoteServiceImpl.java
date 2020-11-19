@@ -34,4 +34,9 @@ public class FreenoteServiceImpl implements FreenoteService {
 		return fDao.selectCategory(sqlSession, mno);
 	}
 
+	@Override
+	public int insertFreenote(Freenote fn) {
+		return fDao.insertFreenote(sqlSession, fn);
+	}
+
 }

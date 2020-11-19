@@ -10,7 +10,13 @@
 <body>
 
 	<jsp:include page="../../common/diaryHeader.jsp" />
-
+	
+	<script>
+		$(function(){
+			$("a[href='list.fn?mno=1']").addClass("active");
+			$("a[href='list.fn?mno=1']").parent().addClass("active");
+		});
+	</script>
 	<!--**********************************
 	             Content body start
 	***********************************-->

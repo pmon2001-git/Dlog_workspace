@@ -30,4 +30,8 @@ public class FreenoteDao {
 	public ArrayList<String> selectCategory(SqlSessionTemplate sqlSession, int mno) {
 		return (ArrayList)sqlSession.selectList("freenoteMapper.selectCategory", mno);
 	}
+	
+	public int insertFreenote(SqlSessionTemplate sqlSession, Freenote fn) {
+		return sqlSession.insert("freenoteMapper.insertFreenote", fn);
+	}
 }

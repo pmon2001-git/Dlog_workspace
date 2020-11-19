@@ -38,6 +38,14 @@
 <body>
 	
 	<jsp:include page="../../common/diaryHeader.jsp"/>
+	
+	<script>
+		$(function(){
+			$("a[href='list.fn?mno=1']").addClass("active");
+			$("a[href='list.fn?mno=1']").parent().addClass("active");
+		});
+	</script>
+	
 	<!--**********************************
 	    Content body start
 	***********************************-->
@@ -57,56 +65,49 @@
 	            <div class="col-12">
 	                <div class="card" style="width:900px;">
 	                    <div class="card-body">
-	                        <form action="" type="get">
+	                        <form action="insert.fn" type="post">
+	      <!-- 로그인한 회원 번호로 수정필요!!!! -->
+	                        	<input type="hidden" name="freenoteWriter" value="1">
 	                            <div align="center">
-	                                <input type="text" name="title" placeholder="제목을 작성해주세요" required>
+	                                <input type="text" name="freenoteTitle" placeholder="제목을 작성해주세요" required>
 	                            </div>
 	                            <div class="card-body" style="padding-top: 15px;">
-	                                <textarea class="summernote" name="content">
+	                                <textarea class="summernote" name="freenoteContent">
 	                                </textarea>
 	                            </div>
 	                            <div class="card-body" style="padding-top: 0px; padding-bottom: 0;">
 	                                <label for="category1"><b>카테고리</b>&emsp;</label>
-	                                <input list="category" name="category" id="category1" style="width: 160px;" required>
+	                                <input list="category" name="freenoteCategory" id="category1" style="width: 160px;" required>
 	                                <datalist id="category">
-	                                    <option value="카테고리1">
-	                                    <option value="카테고리2">
-	                                    <option value="카테고리3">
+	                                    <c:forEach var="c" items="${ cateList }" >
+                                        	<option value="${ c }">${ c }</option>
+                                        </c:forEach>
 	                                </datalist>
 	                                <br>
-	                                <label id="topicBtn" onclick="showTopic();"><b>주제 &nbsp;&gt;</b></label>&emsp;&emsp;&nbsp;<span id="topicSelected" onclick="showTopic();">주제 선택 안함</span>
+	                                <label id="topicBtn" onclick="showTopic();"><b>주제 &nbsp;&gt;</b></label>&emsp;&emsp;&nbsp;<span id="topicSelected" onclick="showTopic();">주제선택안함</span>
 	                                <br>
 	                                <div id="topicOptions">   
 	                                    <h5>주제 설정</h5>
-	                                    <input type="radio" name="topic" id="art" value="엔터테인먼트/예술"><label for="art">&nbsp;엔터테인먼트/예술</label><br>
-	                                    <input type="radio" name="topic" id="life" value="생활/노하우/쇼핑"><label for="life">&nbsp;생활/노하우/쇼핑</label><br>
-	                                    <input type="radio" name="topic" id="hobby" value="취미/여가/여행"><label for="hobby">&nbsp;취미/여가/여행</label><br>
-	                                    <input type="radio" name="topic" id="knowledge" value="지식/동향"><label for="knowledge">&nbsp;지식/동향</label><br>
-	                                    <input type="radio" name="topic" id="none" value="주제선택안함" checked><label for="none">&nbsp;주제선택안함</label><br>
+	                                    <input type="radio" name="freenoteTopic" id="art" value="엔터테인먼트/예술"><label for="art">&nbsp;엔터테인먼트/예술</label><br>
+	                                    <input type="radio" name="freenoteTopic" id="life" value="생활/노하우/쇼핑"><label for="life">&nbsp;생활/노하우/쇼핑</label><br>
+	                                    <input type="radio" name="freenoteTopic" id="hobby" value="취미/여가/여행"><label for="hobby">&nbsp;취미/여가/여행</label><br>
+	                                    <input type="radio" name="freenoteTopic" id="knowledge" value="지식/동향"><label for="knowledge">&nbsp;지식/동향</label><br>
+	                                    <input type="radio" name="freenoteTopic" id="none" value="주제선택안함" checked><label for="none">&nbsp;주제선택안함</label><br>
 	                                </div>
 	                                <label><b>공개 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="privacyY" name="privacy" required><label for="privacyY">&nbsp;공개</label>&emsp;
-	                                <input type="radio" value="N" id="privacyN" name="privacy" required><label for="privacyN">&nbsp;비공개</label>
+	                                <input type="radio" value="Y" id="privacyY" name="freenotePrivacy" required><label for="privacyY">&nbsp;공개</label>&emsp;
+	                                <input type="radio" value="N" id="privacyN" name="freenotePrivacy" required><label for="privacyN">&nbsp;비공개</label>
 	                                <br>
 	                                <label><b>커뮤니티 공개 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="commPrivacyY" name="commPrivacy"><label for="commPrivacyY">&nbsp;공개</label>&emsp;
-	                                <input type="radio" value="N" id="commPrivacyN" name="commPrivacy"><label for="commPrivacyN">&nbsp;비공개</label>
+	                                <input type="radio" value="Y" id="commPrivacyY" name="freenotePrivacyComm"><label for="commPrivacyY">&nbsp;공개</label>&emsp;
+	                                <input type="radio" value="N" id="commPrivacyN" name="freenotePrivacyComm"><label for="commPrivacyN">&nbsp;비공개</label>
 	                                <br>
 	                                <label><b>댓글 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="commentY" name="comment"><label for="commentY">&nbsp;허용</label>&emsp;
-	                                <input type="radio" value="N" id="commentN" name="comment"><label for="commentN">&nbsp;비허용</label>
-	                            </div>
-	                            <div class="card-body" id="moreOption" style="padding-top: 0px;display: none;">
-	                                <label><b>커뮤니티 공개 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="commPrivacyY" name="commPrivacy"><label for="commPrivacyY">&nbsp;공개</label>&emsp;
-	                                <input type="radio" value="N" id="commPrivacyN" name="commPrivacy"><label for="commPrivacyN">&nbsp;비공개</label>
-	                                <br>
-	                                <label><b>댓글 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="commentY" name="comment"><label for="commentY">&nbsp;허용</label>&emsp;
-	                                <input type="radio" value="N" id="commentN" name="comment"><label for="commentN">&nbsp;비허용</label>
+	                                <input type="radio" value="Y" id="commentY" name="freenoteCommentYN"><label for="commentY">&nbsp;허용</label>&emsp;
+	                                <input type="radio" value="N" id="commentN" name="freenoteCommentYN"><label for="commentN">&nbsp;비허용</label>
 	                            </div>
 	                            <div align="center">
-	                                <button class="btn btn-secondary">취소</button>
+	                                <button class="btn btn-secondary" onclick="history.back();">취소</button>
 	                                <input type="submit" value="등록" class="btn btn-success">
 	                            </div>
 	                        </form>
@@ -123,22 +124,17 @@
 	
 	<script>
         $(function(){
-            $("input[name=privacy]").click(function(){
+            $("input[name=freenotePrivacy]").click(function(){
                 if($(this).val()=='Y'){
-                    $("input:radio[name='comment']").removeAttr("checked");
-                    $("input:radio[name='commPrivacy']").removeAttr("checked");
-                    $("input:radio[name='comment']").removeAttr("disabled");
-                    $("input:radio[name='commPrivacy']").removeAttr("disabled");
+                    $("input:radio[name='freenoteCommentYN']").removeAttr("disabled");
+                    $("input:radio[name='freenotePrivacyComm']").removeAttr("disabled");
                     
                 }else{                            
-                    $("input:radio[name='comment']").removeAttr("checked");
-                    $("input:radio[name='commPrivacy']").removeAttr("checked");
+                    $("#commPrivacyN").prop("checked", true);
+                    $("#commentN").prop("checked", true);
 
-                    $("#commPrivacyN").attr("checked", true);
-                    $("#commentN").attr("checked", true);
-
-                    $("input:radio[name='commPrivacy']").attr("disabled", true);
-                    $("input:radio[name='comment']").attr("disabled", true);
+                    $("input:radio[name='freenotePrivacyComm']").attr("disabled", true);
+                    $("input:radio[name='freenoteCommentYN']").attr("disabled", true);
                 }
             })
         })
@@ -151,7 +147,7 @@
             }
         }
 
-        $("input[name=topic]").click(function(){
+        $("input[name=freenoteTopic]").click(function(){
             $("#topicSelected").text($(this).val());
             $("#topicOptions").css("display", "none");
         })

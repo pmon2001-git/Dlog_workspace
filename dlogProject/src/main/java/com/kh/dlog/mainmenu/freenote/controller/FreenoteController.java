@@ -2,6 +2,8 @@ package com.kh.dlog.mainmenu.freenote.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class FreenoteController {
 		int listCount = fService.selectListCount(sc);
 
 		if(sc.getBoardLimit() == 0) {
-			sc.setBoardLimit(5);
+			sc.setBoardLimit(10);
 		}
 		
 		if(sc.getCategory() == null) {
@@ -51,8 +53,36 @@ public class FreenoteController {
 	}
 	
 	@RequestMapping("enrollForm.fn")
-	public String enrollForm() {
+	public String enrollForm(Model model) {
+		
+		// 수정 필요!! 로그인한 회원 번호로!!
+		ArrayList<String> cateList = fService.selectCategory(1);
+		model.addAttribute("cateList", cateList);
+		
 		return "mainmenu/freenote/freenoteEnrollForm";
+	}
+	
+	@RequestMapping("insert.fn")
+	public String insertFreenote(Freenote fn, Model model, HttpSession session) {
+		
+		if(fn.getFreenotePrivacy().equals("N")) {
+			fn.setFreenotePrivacyComm("N");
+			fn.setFreenoteCommentYN("N");
+		}
+		
+		int result = fService.insertFreenote(fn);
+
+		if(result>0) {
+			session.setAttribute("alertMsg", "성공적으로 등록되었습니다.");
+			// 수정 필요!! 로그인한 회원 번호로!!
+			model.addAttribute("mno", 1);
+			return "redirect:list.fn";
+		}else {
+			session.setAttribute("alertMsg", "실패!");
+			model.addAttribute("mno", 1);
+			return "redirect:list.fn";
+		}
+		
 	}
 	
 	@RequestMapping("detail.fn")
