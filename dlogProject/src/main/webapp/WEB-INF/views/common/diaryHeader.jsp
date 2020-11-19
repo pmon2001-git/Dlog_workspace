@@ -245,7 +245,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="url" aria-expanded="false">
+                            <a href="list.di" aria-expanded="false">
                                 <i class="icon-notebook menu-icon"></i><span class="nav-text">다이어리</span>
                             </a>
                         </li>

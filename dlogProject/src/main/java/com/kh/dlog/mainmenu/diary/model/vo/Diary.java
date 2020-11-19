@@ -17,8 +17,8 @@ public class Diary {
 	private int diaryNo;
 	private String diaryWriter;
 	private String diaryTitle;
-	private String diaryContent;
-	private Date diaryDate;
+	private Date diaryContent;
+	private String diaryDate;
 	private String diaryStatus;
 	
 	
