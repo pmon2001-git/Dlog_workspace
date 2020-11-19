@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="photoMapper">
+	
+	<resultMap type="Photo" id="photoResultSet">
+		<id column="photo_no" property="photoNo" />
+		<result column="photo_writer" property="photoWriter" />
+		<result column="photo_origin_name" property="photoOriginName" />
+		<result column="photo_change_name" property="photoChangeName" />
+		<result column="photo_date" property="photoDate" />
+		<result column="photo_enroll_date" property="photoEnrollDate" />
+		<result column="photo_content" property="photoContent" />
+		<result column="photo_status" property="photoStatus" />
+	</resultMap>
+	
+	<insert id="insertPhoto"
+			parameterType="Photo">
+		insert 
+		  into photo
+		       (
+		         photo_no
+		       , photo_writer
+		       , photo_origin_name
+		       , photo_change_name
+		       , photo_date
+		       , photo_enroll_date
+		       , photo_content
+		       , photo_status
+		       )
+		values 
+		       (
+		         seq_photono.nextval
+		       , 2
+		       , #{photoOriginName}
+		       , #{photoChangeName}
+		       , #{photoDate}
+		       , default
+		       , #{photoContent}
+		       , default
+			   )
+	</insert>
+			
+	<select id="selectPhotoList"
+			parameterType="_int"
+			resultMap="photoResultSet">
+		select 
+			   photo_no
+			 , photo_writer
+			 , photo_origin_name
+			 , photo_change_name
+			 , photo_date
+			 , photo_enroll_date
+			 , photo_content
+			 , photo_status
+		  from photo
+		 where photo_writer=#{photoWriter}
+	</select>
+	
+</mapper>

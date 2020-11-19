@@ -45,10 +45,10 @@
             <div class="nav-header">
                 <div class="brand-logo">
                     <a href="#">
-                        <b class="logo-abbr"><img src="images/DlogLogo-text-short.png" alt="" width="19px"></b>
-                        <span class="logo-compact"><img src="images/DlogLogo-text.png" alt="" width="87"></span>
+                        <b class="logo-abbr"><img src="resources/images/DlogLogo-text-short.png" alt="" width="19px"></b>
+                        <span class="logo-compact"><img src="resources/images/DlogLogo-text.png" alt="" width="87"></span>
                         <span class="brand-title">
-                            <img src="images/DlogLogo-text.png" alt="" width="87px">
+                            <img src="resources/images/DlogLogo-text.png" alt="" width="87px">
                         </span>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                                         <ul>
                                             <li class="notification-unread">
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/1.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Saiful Islam</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -106,7 +106,7 @@
                                             </li>
                                             <li class="notification-unread">
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/2.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/2.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Adam Smith</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -116,7 +116,7 @@
                                             </li>
                                             <li>
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/3.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/3.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Barak Obama</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -126,7 +126,7 @@
                                             </li>
                                             <li>
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/4.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/4.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Hilari Clinton</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -193,7 +193,7 @@
                             </li>
                             <li class="icons dropdown">
                                 <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                                    <img src="images/default-profile-pic.jpg" height="40" width="40" alt="">
+                                    <img src="resources/images/default-profile-pic.jpg" height="40" width="40" alt="">
                                 </div>
                                 <div class="drop-down dropdown-profile   dropdown-menu">
                                     <div class="dropdown-content-body">
@@ -251,7 +251,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="url" aria-expanded="false" style="background:#F3F3F9">
+                            <a href="selectList.ph" aria-expanded="false" style="background:#F3F3F9">
                                 <i class="icon-picture menu-icon"></i><span class="nav-text">사진게시판</span>
                             </a>
                         </li>
@@ -292,6 +292,14 @@
             <!--**********************************
                 Content body start
             ***********************************-->
+            
+            <c:if test="${ !empty alertMsg }">
+            	<script>
+            		alert("${ alertMsg }");
+            	</script>
+            	<c:remove var="alertMsg" scope="session"/>
+            </c:if>
+            
             <div class="content-body" style="float: left;">
                 <div class="row page-titles mx-0">
                     <h3 style="color:rgb(94, 94, 94); padding-left: 15px; ">사진게시판</h3>
@@ -304,118 +312,37 @@
                         <div class="col-12">
                             <div class="card" style="width:900px;">
                                 <div class="card-body" >
-                                
-                                <table id="photo_main">
-                                    <tr>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="photo_main_photo">
-                                                <img src="resources/images/DlogLogo-image.png" alt="">
-                                            </div>
-                                            <div class="photo_main_date">
-                                                2020-04-23
-                                            </div>
-                                            <div class="photo_main_content">
-                                                매우 좋은 날 한 컷!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <div class="bootstrap-pagination" style="margin-left: 300px; margin-top:50px;">
-                                    <nav>
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
+                                	
+                                    <c:forEach var="p" items="${ list }" varStatus="status">
+		                                <div class="photo_main">
+		                                    <div class="photo_main_photo">
+		                                        <img src="${ p.photoChangeName }" alt="">
+		                                    </div>
+		                                    <div class="photo_main_date">
+		                                        ${ p.photoDate }
+		                                    </div>
+		                                    <div class="photo_main_content">
+		                                        ${ p.photoContent }
+		                                    </div>
+		                                </div>
+                                    </c:forEach>
+								
+	                                <div class="bootstrap-pagination" style="margin-left: 300px; margin-top:50px;">
+	                                    <nav>
+	                                        <ul class="pagination">
+	                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
+	                                            </li>
+	                                            <li class="page-item"><a class="page-link" href="#">1</a>
+	                                            </li>
+	                                            <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+	                                            </li>
+	                                            <li class="page-item"><a class="page-link" href="#">3</a>
+	                                            </li>
+	                                            <li class="page-item"><a class="page-link" href="#">Next</a>
+	                                            </li>
+	                                        </ul>
+	                                    </nav>
+	                                </div>
                                 
                                 </div>
                             </div>
@@ -437,7 +364,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <img alt="" class="rounded-circle mt-4" src="images/default-profile-pic.jpg" width="110px">
+                            <img alt="" class="rounded-circle mt-4" src="resources/images/default-profile-pic.jpg" width="110px">
                             <h4 class="card-widget__title text-dark mt-3">사용자 별명</h4>
                             <p class="text-muted">Senior Manager</p>
                             <a class="btn gradient-7 btn-lg border-0 btn-rounded px-5" href="javascript:void()">Folllow</a>
