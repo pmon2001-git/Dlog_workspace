@@ -24,18 +24,14 @@ public class FreenoteController {
 	
 	@RequestMapping("list.fn")
 	public String selectList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, SearchCondition sc, Model model) {
-		
-		
 		int listCount = fService.selectListCount(sc);
 
 		if(sc.getBoardLimit() == 0) {
 			sc.setBoardLimit(10);
 		}
-		
 		if(sc.getCategory() == null) {
 			sc.setCategory("");
 		}
-
 		if(sc.getTitle() == null) {
 			sc.setTitle("");
 		}
@@ -69,7 +65,6 @@ public class FreenoteController {
 			fn.setFreenotePrivacyComm("N");
 			fn.setFreenoteCommentYN("N");
 		}
-		
 		int result = fService.insertFreenote(fn);
 
 		if(result>0) {
@@ -79,14 +74,68 @@ public class FreenoteController {
 			return "redirect:list.fn";
 		}else {
 			session.setAttribute("alertMsg", "실패!");
+			
+			// 에러페이지로 수정하기
 			model.addAttribute("mno", 1);
 			return "redirect:list.fn";
 		}
-		
 	}
 	
 	@RequestMapping("detail.fn")
-	public String selectFreenote(int fNo, Model model) {
-		return "mainmenu/freenote/freenoteDetailView";
+	public String selectFreenote(int fno, Model model) {
+		int result = fService.increaseCount(fno);
+		
+		if(result>0) {
+			Freenote fn = fService.selectFreenote(fno);
+			model.addAttribute("fn", fn);
+			return "mainmenu/freenote/freenoteDetailView";			
+		}else {
+			// 에러페이지
+			
+			return "";
+		}
 	}
+	
+	@RequestMapping("updateForm.fn")
+	public String deleteFreenote(int fno, Model model) {
+		// 로그인한 회원번호로 수정
+		int mno = 1;
+		ArrayList<String> cateList = fService.selectCategory(mno);
+		Freenote fn = fService.selectFreenote(fno);
+		model.addAttribute("cateList", cateList);
+		model.addAttribute("fn", fn);
+		return "mainmenu/freenote/freenoteUpdateForm";
+	}
+	
+	@RequestMapping("update.fn")
+	public String updateFreenote(Freenote fn, Model model, HttpSession session) {
+		if(fn.getFreenotePrivacy().equals("N")) {
+			fn.setFreenotePrivacyComm("N");
+			fn.setFreenoteCommentYN("N");
+		}
+		
+		int result = fService.updateFreenote(fn);
+		if(result>0) {
+			session.setAttribute("alertMsg", "수정되었습니다.");
+			model.addAttribute("fno", fn.getFreenoteNo());
+			return "redirect:detail.fn";
+		}else {
+			//에러페이지
+			return "";
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

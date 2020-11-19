@@ -34,4 +34,16 @@ public class FreenoteDao {
 	public int insertFreenote(SqlSessionTemplate sqlSession, Freenote fn) {
 		return sqlSession.insert("freenoteMapper.insertFreenote", fn);
 	}
+	
+	public int increaseCount(SqlSessionTemplate sqlSession, int fno) {
+		return sqlSession.update("freenoteMapper.increaseCount", fno);
+	}
+	
+	public Freenote selectFreenote(SqlSessionTemplate sqlSession, int fno) {
+		return sqlSession.selectOne("freenoteMapper.selectFreenote", fno);
+	}
+	
+	public int updateFreenote(SqlSessionTemplate sqlSession, Freenote fn) {
+		return sqlSession.update("freenoteMapper.updateFreenote", fn);
+	}
 }

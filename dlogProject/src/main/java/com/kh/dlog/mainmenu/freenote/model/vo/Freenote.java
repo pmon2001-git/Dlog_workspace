@@ -25,8 +25,8 @@ public class Freenote {
 	private String freenoteCommentYN;
 	private int freenoteCount;
 	private int freenoteLike;
-	private Date createDate;
-	private Date modifyDate;
+	private String createDate;
+	private String modifyDate;
 	private String status;
 	private String freenoteWriter;
 

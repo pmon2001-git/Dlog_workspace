@@ -53,7 +53,7 @@
 	    <div class="row page-titles mx-0">
 	        <div class="col p-md-0">
 	            <ol class="breadcrumb">
-	                <li class="breadcrumb-item"><a href="">프리노트</a></li>
+	                <li class="breadcrumb-item"><a href="list.fn?mno=1">프리노트</a></li>
 	                <li class="breadcrumb-item active">글쓰기</li>
 	            </ol>
 	        </div>
@@ -65,7 +65,7 @@
 	            <div class="col-12">
 	                <div class="card" style="width:900px;">
 	                    <div class="card-body">
-	                        <form action="insert.fn" type="post">
+	                        <form action="insert.fn" method="post">
 	      <!-- 로그인한 회원 번호로 수정필요!!!! -->
 	                        	<input type="hidden" name="freenoteWriter" value="1">
 	                            <div align="center">
@@ -99,12 +99,12 @@
 	                                <input type="radio" value="N" id="privacyN" name="freenotePrivacy" required><label for="privacyN">&nbsp;비공개</label>
 	                                <br>
 	                                <label><b>커뮤니티 공개 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="commPrivacyY" name="freenotePrivacyComm"><label for="commPrivacyY">&nbsp;공개</label>&emsp;
-	                                <input type="radio" value="N" id="commPrivacyN" name="freenotePrivacyComm"><label for="commPrivacyN">&nbsp;비공개</label>
+	                                <input type="radio" value="Y" id="commPrivacyY" name="freenotePrivacyComm" required><label for="commPrivacyY">&nbsp;공개</label>&emsp;
+	                                <input type="radio" value="N" id="commPrivacyN" name="freenotePrivacyComm" required><label for="commPrivacyN">&nbsp;비공개</label>
 	                                <br>
 	                                <label><b>댓글 설정</b>&emsp;</label>
-	                                <input type="radio" value="Y" id="commentY" name="freenoteCommentYN"><label for="commentY">&nbsp;허용</label>&emsp;
-	                                <input type="radio" value="N" id="commentN" name="freenoteCommentYN"><label for="commentN">&nbsp;비허용</label>
+	                                <input type="radio" value="Y" id="commentY" name="freenoteCommentYN" required><label for="commentY">&nbsp;허용</label>&emsp;
+	                                <input type="radio" value="N" id="commentN" name="freenoteCommentYN" required><label for="commentN">&nbsp;비허용</label>
 	                            </div>
 	                            <div align="center">
 	                                <button class="btn btn-secondary" onclick="history.back();">취소</button>

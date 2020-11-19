@@ -38,5 +38,20 @@ public class FreenoteServiceImpl implements FreenoteService {
 	public int insertFreenote(Freenote fn) {
 		return fDao.insertFreenote(sqlSession, fn);
 	}
+	
+	@Override
+	public int increaseCount(int fno) {
+		return fDao.increaseCount(sqlSession, fno);
+	}
+
+	@Override
+	public Freenote selectFreenote(int fno) {
+		return fDao.selectFreenote(sqlSession, fno);
+	}
+
+	@Override
+	public int updateFreenote(Freenote fn) {
+		return fDao.updateFreenote(sqlSession, fn);
+	}
 
 }

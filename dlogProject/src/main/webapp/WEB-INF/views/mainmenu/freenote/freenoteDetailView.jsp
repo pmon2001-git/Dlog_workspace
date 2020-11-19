@@ -5,7 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Dlog</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+<style>
+     .container-fluid input[type="text"], .container-fluid input[list="category"]{
+         width:784px; 
+         height: 35px; 
+         border: .5px solid darkgrey;
+         padding-left: 10px;
+     }
+     .card-body label{
+         margin: 13px 0;
+     }
+
+    #replyArea textarea{
+        resize: none;
+    }
+    .enrollReply2{
+        display: none;
+        /* margin-top: 15px; */
+    }
+    .reply1, .reply2{
+        margin-bottom: 15px;;
+    }
+</style>
 </head>
 <body>
 	
@@ -41,27 +65,27 @@
                             <div id="titleArea">
                                 <table>
                                     <tr>
-                                        <td width="400" style="font-size: 20px;">제목입니다</td>
+                                        <td width="400" style="font-size: 20px;">[${ fn.freenoteCategory }] ${ fn.freenoteTitle }</td>
                                         <td width="500" align="right">
-                                            2020.10.01 22:10
+                                            ${fn.createDate}
                                             &nbsp;|&nbsp;
-                                            <a href="">수정</a>
+                                            <a href="updateForm.fn?fno=${ fn.freenoteNo }">수정</a>
                                             &nbsp;|&nbsp;
-                                            <a href="">삭제</a>
+                                            <a href="delete.fn?fno=${ fn.freenoteNo }">삭제</a>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <hr style="margin:10px 0">
                             <div id="contentArea" style="height: 400px; padding:10px;">
-                                내용입니다
+                                ${ fn.freenoteContent }
                             </div>
                             <div id="etcArea">
-                                댓글 2 &emsp;
+                                댓글 0 &emsp;
                                 좋아요
                                 <!-- <a href=""><i class="mdi mdi-heart-outline" style="color: black;"></i> 좋아요</a> -->
                                 <!-- <a href=""><i class="mdi mdi-heart" style="color: black;"></i> 좋아요</a> -->
-                                0
+                                ${ fn.freenoteLike }
                             </div>
                             <hr>
                             <div id="replyArea">
@@ -69,7 +93,7 @@
                                     <table>
                                         <tr>
                                             <td colspan="2" height="40">                            
-                                                <img src="images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
+                                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
                                             </td>
                                         </tr>
                                         <tr>
@@ -97,7 +121,7 @@
                                     <table>
                                         <tr>
                                             <td width="50" style="vertical-align: top;">
-                                                <img src="images/reply_arrow.png" width="25">
+                                                <img src="resources/images/reply_arrow.png" width="25">
                                             </td>
                                             <td width="850">
                                                 <textarea name="" class="form-control reply2Content" placeholder="내용을 입력해주세요" maxlength="500"></textarea>
@@ -110,10 +134,10 @@
                                     <table>
                                         <tr>
                                             <td width="50">
-                                                <img src="images/reply_arrow.png" width="25">
+                                                <img src="resources/images/reply_arrow.png" width="25">
                                             </td>
                                             <td colspan="2" height="40">                            
-                                                <img src="images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
+                                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
                                             </td>
                                         </tr>
                                         <tr>
@@ -139,7 +163,7 @@
                                     <table>
                                         <tr>
                                             <td colspan="2" height="40">                            
-                                                <img src="images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
+                                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
                                             </td>
                                         </tr>
                                         <tr>
@@ -167,7 +191,7 @@
                                     <table>
                                         <tr>
                                             <td width="50" style="vertical-align: top;">
-                                                <img src="images/reply_arrow.png" width="25">
+                                                <img src="resources/images/reply_arrow.png" width="25">
                                             </td>
                                             <td width="850">
                                                 <textarea name="" class="form-control reply2Content" placeholder="내용을 입력해주세요" maxlength="500"></textarea>

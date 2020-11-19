@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Dlog</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
 </head>
 <body>
 
@@ -45,21 +47,22 @@
 	                                            <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-search"></i></button>
 	                                        </form>
 	                                    </td>
-	                                    <td width="60">
-	                                        <select name="boardLimit" style="height: 30px; border: .1px solid lightgrey; border-radius: 4px;">
-	                                            <option value="5">5줄</option>
-	                                            <option value="10">10줄</option>
-	                                            <option value="15">15줄</option>
-	                                            <option value="20">20줄</option>
-	                                        </select> 
-	                                    </td>
-	                                    <td>
+	                                   
+	                                    <td width="100" align="right">
 	                                        <select name="category" style="height: 30px; border: .1px solid lightgrey; border-radius: 4px;">
 	                                            <option value="">전체</option>
 	                                            <c:forEach var="c" items="${ cateList }" >
 	                                            	<option value="${ c }">${ c }</option>
 	                                            </c:forEach>
 	                                        </select>
+	                                    </td>
+	                                     <td width="60" align="right">
+	                                        <select name="boardLimit" style="height: 30px; border: .1px solid lightgrey; border-radius: 4px;">
+	                                            <option value="5">5줄</option>
+	                                            <option value="10">10줄</option>
+	                                            <option value="15">15줄</option>
+	                                            <option value="20">20줄</option>
+	                                        </select> 
 	                                    </td>
 	                                </tr>
 	                            </table>
@@ -101,6 +104,9 @@
 		                                        <td>${ f.createDate }</td>
 		                                    </tr>
 	                                    </c:forEach>
+	                                    <c:if test="${ empty list }">
+	                                    	<td colspan="4">조회된 글이 없습니다.</td>
+	                                    </c:if>
 	                                </tbody>
 	                            </table>
 	                            <script>
@@ -119,7 +125,7 @@
 	                            <table align="center">
 	                                <tr>
 	                                    <td width="100" align="center"></td>
-	                                    <td width="600">
+	                                    <td width="650">
 	                                        <ul class="pagination justify-content-center">
 	                                            
 	                                            <c:if test="${ pi.currentPage ne 1 }">
@@ -163,7 +169,7 @@
 	                                            </c:if>
 	                                        </ul>
 	                                    </td>
-	                                    <td width="100" align="center">
+	                                    <td width="100" align="right">
 	                                        <button class="btn btn-success" onclick="location.href='enrollForm.fn';">글쓰기</button>
 	                                    </td>
 	                                </tr>

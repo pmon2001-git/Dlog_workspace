@@ -16,9 +16,12 @@ public interface FreenoteService {
 	// 2. 프리노트 작성용 서비스
 	int insertFreenote(Freenote fn);
 	
-	
 	// 3. 프리노트 조회용 서비스
+	int increaseCount(int fno);
+	Freenote selectFreenote(int fno);
 	
+	// 4. 프리노트 수정용 서비스
+	int updateFreenote(Freenote fn);
 	
 	
 }

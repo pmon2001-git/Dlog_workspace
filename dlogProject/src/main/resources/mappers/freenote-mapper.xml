@@ -36,7 +36,7 @@
 		     , freenote_title
 		     , freenote_privacy
 		     , freenote_category
-		     , create_date
+		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		  from freenote
 		 where member_no = #{mno}
 		   and freenote_category like '%'||#{category}||'%'
@@ -82,5 +82,47 @@
 		   , #{freenoteWriter}
 		  )
 	</insert>
+	
+	<update id="increaseCount" parameterType="_int">
+		update 
+		       freenote
+		   set freenote_count = freenote_count + 1
+		 where freenote_no = #{fno}
+		   and status = 'Y'
+	</update>
+	
+	<select id="selectFreenote" parameterType="_int" resultMap="freenoteResultSet">
+		select
+		       freenote_no
+		     , freenote_title
+		     , freenote_content
+		     , freenote_category
+		     , freenote_topic
+		     , freenote_privacy
+		     , freenote_privacy_comm
+		     , freenote_comment_yn
+		     , freenote_count
+		     , freenote_like
+		     , to_char(create_date, 'yyyy.mm.dd hh24:mi') as create_date
+		     , nickname
+		  from freenote f
+		  join member using(member_no)
+		 where freenote_no = #{fno}
+		   and f.status = 'Y'
+	</select>
+	
+	<update id="updateFreenote" parameterType="Freenote">
+		update
+		       freenote
+		   set freenote_title = #{freenoteTitle}
+		     , freenote_content = #{freenoteContent}
+		     , freenote_category = #{freenoteCategory}
+		     , freenote_topic = #{freenoteTopic}
+		     , freenote_privacy = #{freenotePrivacy}
+		     , freenote_privacy_comm = #{freenotePrivacyComm}
+		     , freenote_comment_yn = #{freenoteCommentYN}
+		     , modify_date = sysdate
+		 where freenote_no = #{freenoteNo}
+	</update>
 
 </mapper>
