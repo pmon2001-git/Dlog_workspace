@@ -40,6 +40,14 @@
 			   )
 	</insert>
 			
+	<select id="selectPhotoListCount"
+			parameterType="_int"
+			resultType="_int">
+		select count(*)
+		  from photo
+		 where photo_writer = #{photoWrtier}		
+	</select>
+			
 	<select id="selectPhotoList"
 			parameterType="_int"
 			resultMap="photoResultSet">
@@ -55,5 +63,13 @@
 		  from photo
 		 where photo_writer=#{photoWriter}
 	</select>
+	
+	<delete id="deletePhoto"
+			parameterType="_int">
+		delete 
+	      from photo
+	     where photo_no = #{intNums}	
+	</delete>
+	
 	
 </mapper>
