@@ -14,21 +14,23 @@
 	</resultMap>
 
 	<select id="selectListCount" parameterType="_int" resultType="_int">
-		select 
-		       count(*)
-		  from diary
-		 where member_no = #{mNo}
+		select
+		        count(*)
+		  from  diary
+		 where status = 'Y'
 	</select>
 	
 	<select id="selectList" parameterType="_int" resultMap="diaryResultSet">
-		select
-		        diary_no
-		      , diary_title
-		      , create_date
-		  from diary
-		 where status='Y'
-		 order
-		    by diary_no desc
+	select
+	        diary_no
+	      , diary_title
+	      , create_date
+	  from diary
+	 where status='Y'
+	 order
+	    by diary_no
+	       desc
+      
 	</select>
 
 </mapper>
