@@ -8,6 +8,8 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.Freenote" alias="Freenote"/>
+		<typeAlias type="com.kh.dlog.mainmenu.diary.model.vo.Diary" alias="Diary"/>
+		
 	</typeAliases>
 	
 	<!-- 
@@ -25,6 +27,7 @@
  	
  	<mappers>
  		<mapper resource="/mappers/freenote-mapper.xml" />
+ 		<mapper resource="/mappers/diary-mapper.xml" />
  	</mappers>
  	
 </configuration>

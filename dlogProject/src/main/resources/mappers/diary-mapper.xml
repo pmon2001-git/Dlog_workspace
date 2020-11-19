@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="diaryMapper">
+	
+	
+
+	<resultMap id="diaryResultSet" type="Diary">
+		<id column="diary_no" property="diaryNo" />
+		<result column="diary_writer" property="diaryWriter" />
+		<result column="diary_title" property="diaryTitle" />
+		<result column="diary_content" property="diaryContent" />
+		<result column="diary_date" property="diaryDate" />
+		<result column="diary_status" property="diaryStatus" />		
+	</resultMap>
+
+	<select id="selectListCount" parameterType="_int" resultType="_int">
+		select 
+		       count(*)
+		  from diary
+		 where member_no = #{mNo}
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultMap="diaryResultSet">
+		select
+		        diary_no
+		      , diary_title
+		      , create_date
+		  from diary
+		 where status='Y'
+		 order
+		    by diary_no desc
+	</select>
+
+</mapper>

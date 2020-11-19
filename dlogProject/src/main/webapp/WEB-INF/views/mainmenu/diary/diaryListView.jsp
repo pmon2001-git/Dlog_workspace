@@ -28,7 +28,7 @@
                       <div class="card-body" >
                           <div class="table-responsive">
                               <!-- 검색영역 -->
-                              <table>
+                              <table align="right">
                                   <tr>
                                       <td width="60">
                                           <select name="" id="" style="height: 30px; border: .1px solid lightgrey; border-radius: 4px;">
@@ -47,59 +47,19 @@
                                           <th>글번호</th>
                                           <th width="500px">글제목</th>
                                           <th>작성일</th>
+                                          <th>&nbsp;&nbsp;</th>
                                       </tr>
                                   </thead>
                                   <tbody align="center">
-                                      <tr>
-                                          <th>5</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>4</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>3</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>2</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>1</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>5</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>4</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>3</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>2</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
-                                      <tr>
-                                          <th>1</th>
-                                          <td>제목입니다</td>
-                                          <td>2020-11-01</td>
-                                      </tr>
+                                  	  <c:forEach var="d" items="${ list }">
+	                                      <tr>
+	                                          <th>${ d.diaryNo }</th>
+	                                          <td>${ d.diaryTitle }</td>
+	                                          <td>${ d.diaryDate }</td>
+	                                          <td><a onclick="noticeUpdate(this); event.stopImmediatePropagation();">수정</a>&nbsp;&nbsp;
+												  <a onclick="noticeDelete(this); event.stopImmediatePropagation();">삭제</a></td>
+	                                      </tr>
+                                      </c:forEach>
                                   </tbody>
                               </table>
                               <br>
@@ -109,20 +69,31 @@
                                       <td width="100" align="center"></td>
                                       <td width="600">
                                           <ul class="pagination justify-content-center">
-                                              <li class="page-item"><a class="page-link" href="#">Previous</a>
-                                              </li>
-                                              <li class="page-item active"><a class="page-link" href="#">1</a>
-                                              </li>
-                                              <li class="page-item"><a class="page-link" href="#">2</a>
-                                              </li>
-                                              <li class="page-item"><a class="page-link" href="#">3</a>
-                                              </li>
-                                              <li class="page-item"><a class="page-link" href="#">4</a>
-                                              </li>
-                                              <li class="page-item"><a class="page-link" href="#">5</a>
-                                              </li>
-                                              <li class="page-item"><a class="page-link" href="#">Next</a>
-                                              </li>
+                                          
+                                          <c:choose>
+                                          	  <c:when test="${ pi.currentpage eq 1} }">
+                                              	<li class="page-item disaled"><a class="page-link" href="#">Previous</a></li>
+                                              </c:when>
+                                              <c:otherwise>
+                                              	<li class="page-item"><a class="page-link" href="list.di?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+                                              </c:otherwise>
+                                           </c:choose>  
+                                              
+                                              
+                                              
+                                            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">  
+                                              <li class="page-item active"><a class="page-link" href="list.di?currentPAGE=${ P }">${ p }</a></li>
+                                         	</c:forEach>
+                                              
+                                              
+                                            <c:choose> 
+                                              <c:when test="${ pi.currentPage eq pi.maxPage }">
+                                              	<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                                              </c:when>
+                                              <c:otherwise>
+                                              	<li class="page-item"><a class="page-link" href="list.di?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                                               </c:otherwise>
+                                            </c:choose> 
                                           </ul>
                                       </td>
                                       <td width="100" align="center">
@@ -144,6 +115,37 @@
   
 	<jsp:include page="../../common/diaryWidget.jsp" />
 	<jsp:include page="../../common/diaryFooter.jsp" />
+	
+	<script>
+    	
+			const diaryUpdate = function(e){
+			   var answer = confirm("수정하시겠습니까 ?");
+			   if(answer){
+			    console.log(e.parentNode)
+			   var nno = e.parentNode.parentNode.childNodes[1].textContent;
+			   location.href="updateForm.di?dno="+dno;
+			    }else{
+			      return;
+			    }
+			    	};
+			    		
+			const diaryDelete =  function(e){
+			    var answer = confirm("삭제하시겠습니까 ?");
+			    if(answer){
+			       var nno = e.parentNode.parentNode.childNodes[1].textContent;
+			           // 삭제 진행
+			       location.href="delete.di?dno="+dno;
+			     }else{
+				return;
+			     }
+			    };
+			    
+			$(".tb1>tbody>tr").click(function(){
+		    	var nno = $(this).children().eq(0).text();
+			 	location.href="detail.di?dno="+ dno;    	
+		     });
+			
+		</script>
 
 </body>
 </html>
