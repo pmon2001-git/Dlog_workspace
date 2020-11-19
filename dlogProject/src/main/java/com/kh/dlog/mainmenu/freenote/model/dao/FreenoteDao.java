@@ -8,21 +8,26 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 @Repository
 public class FreenoteDao {
 
-	public int selectListCount(SqlSessionTemplate sqlSession, int mNo) {
-		return sqlSession.selectOne("freenoteMapper.selectListCount", mNo);
+	public int selectListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("freenoteMapper.selectListCount", sc);
 	}
 	
-	public ArrayList<Freenote> selectList(SqlSessionTemplate sqlSession, int mNo, PageInfo pi) {
+	public ArrayList<Freenote> selectList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("freenoteMapper.selectList", mNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectList", sc, rowBounds);
+	}
+	
+	public ArrayList<String> selectCategory(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectCategory", mno);
 	}
 }

@@ -20,23 +20,37 @@
 		<result column="nickname" property="freenoteWriter" />		
 	</resultMap>
 
-	<select id="selectListCount" parameterType="_int" resultType="_int">
+	<select id="selectListCount" parameterType="SearchCondition" resultType="_int">
 		select 
 		       count(*)
 		  from freenote
-		 where member_no = #{mNo}
+		 where member_no = #{mno}
+		   and freenote_category like '%'||#{category}||'%'
+		   and freenote_title like '%'||#{title}||'%'
 	</select>
 	
-	<select id="selectList" parameterType="_int" resultMap="freenoteResultSet">
+	<select id="selectList" parameterType="SearchCondition" resultMap="freenoteResultSet">
 		select 
 		       freenote_no
 		     , freenote_title
 		     , freenote_privacy
+		     , freenote_category
 		     , create_date
 		  from freenote
-		 where member_no = #{mNo}
+		 where member_no = #{mno}
+		   and freenote_category like '%'||#{category}||'%'
+		   and freenote_title like '%'||#{title}||'%'
 		 order
 			by freenote_no desc
+	</select>
+	
+	<select id="selectCategory" parameterType="_int" resultType="string">
+		select 
+		       distinct freenote_category
+		  from freenote
+		 where member_no = #{mno}
+		 order
+		    by freenote_category
 	</select>
 
 </mapper>
