@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="diaryMapper">
-	
-	
 
 	<resultMap id="diaryResultSet" type="Diary">
 		<id column="diary_no" property="diaryNo" />
@@ -24,12 +22,11 @@
 	select
 	        diary_no
 	      , diary_title
-	      , create_date
+	      , diary_date
 	  from diary
-	 where status='Y'
+	 where diary_status='Y'
 	 order
-	    by diary_no
-	       desc
+	    by diary_no desc
       
 	</select>
 
