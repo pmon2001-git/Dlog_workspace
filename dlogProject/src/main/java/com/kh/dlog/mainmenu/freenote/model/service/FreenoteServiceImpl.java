@@ -54,4 +54,9 @@ public class FreenoteServiceImpl implements FreenoteService {
 		return fDao.updateFreenote(sqlSession, fn);
 	}
 
+	@Override
+	public int deleteFreenote(int fno) {
+		return fDao.deleteFreenote(sqlSession, fno);
+	}
+
 }

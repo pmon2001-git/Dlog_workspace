@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.common.template.Pagination;
@@ -73,11 +74,7 @@ public class FreenoteController {
 			model.addAttribute("mno", 1);
 			return "redirect:list.fn";
 		}else {
-			session.setAttribute("alertMsg", "실패!");
-			
-			// 에러페이지로 수정하기
-			model.addAttribute("mno", 1);
-			return "redirect:list.fn";
+			return "common/errorPage";
 		}
 	}
 	
@@ -91,8 +88,7 @@ public class FreenoteController {
 			return "mainmenu/freenote/freenoteDetailView";			
 		}else {
 			// 에러페이지
-			
-			return "";
+			return "common/errorPage";
 		}
 	}
 	
@@ -121,8 +117,21 @@ public class FreenoteController {
 			return "redirect:detail.fn";
 		}else {
 			//에러페이지
-			return "";
+			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("delete.fn")
+	public ModelAndView deleteFreenote(int fno, HttpSession session, ModelAndView mv) {
+		int result = fService.deleteFreenote(fno);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "삭제되었습니다.");
+			mv.addObject("mno", 1).setViewName("redirect:list.fn");
+		}else {
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 }

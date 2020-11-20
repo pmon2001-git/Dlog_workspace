@@ -29,6 +29,9 @@
     .reply1, .reply2{
         margin-bottom: 15px;;
     }
+    #deleteBtn:hover{
+    	cursor:pointer;
+    }
 </style>
 </head>
 <body>
@@ -71,13 +74,13 @@
                                             &nbsp;|&nbsp;
                                             <a href="updateForm.fn?fno=${ fn.freenoteNo }">수정</a>
                                             &nbsp;|&nbsp;
-                                            <a href="delete.fn?fno=${ fn.freenoteNo }">삭제</a>
+                                            <a id="deleteBtn">삭제</a>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <hr style="margin:10px 0">
-                            <div id="contentArea" style="height: 400px; padding:10px;">
+                            <div id="contentArea" style="min-height:300px; padding:10px; overflow:auto;">
                                 ${ fn.freenoteContent }
                             </div>
                             <div id="etcArea">
@@ -230,7 +233,16 @@
     ***********************************-->  
     
     <script>
+    	// 글 삭제 확인용
+	    $("#deleteBtn").click(function(){
+			if(confirm("정말 삭제하시겠습니까?")) {
+				location.href="delete.fn?fno=${ fn.freenoteNo }";
+			}
+		});
+
+    	// 대댓글 작성창 관련
 		$(function(){
+	    	// 대댓글 작성창 버튼
 		    $(".addReply2").click(function(){
 		        var $reply2form = $(this).parents(".reply1").next();
 		
@@ -242,10 +254,8 @@
 		            $reply2form.css("display", "none");
 		        }   
 		    });
-		})
 		
-		// 댓글 글자 수 세기(메인댓글)
-		$(function(){
+			// 댓글 글자 수 세기(메인댓글)
 		    $("#enrollReply1").keyup(function(){
 		        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
 		        var inputlength = $(this).val().length;
@@ -258,18 +268,13 @@
 		            $("#count1").css("color","");
 		        }
 		    }); 
-		});
 		
-		// 댓글 글자 수 세기(서브댓글)
-		$(function(){
+			// 댓글 글자 수 세기(서브댓글)
 		    $(".reply2Content").keyup(function(){
 		        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
 		        var inputlength = $(this).val().length;
-		        
 		        $(this).parents(".enrollReply2").children("span[class=count2]").html(inputlength);
 		        // $("#count1").html(inputlength);
-		
-		       
 		    }); 
 		});
     </script>

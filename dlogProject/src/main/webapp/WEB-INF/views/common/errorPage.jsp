@@ -2,16 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 <meta charset="UTF-8">
 <title>Dlog</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-<link href="css/style.css" rel="stylesheet">
+<link href="resources/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="h-100">
     <!--*******************
         Preloader start
     ********************-->
@@ -37,13 +36,10 @@
                                 <h1 class="error-text text-dark">ERROR</h1>
                                 <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> Bad Request</h4>
                                 <p>죄송합니다. 요청하신 페이지를 찾을 수 없습니다.</p>
-                                <form class="mt-5 mb-5">
-                                    
-                                    <div class="text-center mb-4 mt-4"><button onclick="history.back();" class="btn btn-secondary">이전 페이지로</button>
-                                    </div>
-                                </form>
+                                <div class="text-center mb-4 mt-4"><button onclick="history.back();" class="btn btn-secondary" style="margin-top: 20px; margin-bottom: 30px;">이전 페이지로</button>
+                                </div>
                                 <div class="text-center">
-                                    <p>Copyright © Designed & Developed by <a href="">Dlog</a> 2020</p>
+                                    <p>Copyright © Designed & Developed by <a href="" style="font-weight:bold;">Dlog</a> 2020</p>
                                     
                                 </div>
                             </div>
@@ -57,10 +53,10 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script src="plugins/common/common.min.js"></script>
-    <script src="js/custom.min.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/gleek.js"></script>
-    <script src="js/styleSwitcher.js"></script>
+    <script src="resources/plugins/common/common.min.js"></script>
+    <script src="resources/js/custom.min.js"></script>
+    <script src="resources/js/settings.js"></script>
+    <script src="resources/js/gleek.js"></script>
+    <script src="resources/js/styleSwitcher.js"></script>
 </body>
 </html>

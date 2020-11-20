@@ -23,5 +23,8 @@ public interface FreenoteService {
 	// 4. 프리노트 수정용 서비스
 	int updateFreenote(Freenote fn);
 	
+	// 5. 프리노트 삭제용 서비스
+	int deleteFreenote(int fno);
+	
 	
 }

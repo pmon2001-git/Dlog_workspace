@@ -124,5 +124,12 @@
 		     , modify_date = sysdate
 		 where freenote_no = #{freenoteNo}
 	</update>
+	
+	<update id="deleteFreenote" parameterType="_int">
+		update 
+		       freenote
+		   set status = 'N'
+		 where freenote_no = #{fno}
+	</update>
 
 </mapper>
