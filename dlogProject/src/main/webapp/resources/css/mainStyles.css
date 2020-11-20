@@ -10276,3 +10276,7 @@ form .row:first-child .floating-label-form-group {
 .copyright {
   background-color: #71a3a1;
 }
+
+#mainNav .select{
+    color:grey !important;
+}

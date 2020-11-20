@@ -41,8 +41,8 @@
 	
 	<script>
 		$(function(){
-			$("a[href='list.fn?mno=1']").addClass("active");
-			$("a[href='list.fn?mno=1']").parent().addClass("active");
+			$(".metismenu a[href*='list.fn']").addClass("active");
+			$(".metismenu a[href*='list.fn']").parent().addClass("active");
 		});
 	</script>
 	

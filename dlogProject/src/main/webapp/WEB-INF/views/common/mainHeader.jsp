@@ -40,6 +40,7 @@
         	            </c:when>
         	            <c:otherwise>
 		                    <li class="nav-item mx-0 mx-lg-1 nav-lcs"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">로그아웃</a></li>
+                    		<li class="nav-item mx-0 mx-lg-1 nav-lcs"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">다이어리</a></li>
 	    	                <li class="nav-item mx-0 mx-lg-1 nav-lcs"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="list.co">커뮤니티</a></li>
 	        	            <li class="nav-item mx-0 mx-lg-1 nav-lcs"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="">고객센터</a></li>
         	            </c:otherwise>

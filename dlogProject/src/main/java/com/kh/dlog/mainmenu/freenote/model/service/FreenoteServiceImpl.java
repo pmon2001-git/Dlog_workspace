@@ -59,4 +59,24 @@ public class FreenoteServiceImpl implements FreenoteService {
 		return fDao.deleteFreenote(sqlSession, fno);
 	}
 
+	@Override
+	public int selectCommListCount(String topicName) {
+		return fDao.selectCommListCount(sqlSession, topicName);
+	}
+
+	@Override
+	public ArrayList<Freenote> selectCommList(String topicName, PageInfo pi) {
+		return fDao.selectCommList(sqlSession, topicName, pi);
+	}
+
+	@Override
+	public int selectSearchListCount(SearchCondition sc) {
+		return fDao.selectSearchListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi) {
+		return fDao.selectSearchList(sqlSession, sc, pi);
+	}
+
 }

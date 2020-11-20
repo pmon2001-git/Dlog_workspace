@@ -131,5 +131,88 @@
 		   set status = 'N'
 		 where freenote_no = #{fno}
 	</update>
-
+	
+	
+	<!-- 커뮤니티 -->
+	<select id="selectCommListCount" parameterType="string" resultType="_int">
+		select 
+		       count(*)
+		  from freenote
+		 where freenote_topic like '%' || #{topicName} || '%'
+		   and status = 'Y'
+   		   and freenote_privacy_comm = 'Y'
+	</select>
+	
+	<select id="selectCommList" parameterType="string" resultMap="freenoteResultSet">
+		select 
+		       nickname
+		     , freenote_no
+		     , freenote_title
+		     , freenote_like
+		     , to_char(create_date, 'yyyy-mm-dd') as create_date
+		     , freenote_topic
+		  from freenote f
+		  join member using(member_no)
+		 where freenote_topic like '%' || #{topicName} || '%'
+		   and f.status = 'Y'
+		   and freenote_privacy_comm = 'Y'
+		 order
+		    by create_date desc
+	</select>	
+	
+	<select id="selectSearchListCount" parameterType="SearchCondition" resultType="_int">
+		select 
+		       count(*)
+		  from freenote f
+		  join member using(member_no)
+		 where f.status = 'Y'
+		   and freenote_privacy_comm = 'Y'
+		 <choose>
+		 	<when test="title!= null">
+		    	and freenote_title like '%' || #{title} || '%'
+		 	</when>
+		 	<when test="writer != null">
+		    	and nickname like '%' || #{writer} || '%'		 	
+		 	</when>
+		 	<otherwise>
+		    	and (nickname like '%' || #{wirterTitle} || '%'
+		     	 or freenote_title like '%' || #{wirterTitle} || '%')		 	
+		 	</otherwise>
+		 </choose>
+	</select>
+	
+		<select id="selectSearchList" parameterType="SearchCondition" resultMap="freenoteResultSet">
+		select 
+		       nickname
+		     , freenote_no
+		     , freenote_title
+		     , freenote_like
+		     , to_char(create_date, 'yyyy-mm-dd') as create_date
+		     , freenote_topic
+		  from freenote f
+		  join member using(member_no)
+		 where f.status = 'Y'
+		   and freenote_privacy_comm = 'Y'
+		 <choose>
+		 	<when test="title!= null">
+		    	and freenote_title like '%' || #{title} || '%'
+		 	</when>
+		 	<when test="writer != null">
+		    	and nickname like '%' || #{writer} || '%'		 	
+		 	</when>
+		 	<otherwise>
+		    	and (nickname like '%' || #{wirterTitle} || '%'
+		     	 or freenote_title like '%' || #{wirterTitle} || '%')		 	
+		 	</otherwise>
+		 </choose>
+			  order
+		 <choose>
+		 	<when test="sort == 'recent'">
+			   	 by create_date desc
+		 	</when>
+		 	<otherwise>
+		 		 by freenote_count desc
+		 	</otherwise>
+		 </choose>
+	</select>
 </mapper>

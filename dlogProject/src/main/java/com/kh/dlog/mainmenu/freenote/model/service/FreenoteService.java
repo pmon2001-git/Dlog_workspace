@@ -8,6 +8,7 @@ import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 public interface FreenoteService {
 	
+	// 프리노트
 	// 1. 프리노트 목록 조회용 서비스
 	int selectListCount(SearchCondition sc);
 	ArrayList<Freenote> selectList(SearchCondition sc, PageInfo pi);
@@ -25,6 +26,15 @@ public interface FreenoteService {
 	
 	// 5. 프리노트 삭제용 서비스
 	int deleteFreenote(int fno);
+	
+	// 커뮤니티
+	// 1. 주제별 조회
+	int selectCommListCount(String topicName);
+	ArrayList<Freenote> selectCommList(String topicName, PageInfo pi);
+	
+	// 2. 검색 조회
+	int selectSearchListCount(SearchCondition sc);
+	ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi);
 	
 	
 }
