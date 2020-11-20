@@ -47,7 +47,19 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../common/mainHeader.jsp" />
+	<jsp:include page="../../common/mainHeader.jsp" />
+	
+	<script>
+        $(function(){
+            var navbarCollapse = function() {
+                $("#mainNav").addClass("navbar-shrink");
+                $(".logoImage").addClass("image-shrink");
+                $(".nav-lcs").addClass("nav-item-shrink");
+            };
+            navbarCollapse();
+            $(window).scroll(navbarCollapse);
+        });
+    </script>
 
 	<!-- Contact Section-->
     <section class="page-section">
@@ -240,6 +252,6 @@
         </div>
     </section>
 
-	<jsp:include page="../common/mainFooter.jsp" />
+	<jsp:include page="../../common/mainFooter.jsp" />
 </body>
 </html>

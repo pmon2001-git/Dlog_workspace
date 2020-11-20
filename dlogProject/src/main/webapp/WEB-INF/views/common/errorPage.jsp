@@ -39,7 +39,7 @@
                                 <div class="text-center mb-4 mt-4"><button onclick="history.back();" class="btn btn-secondary" style="margin-top: 20px; margin-bottom: 30px;">이전 페이지로</button>
                                 </div>
                                 <div class="text-center">
-                                    <p>Copyright © Designed & Developed by <a href="" style="font-weight:bold;">Dlog</a> 2020</p>
+                                    <p>Copyright © Designed & Developed by <a href="${ pageContext.servletContext.contextPath }" style="font-weight:bold;">Dlog</a> 2020</p>
                                     
                                 </div>
                             </div>
