@@ -9,5 +9,113 @@
 		<result column="memo_content" property="memoContent" />
 		<result column="memo_widget" property="memoWidget" />
 	</resultMap>
-
+	
+	<select id="selectMemoList"
+			parameterType="_int"
+			resultMap="memoResultSet">
+		select 
+		       memo_no
+		     , memo_writer
+		     , memo_title
+		     , memo_content
+		     , memo_widget
+		  from memo
+		 where memo_writer = #{memoWriter}
+		 order
+		    by memo_no
+	</select>
+	
+	<update id="widgetMemoNtoY"
+			parameterType="Memo">
+		update memo
+		   set memo_widget = 'Y'
+		 where memo_no = #{memoNo}		
+	</update>
+	
+	<update id="widgetMemoAlltoN"
+			parameterType="Memo">
+		update memo
+		   set memo_widget = 'N'
+		 where memo_writer = #{memoWriter}
+		   and memo_no != #{memoNo}		
+	</update>
+	
+	<update id="widgetMemoAlltoN2"
+			parameterType="_int">
+		update memo
+		   set memo_widget = 'N'
+		 where memo_writer = #{memoWriter}
+	</update>
+	
+	<delete id="deleteMemo"
+			parameterType="_int">
+		delete 
+	      from memo
+	     where memo_no = #{intNums}	
+	</delete>
+	
+	<delete id="updateDelete"
+			parameterType="_int">
+		delete 
+	      from memo
+	     where memo_no = #{memoNo}	
+	</delete>
+	
+	<insert id="insertMemo"
+			parameterType="Memo">
+		insert 
+		  into memo
+		       (
+		         memo_no
+		       , memo_writer
+		       , memo_title
+		       , memo_content
+		       , memo_widget
+		       )
+		values 
+		       (
+		         seq_memono.nextval
+		       , 2
+		       , #{memoTitle}
+		       , #{memoContent}
+		       , default
+			   )
+	</insert>
+	
+	<select id="selectMemoDetail"
+			parameterType="_int"
+			resultMap="memoResultSet">
+		select 
+		       memo_no
+		     , memo_writer
+		     , memo_title
+		     , memo_content
+		     , memo_widget
+		  from memo
+		 where memo_no = #{memoNo}
+	</select>
+	
+	<update id="updateMemo"
+			parameterType="Memo">
+		update memo
+		   set 
+		       memo_title = #{memoTitle},
+		       memo_content = #{memoContent}
+		 where memo_no = #{memoNo}
+	</update>
+	
+	<select id="selectMemoWidget"
+			parameterType="_int"
+			resultMap="memoResultSet">
+		select 
+		       memo_no
+		     , memo_writer
+		     , memo_title
+		     , memo_content
+		     , memo_widget
+		  from memo
+		 where memo_writer=#{memoWriter}
+		   and memo_widget = 'Y'
+	</select>
+	
 </mapper>

@@ -53,8 +53,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 .photo_main_photo input[type=checkbox]{
 	position:absolute;
-	left:2px;
-	top:2px;
+	width:20px;
+	height:20px;
 }
 .photo_main_date{
   width: 100%;
@@ -163,7 +163,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 	width:40px !important;
 	height:40px !important;
 	color:gray !important;
-	margin-left:830px;
+	margin-left:810px;
 	margin-right:10px;
 }
 #removeFrame{
@@ -178,31 +178,21 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 
 /* 메모장 */
-.memo_main_table{
+.memo_main{
   width: 100%;
-}
-.memo_main_table td{
-  height: 70px;
-}
-.memo_main_table input[type=radio]{
-  width: 30px;
-  height: 30px;
-}
-.memo_main_table tr td:nth-child(1){
-  width: 3%;
-}
-.memo_main_table tr td:nth-child(3){
-  width: 10%;
-  padding-left: 20px;
+  margin: 30px;
 }
 .memo_main_title{
+  width: 500px;
   padding-left:20px;
   padding-top:5px;
+  margin-right:20px;
   border: 2px solid rgb(132, 200, 185);
   border-radius: 5px;
   height: 80%;
   font-size: 30px;
   font-weight: 400;
+  display:inline-block;
 }
 .memo_enroll_title{
   width: 100%;
@@ -231,6 +221,90 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   border:1px solid lightgray;
   box-shadow: 1px 1px 3px lightgray inset;
 }
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.memo_main .removeBox{
+	margin-left:20px;
+	width:30px;
+	height:30px;
+}
+.memo_widget{
+	width:180px;
+}
+.memo_widget_title{
+	background:rgb(132,200,185);
+	color:white;
+	text-align:center;
+	font-size:25px;
+	border-radius:10px 10px 0px 0px;
+}
+.memo_widget_content{
+	font-size:17px;
+	padding:20px;
+	border:0px;
+	resize:none;
+	overflow:hidden;
+	color:rgb(100,100,100);
+}
+
+
+
+
+
+
 
 /* 친구관리 */
 #friend_list_buttons{
@@ -10501,7 +10575,7 @@ Input Style
 .bootstrap-touchspin .form-control {
   margin: 10px 0px 0px; }
 
-input[type="checkbox"]:after {
+/* input[type="checkbox"]:after {
   line-height: 1.5em;
   content: '';
   display: block;
@@ -10522,7 +10596,7 @@ input[type="checkbox"]:checked:after {
   font-family: 'FontAwesome';
   color: #7571f9;
   font-weight: 100;
-  text-align: center; }
+  text-align: center; } */
 
 .form-check-label {
   margin-left: 5px; }

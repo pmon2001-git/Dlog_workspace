@@ -23,27 +23,49 @@ public class MemoServiceImpl implements MemoService{
 	// method
 	@Override
 	public int insertMemo(Memo m) { // 메모 작성
-		return 0;
+		return mDao.insertMemo(sqlSession, m);
 	}
 
 	@Override
-	public int deleteMemo(int memoNo) { // 메모 삭제
-		return 0;
+	public int deleteMemo(int[] intNums) { // 메모 삭제
+		return mDao.deleteMemo(sqlSession, intNums);
 	}
-
+	
 	@Override
 	public int updateMemo(Memo m) { // 메모 수정
-		return 0;
+		return mDao.updateMemo(sqlSession, m);
 	}
 
 	@Override
 	public ArrayList<Memo> selectMemoList(int memoWriter) { // 메모 전체 조회
-		return null;
+		return mDao.selectMemoList(sqlSession, memoWriter);
 	}
 
 	@Override
 	public Memo selectMemoDetail(int memoNo) { // 메모 상세 조회
-		return null;
+		return mDao.selectMemoDetail(sqlSession, memoNo);
 	}
+
+	@Override
+	public int widgetMemoNtoY(Memo m) { // 위젯 여부 변경
+		return mDao.widgetMemoNtoY(sqlSession, m);
+	}
+	
+	@Override
+	public int widgetMemoAlltoN(int memoWriter) { // 위젯 여부 변경
+		return mDao.widgetMemoAlltoN(sqlSession, memoWriter);
+	}
+
+	@Override
+	public int updateDelete(int memoNo) {
+		return mDao.updateDelete(sqlSession, memoNo);
+	}
+
+	@Override
+	public Memo selectMemoWidget(int memoWriter) {
+		return mDao.selectMemoWidget(sqlSession, memoWriter);
+	}
+
+	
 
 }
