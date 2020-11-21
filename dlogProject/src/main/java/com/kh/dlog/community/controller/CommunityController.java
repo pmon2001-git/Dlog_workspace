@@ -61,5 +61,19 @@ public class CommunityController {
 		model.addAttribute("sort", sort);
 		return "mainpage/community/communitySearchList";
 	}
+	
+	@RequestMapping("detail.co")
+	public String selectCommunity(int fno, Model model) {
+		int result = fService.increaseCount(fno);
+		
+		if(result>0) {
+			Freenote fn = fService.selectFreenote(fno);
+			model.addAttribute("fn", fn);
+			return "mainpage/community/communityDetailView";			
+		}else {
+			// 에러페이지
+			return "common/errorPage";
+		}
+	}
 
 }

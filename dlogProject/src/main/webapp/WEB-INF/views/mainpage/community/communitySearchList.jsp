@@ -119,6 +119,7 @@
             <div id="listArea" align="center">
                 <c:forEach var="fn" items="${ list }">
                 	<div class="listCard">
+                		<input type="hidden" value="${ fn.freenoteNo }">
 	                    <table>
 	                        <tr>
 	                            <td width="790" height="40">
@@ -147,6 +148,14 @@
                 <c:if test="${ empty list }">
                 	조회된 결과가 없습니다.
                 </c:if>
+                
+                <script>
+                	$(function(){
+                		$(".listCard").click(function(){
+                			location.href="detail.co?fno=" + $(this).find("input").val();
+                		});
+                	});
+                </script>
                 
                 <br><br>
 

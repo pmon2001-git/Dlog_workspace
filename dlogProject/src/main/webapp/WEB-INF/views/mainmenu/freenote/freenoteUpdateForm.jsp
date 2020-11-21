@@ -107,7 +107,7 @@
 	                                <input type="radio" value="N" id="commentN" name="freenoteCommentYN" required><label for="commentN">&nbsp;비허용</label>
 	                            </div>
 	                            <div align="center">
-	                                <button class="btn btn-secondary" onclick="history.back();">취소</button>
+	                                <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
 	                                <input type="submit" value="저장" class="btn btn-success">
 	                            </div>
 	                        </form>
