@@ -27,9 +27,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
 /* 여기 부터는 나의 css */
 /* 사진 게시판 */
-/* #photo_outer div{
-	float:left;
-} */
 .deleteButton{
 	color: white !important;
 }
@@ -171,8 +168,30 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 	height:40px !important;
 	color:gray !important;
 }
-
-
+#photo_main_modal_content{
+	font-size:25px !important;
+	color:white;
+}
+.main_photo_modal_outer{
+	width:100%;
+	height:500px;
+	margin-top:20px;
+}
+.main_photo_modal{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.page_move_span{
+	width:60px;
+	height:60px;
+	margin-top:300px;
+}
+.page_move{
+	width:100% !important;
+	height:100% !important;
+	color:white;
+}
 
 
 
@@ -307,23 +326,6 @@ input:checked + .slider:before {
 
 
 /* 친구관리 */
-#friend_list_buttons{
-  height: 70px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-#friend_list_buttons div{
-  float: left;
-  width: 50%;
-  height: 100%;
-  font-size:23px;
-  text-align: center;
-  padding-top: 15px;
-}
-.friend_list_button{
-  border-radius: 5px 0px 0px 0px;
-  
-}
 .friend_request_button{
   background: lightgray;
   border-radius: 0px 5px 0px 0px;
@@ -367,7 +369,7 @@ input:checked + .slider:before {
 }
 
 #friend_list_buttons{
-  height: 70px;
+  height: 50px;
   margin-bottom: 5px;
   border-radius: 5px;
 }
@@ -375,20 +377,21 @@ input:checked + .slider:before {
   float: left;
   width: 50%;
   height: 100%;
-  font-size:23px;
+  font-size:18px;
   text-align: center;
-  padding-top: 15px;
+  padding-top:2px;
 }
 .friend_list_button{
   border-radius: 5px 0px 0px 0px;
-  
+  background:white;
+  color:rgb(40,40,40);
 }
 .friend_request_button{
   background: lightgray;
   border-radius: 0px 5px 0px 0px;
+  background:lightgray;
+  color:rgb(40,40,40);
 }
-
-
 .friend_request{
   padding: 0px !important;
   height: 50px;
@@ -419,7 +422,6 @@ input:checked + .slider:before {
 .friend_request>div:nth-child(3) img{
   margin-left: 15px;
 }
-
 .friend_list_search{
   height: 40px;
   width: 100%;
@@ -439,13 +441,38 @@ input:checked + .slider:before {
   box-shadow: 1px 1px 1px lightgray inset;
   border: 1px solid lightgray;
 }
+.friend_request_search div{
+	float:left;
+}
+#frs_left{
+	width:85%;
+	height:90%;
+}
+#frs_right{
+	width:15%;
+	height:100%;
+	background:rgb(132,200,185);
+	position:relative;
+}
 .friend_request_search input{
-  height: 90%;
-  width: 85%;
-  border: 0px;
-  padding: 8px;
-  margin-top: 2px;
-  margin-left: 2px;
+	width:100%;
+	height:100%;
+	border:0px;
+	padding-left:10px;
+	margin-top:2px;
+	margin-left:2px;
+}
+.friend_request_search svg{
+	width:20px;
+	height:20px;
+	color:white;
+	position:absolute;
+	left:15px;
+	top:10px;
+}
+#friend_modal{
+	left:400px;
+	top:50px;
 }
 
 
@@ -4538,7 +4565,8 @@ button.close {
   z-index: 1050;
   display: none;
   overflow: hidden;
-  outline: 0; }
+  outline: 0; 
+  }
 
 .modal-dialog {
   position: relative;
@@ -4586,7 +4614,7 @@ button.close {
   .modal-backdrop.fade {
     opacity: 0; }
   .modal-backdrop.show {
-    opacity: 0.5; }
+    opacity: 0; }
 
 .modal-header {
   display: flex;
@@ -4629,7 +4657,7 @@ button.close {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 800px;
     margin: 1.75rem auto; }
   .modal-dialog-centered {
     min-height: calc(100% - (1.75rem * 2)); }

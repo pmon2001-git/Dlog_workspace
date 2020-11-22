@@ -11,6 +11,8 @@
     <title>Dlog</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+     <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Custom Stylesheet -->
     <link href="resources/css/osageuStyle.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -57,7 +59,7 @@
                 Nav header end
             ***********************************-->
 
-            <!--**********************************
+			<!--**********************************
                 Header start
             ***********************************-->
             <div class="header">    
@@ -84,55 +86,119 @@
                     <div class="header-right">
                         <ul class="clearfix">
                             <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                    <i class="mdi mdi-account-multiple-outline"></i>
+                                    <i class="fas fa-user-friends"></i>
                                     <span class="badge gradient-7 badge-pill badge-primary">3</span>
                                 </a>
-                                <div class="drop-down animated fadeIn dropdown-menu">
-                                    <div class="dropdown-content-heading d-flex justify-content-between">
-                                        <span class="">3 New Messages</span>  
-                                        
+                                <div class="drop-down fadeIn dropdown-menu" id="friend_list" style="padding: 0px;">
+                                    <div id="friend_list_buttons">
+                                        <div class="friend_list_button">친구 목록</div>  
+                                        <div class="friend_request_button">친구 요청</div>  
                                     </div>
-                                    <div class="dropdown-content-body">
+                                    <div class="dropdown-content-body" id="friend_list_outer">
                                         <ul>
-                                            <li class="notification-unread">
-                                                <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/1.jpg" alt="">
-                                                    <div class="notification-content">
-                                                        <div class="notification-heading">Saiful Islam</div>
-                                                        <div class="notification-timestamp">08 Hours ago</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="notification-unread">
-                                                <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/2.jpg" alt="">
-                                                    <div class="notification-content">
-                                                        <div class="notification-heading">Adam Smith</div>
-                                                        <div class="notification-timestamp">08 Hours ago</div>
-                                                        <div class="notification-text">Can you do me a favour?</div>
-                                                    </div>
-                                                </a>
-                                            </li>
                                             <li>
-                                                <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/3.jpg" alt="">
-                                                    <div class="notification-content">
-                                                        <div class="notification-heading">Barak Obama</div>
-                                                        <div class="notification-timestamp">08 Hours ago</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                    </div>
-                                                </a>
+                                                <div class="friend_list_search">
+                                                    <input type="text">
+                                                </div>
                                             </li>
+                                            <li class="friend_list">
+                                                <div>
+                                                    <img src="resources/images/avatar/1.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">타락파워전사</div>
+                                                </div>
+                                                <div>
+                                                    <button>삭제</button>
+                                                </div>
+                                            </li>
+                                            <li class="friend_list">
+                                                <div>
+                                                    <img src="resources/images/avatar/2.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">vv번개의신vv</div>
+                                                </div>
+                                                <div>
+                                                    <button>삭제</button>
+                                                </div>
+                                            </li>
+                                            <li class="friend_list">
+                                                <div>
+                                                    <img src="resources/images/avatar/3.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">아시안느</div>
+                                                </div>
+                                                <div>
+                                                    <button>삭제</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="bootstrap-pagination" align="center">
+                                            <nav>
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">1</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-content-body" id="friend_request_outer">
+                                        <ul style="padding-right: 0px;">
                                             <li>
-                                                <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/4.jpg" alt="">
-                                                    <div class="notification-content">
-                                                        <div class="notification-heading">Hilari Clinton</div>
-                                                        <div class="notification-timestamp">08 Hours ago</div>
-                                                        <div class="notification-text">Hello</div>
-                                                    </div>
-                                                </a>
+                                                <div class="friend_request_search">
+                                                	<div id="frs_left">
+                                                		<input type="text">
+                                                	</div>
+                                                	<div id="frs_right">
+	                                                    <i class="fa fa-search"></i>
+                                                	</div>
+                                                </div>
+                                            </li>
+                                            <li class="friend_request">
+                                                <div>
+                                                    <img src="resources/images/avatar/1.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">타락파워전사</div>
+                                                </div>
+                                                <div>
+                                                    <img src="resources/images/checked.png" width="25" height="25">
+                                                    <img src="resources/images/close.png" width="20" height="20">
+                                                </div>
+                                            </li>
+                                            <li class="friend_request">
+                                                <div>
+                                                    <img src="resources/images/avatar/2.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">vv번개의신vv</div>
+                                                </div>
+                                                <div>
+                                                    <img src="resources/images/checked.png" width="25" height="25">
+                                                    <img src="resources/images/close.png" width="20" height="20">
+                                                </div>
+                                            </li>
+                                            <li class="friend_request">
+                                                <div>
+                                                    <img src="resources/images/avatar/3.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">아시안느</div>
+                                                </div>
+                                                <div>
+                                                    <img src="resources/images/checked.png" width="25" height="25">
+                                                    <img src="resources/images/close.png" width="20" height="20">
+                                                </div>
                                             </li>
                                         </ul>
                                         
@@ -140,56 +206,9 @@
                                 </div>
                             </li>
                             <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                    <i class="mdi mdi-bell-outline"></i>
-                                    <span class="badge badge-pill gradient-2 badge-primary">3</span>
+                                    <i class="fas fa-user-friends"></i>
+                                    <span class="badge gradient-7 badge-pill badge-primary">3</span>
                                 </a>
-                                <div class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-                                    <div class="dropdown-content-heading d-flex justify-content-between">
-                                        <span class="">2 New Notifications</span>  
-                                        
-                                    </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li>
-                                                <a href="javascript:void()">
-                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>
-                                                    <div class="notification-content">
-                                                        <h6 class="notification-heading">Events near you</h6>
-                                                        <span class="notification-text">Within next 5 days</span> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void()">
-                                                    <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-present"></i></span>
-                                                    <div class="notification-content">
-                                                        <h6 class="notification-heading">Event Started</h6>
-                                                        <span class="notification-text">One hour ago</span> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void()">
-                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>
-                                                    <div class="notification-content">
-                                                        <h6 class="notification-heading">Event Ended Successfully</h6>
-                                                        <span class="notification-text">One hour ago</span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void()">
-                                                    <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-present"></i></span>
-                                                    <div class="notification-content">
-                                                        <h6 class="notification-heading">Events to Join</h6>
-                                                        <span class="notification-text">After two days</span> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        
-                                    </div>
-                                </div>
                             </li>
                             <li class="icons dropdown">
                                 <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
@@ -221,7 +240,26 @@
             <!--**********************************
                 Header end ti-comment-alt
             ***********************************-->
-
+			
+						
+			<script>
+				$(function(){
+					
+					// 첫 로딩 시 리스트만 보여주기
+					$(".friend_request_outer").css("display","none");
+					
+					// 이동
+                    $(".friend_list_button").click(function(){
+                    	$(".friend_list_outer").css("display","");
+                    	$(".friend_request_outer").css("display","none");
+                    })
+                    $(".friend_request_button").click(function(){
+                    	$(".friend_request_outer").css("display","");
+                    	$(".friend_list_outer").css("display","none");
+                    })
+				})
+			</script>
+			
             <!--**********************************
                 Sidebar start
             ***********************************-->
@@ -315,10 +353,11 @@
                                 	
                                 	<form action = "delete.ph" method="get" id="photo_form">
 	                                    <c:forEach var="p" items="${ list }" varStatus="status">
-			                                <div class="photo_main">
-			                                    <div class="photo_main_photo">
+			                                <div class="photo_main portfolio-item">
+			                                	<input type="hidden" value="${ status.count }">
+			                                    <div class="photo_main_photo" data-toggle="" data-target="#main_photo_modal">
 			                                    	<input type="checkbox" class="removeBox" name="deleteNums" value="${ p.photoNo }">
-			                                        <img src="${ p.photoChangeName }" alt="">
+			                                        <img src="${ p.photoChangeName }" class="pick_main_photo">
 			                                    </div>
 			                                    <div class="photo_main_date">
 			                                        ${ p.photoDate }
@@ -337,6 +376,7 @@
 											$(".deleteButton").click(function(){
 												if($(".deleteButton").html()=="삭제"){
 													$(this).html("확인");
+													$(".photo_main").attr("data-toggle","");
 													$(".removeBox").css("display","");
 													$(".photo_main_photo img").click(function(){
 														if($(this).prev().attr("checked")==true){
@@ -409,7 +449,180 @@
                     </div>
                 </div>
                 <!-- #/ container -->
-            </div>        
+            </div>
+            
+            <!-- Modal -->
+		    <div class="portfolio-modal modal fade" id="main_photo_modal" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+		        <div class="modal-dialog" role="document" style="width:1000px; height:1000px;">
+		            <div class="modal-content" style="background:black;">
+		                <div class="modal-body text-center">
+		                    <div class="container">
+		                        <div class="row justify-content-center">
+		                        	<input type="hidden" id="photo_number" value="">
+		                        	<span class="page_move_span">
+		                        		<i class="fas fa-angle-left pre_page_move page_move"></i>
+		                        	</span>
+		                            <div class="col-lg-8">
+		                                <!-- Portfolio Modal - Title-->
+		                                <!-- <h2 class="portfolio-modal-title text-secondary" id="main_photo_modal_date"></h2> -->
+		                                <!-- Portfolio Modal - Image-->
+		                                <div class="main_photo_modal_outer">
+		                                	<img class="main_photo_modal" src=""/>
+		                                </div>
+		                                <!-- Portfolio Modal - Text-->
+		                                <p class="mb-5" id="photo_main_modal_content"></p>
+		                                <button class="btn btn-success" data-dismiss="modal" style="font-size:20px;">
+		                                    닫기
+		                                </button>
+		                            </div>
+		                            <span class="page_move_span">
+		                            	<i class="fas fa-angle-right next_page_move page_move"></i>
+		                            </span>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>    
+            
+            <!-- Modal -->
+		    <div class="modal" id="friend_modal">
+		        <div class="modal-dialog" role="document" style="width:300px; height:500px;">
+		            <div class="modal-content">
+		                <div class="modal-body text-center">
+		                    <div class="container">
+		                        <div class="row justify-content-center" style="border:2px solid red">
+		                        	
+		                        	<div id="friend_list_buttons">
+                                        <div class="friend_list_button">친구 목록</div>  
+                                        <div class="friend_request_button">친구 요청</div>  
+                                    </div>
+                                    <div class="dropdown-content-body">
+                                        <ul>
+                                            <li>
+                                                <div class="friend_list_search">
+                                                    <input type="text">
+                                                </div>
+                                            </li>
+                                            <li class="friend_list">
+                                                <div>
+                                                    <img src="resources/images/avatar/1.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">타락파워전사</div>
+                                                </div>
+                                                <div>
+                                                    <button>삭제</button>
+                                                </div>
+                                            </li>
+                                            <li class="friend_list">
+                                                <div>
+                                                    <img src="resources/images/avatar/2.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">vv번개의신vv</div>
+                                                </div>
+                                                <div>
+                                                    <button>삭제</button>
+                                                </div>
+                                            </li>
+                                            <li class="friend_list">
+                                                <div>
+                                                    <img src="resources/images/avatar/3.jpg">
+                                                </div>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">아시안느</div>
+                                                </div>
+                                                <div>
+                                                    <button>삭제</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="bootstrap-pagination" align="center">
+                                            <nav>
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">1</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+		                        	
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>    
+            
+            <script>
+            	$(function(){
+            		
+            		$(".photo_main_photo>img").hover().css("cursor","pointer");
+            		var countPhoto = 0;
+            		// 확대해서 보기
+            		$(".photo_main_photo>img").click(function(){
+            			if($(".deleteButton").html()=="삭제"){
+            				$(".photo_main_photo").attr("data-toggle","modal");
+            				$(".main_photo_modal").attr("src", $(this).attr("src"));
+		            		$("#photo_main_modal_content").text($(this).parent().siblings().eq(2).text());
+		            		$("#photo_number").val($(this).parent().siblings().eq(0).val()-1);
+		            		countPhoto = $("#photo_number").val();
+		            		countPhoto = Number(countPhoto);
+		            		
+		            		if(countPhoto > 0){
+		            			$(".pre_page_move").css("display","");
+		            		} else if(countPhoto == 0){
+		            			$(".pre_page_move").css("display","none");
+		            		}
+		            		
+		            		if(countPhoto < $(".photo_main").length-1){
+		            			$(".next_page_move").css("display","");
+		            		} else if(countPhoto == $(".photo_main").length-1){
+		            			$(".next_page_move").css("display","none");
+		            		}
+            			}else{
+            				$(".photo_main_photo").attr("data-toggle","");
+            			}
+	            	})
+            		
+            		
+	            	// 페이지 이동
+	            	$(".page_move").hover().css("cursor","pointer");
+            		
+            		$(".pre_page_move").click(function(){
+            			countPhoto--;
+            			$(".main_photo_modal").attr("src", $(".pick_main_photo").eq(countPhoto).attr("src"));
+            			$("#photo_main_modal_content").text($(".photo_main_content").eq(countPhoto).text());
+            			if(countPhoto < 1){
+            				$(".pre_page_move").css("display","none");
+            			}
+            			if(countPhoto < $(".photo_main").length-1){
+            				$(".next_page_move").css("display","");
+            			}
+            		})
+            		$(".next_page_move").click(function(){
+            			countPhoto++;
+            			if(countPhoto > 0){
+            				$(".pre_page_move").css("display","");
+            			}
+            			if(countPhoto == $(".photo_main").length-1){
+            				$(".next_page_move").css("display","none");
+            			}
+            			$(".main_photo_modal").attr("src", $(".pick_main_photo").eq(countPhoto).attr("src"));
+            			$("#photo_main_modal_content").text($(".photo_main_content").eq(countPhoto).text());
+            		})
+	            				
+            	})
+            </script>
             
         </div>
         <!--**********************************
@@ -430,10 +643,37 @@
 			
 			<script>
 				$(function(){
+					
 					$(".memo_widget").hover(function(){
 						$(this).children().eq(1).attr("style","overflow:auto;");
 					},function(){
 						$(this).children().eq(1).attr("style","overflow:hidden;");
+					})
+					
+					// dropdown inside 클릭 시 안 사라지게
+					$("#friend_list").click(function(){
+						event.stopPropagation();
+					})
+					
+					// 커서 모양
+					$(".friend_list_button").hover().css("cursor","pointer");
+					$(".friend_request_button").hover().css("cursor","pointer");
+					
+					// 초기에 request 숨기기
+					$("#friend_request_outer").css("display","none");
+					
+					// 메뉴 이동
+					$(".friend_list_button").click(function(){
+						$("#friend_list_outer").css("display","");
+						$("#friend_request_outer").css("display","none");
+						$(this).css({background:"white", color:"rgb(40,40,40)"})
+						$(".friend_request_button").css({background:"lightgray", color:"rgb(40,40,40)"})
+					})
+					$(".friend_request_button").click(function(){
+						$("#friend_list_outer").css("display","none");
+						$("#friend_request_outer").css("display","");
+						$(this).css({background:"white", color:"rgb(40,40,40)"})
+						$(".friend_list_button").css({background:"lightgray", color:"rgb(40,40,40)"})
 					})
 				})
 			</script>     

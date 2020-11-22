@@ -41,7 +41,7 @@ public class MemoController {
 			return "redirect:selectList.mo";
 		}else {
 			session.setAttribute("alertMsg", "저장 실패..");
-			return "redirect:selectList.mo";
+			return "common/errorPage";
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class MemoController {
 			return "redirect:selectList.mo";
 		}else {
 			session.setAttribute("alertMsg", "삭제 실패..");
-			return "redirect:selectList.mo";
+			return "common/errorPage";
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class MemoController {
 			return "redirect:selectList.mo";
 		}else {
 			session.setAttribute("alertMsg", "수정 실패..");
-			return "redirect:selectList.mo";
+			return "common/errorPage";
 		}
 	}
 	
@@ -88,7 +88,7 @@ public class MemoController {
 			return "redirect:selectList.mo";
 		}else {
 			session.setAttribute("alertMsg", "삭제 실패..");
-			return "redirect:selectList.mo";
+			return "common/errorPage";
 		}
 	}
 	
