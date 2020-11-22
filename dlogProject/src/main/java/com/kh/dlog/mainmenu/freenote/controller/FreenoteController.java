@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.common.template.Pagination;
 import com.kh.dlog.mainmenu.freenote.model.service.FreenoteService;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.Reply;
 import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 @Controller
@@ -132,6 +135,14 @@ public class FreenoteController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.fn", produces="application/json; charset=utf-8")
+	public String selectReplyList(int fno) {
+		ArrayList<Reply> rlist = fService.selectReplyList(fno);
+		
+		return new Gson().toJson(rlist);
 	}
 	
 }

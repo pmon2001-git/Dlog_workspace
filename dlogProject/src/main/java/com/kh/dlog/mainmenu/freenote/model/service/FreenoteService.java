@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.Reply;
 import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 public interface FreenoteService {
@@ -26,6 +27,9 @@ public interface FreenoteService {
 	
 	// 5. 프리노트 삭제용 서비스
 	int deleteFreenote(int fno);
+	
+	// 6. 댓글 조회용 서비스
+	ArrayList<Reply> selectReplyList(int fno);
 	
 	// 커뮤니티
 	// 1. 주제별 조회

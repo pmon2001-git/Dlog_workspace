@@ -62,6 +62,8 @@
 			 , photo_status
 		  from photo
 		 where photo_writer=#{photoWriter}
+		 order
+		    by photo_no desc
 	</select>
 	
 	<delete id="deletePhoto"

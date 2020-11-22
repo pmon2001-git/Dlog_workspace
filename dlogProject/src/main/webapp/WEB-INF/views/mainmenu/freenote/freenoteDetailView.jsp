@@ -19,7 +19,7 @@
          margin: 13px 0;
      }
 
-    #replyArea textarea{
+    #replyArea textarea, .enrollReply1 textarea{
         resize: none;
     }
     .enrollReply2{
@@ -84,7 +84,7 @@
                                 ${ fn.freenoteContent }
                             </div>
                             <div id="etcArea">
-                                댓글 0 &emsp;
+                                댓글 <span id="rcount"></span> &emsp;
                                 좋아요
                                 <!-- <a href=""><i class="mdi mdi-heart-outline" style="color: black;"></i> 좋아요</a> -->
                                 <!-- <a href=""><i class="mdi mdi-heart" style="color: black;"></i> 좋아요</a> -->
@@ -95,28 +95,26 @@
                                 <div class="reply1">
                                     <table>
                                         <tr>
-                                            <td colspan="2" height="40">                            
+                                            <td colspan="3" height="40">                            
                                                 <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">
+                                            <td colspan="3">
                                                 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다
                                             </td>
                                         </tr>
                                         <tr height="30">
-                                            <td width="750">
+                                            <td width="220">
                                                 2020.10.01&nbsp;&nbsp;22:40&emsp;
                                                 <a href=""><i class="mdi mdi-heart-outline" style="color: black;"></i> 좋아요</a>
                                                 0
                                             </td>
-                                            <td width="200" align="right">
+                                            <td><button class="btn btn-outline-light btn-sm btn-flat addReply2">답글</button></td>
+                                            <td width="600" align="right">
                                                 <!-- <button class="btn btn-basic btn-sm">삭제</button> -->
-                                                <button class="btn btn-outline-light btn-sm">삭제</button>
+                                                <button class="btn btn-light btn-sm btn-flat">삭제</button>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td><button class="btn btn-light btn-sm addReply2">답글</button></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -165,12 +163,12 @@
                                 <div class="reply1">
                                     <table>
                                         <tr>
-                                            <td colspan="2" height="40">                            
+                                            <td colspan="3" height="40">                            
                                                 <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">
+                                            <td colspan="3">
                                                 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다
                                             </td>
                                         </tr>
@@ -180,13 +178,11 @@
                                                 <a href=""><i class="mdi mdi-heart-outline" style="color: black;"></i> 좋아요</a>
                                                 0
                                             </td>
+                                            <td><button class="btn btn-light btn-sm addReply2">답글</button></td>
                                             <td width="200" align="right">
                                                 <!-- <button class="btn btn-basic btn-sm">삭제</button> -->
                                                 <button class="btn btn-outline-light btn-sm">삭제</button>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td><button class="btn btn-light btn-sm addReply2">답글</button></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -203,6 +199,32 @@
                                     </table>
                                     <span class="count2">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-outline-success btn-sm">등록</button>
                                 </div>
+                                <div class="reply1">
+                                    <table>
+                                        <tr>
+                                            <td colspan="3" height="40">                            
+                                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다
+                                            </td>
+                                        </tr>
+                                        <tr height="30">
+                                            <td width="220">
+                                                2020.10.01&nbsp;&nbsp;22:40&emsp;
+                                                <a href=""><i class="mdi mdi-heart-outline" style="color: black;"></i> 좋아요</a>
+                                                0
+                                            </td>
+                                            <td><button class="btn btn-outline-light btn-sm btn-flat addReply2">답글</button></td>
+                                            <td width="600" align="right">
+                                                <!-- <button class="btn btn-basic btn-sm">삭제</button> -->
+                                                <button class="btn btn-light btn-sm btn-flat">삭제</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <div id="pagination" align="center">
                                     <button class="btn btn-secondary btn-sm">&lt;</button>
                     
@@ -215,11 +237,24 @@
                                     <button class="btn btn-secondary btn-sm">&gt;</button>
                                     
                                 </div>
-                                <div class="enrollReply1" align="right" style="padding-top: 30px;">
-                                    <textarea name="" id="enrollReply1" class="form-control" placeholder="내용을 입력해주세요" style="height: 80px;" maxlength="500"></textarea>
-                                    <span id="count1">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success">등록</button>
-                                </div>
                                 
+                            </div>
+                            <div class="enrollReply2" align="right">
+                                <table>
+                                    <tr>
+                                        <td width="50" style="vertical-align: top;">
+                                            <img src="resources/images/reply_arrow.png" width="25">
+                                        </td>
+                                        <td width="850">
+                                            <textarea name="" class="form-control reply2Content" placeholder="내용을 입력해주세요" maxlength="500"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <span class="count2">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-outline-success btn-sm">등록</button>
+                            </div>
+                            <div class="enrollReply1" align="right" style="padding-top: 30px;">
+                                <textarea name="" id="enrollReply1" class="form-control" placeholder="내용을 입력해주세요" style="height: 80px;" maxlength="500"></textarea>
+                                <span id="count1">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success">등록</button>
                             </div>
                         </div>
                     </div>
@@ -233,6 +268,73 @@
     ***********************************-->  
     
     <script>
+	    $(function(){
+			selectReplyList();
+		});
+		
+		// 댓글리스트 조회용 AJAX
+		function selectReplyList(){
+			$.ajax({
+				url:"rlist.fn",
+				data:{fno:${ fn.freenoteNo }},
+				success:function(rlist){
+					$("#rcount").text(rlist.length);
+					
+					if(rlist.length > 0){
+	
+						var comment = "";
+						for(var i in rlist){
+							comment += "<div class='reply1'>" +
+			                    "<table>" + 
+			                        "<tr>" +
+			                            "<td colspan='3' height='40'>" +                            
+			                                "<img src='resources/images/default-profile-pic.jpg' class='rounded-circle' height='35' width='35'> &nbsp;" + rlist[i].replyWriter + 
+			                            "</td>" +
+			                        "</tr>" +
+			                        "<tr>" +
+			                            "<td colspan='3'>" +
+			                                rlist[i].replyContent +
+			                            "</td>" +
+			                        "</tr>" +
+			                        "<tr height='30'>" +
+			                            "<td width='210'>" +
+			                                rlist[i].createDate + "&emsp;" +
+			                                "<a href=''><i class='mdi mdi-heart-outline' style='color: black;'></i> 좋아요</a>&nbsp;" +
+			                                rlist[i].replyLike +
+			                            "</td>" +
+			                            "<td><button class='btn btn-outline-light btn-sm btn-flat' onclick='addReply2(" + rlist[i].replyNo + ");'>답글</button></td>" +
+			                            "<td width='600' align='right'>" +
+			                                "<button class='btn btn-light btn-sm btn-flat'>삭제</button>" +
+			                            "</td>" +
+			                        "</tr>" +
+			                    "</table>" +
+			                "</div>" +
+			                "<div class='enrollReply2' id='addReply2-" + rlist[i].replyNo + "' align='right'>" +
+	                            "<table>" + 
+	                                "<tr>" +
+	                                    "<td width='50' style='vertical-align: top;'>" +
+	                                        "<img src='resources/images/reply_arrow.png' width='25'>" +
+	                                    "</td>" +
+	                                    "<td width='850'>" +
+	                                        "<textarea name='' class='form-control reply2Content' placeholder='내용을 입력해주세요' maxlength='500'></textarea>" +
+	                                    "</td>" +
+	                                "</tr>" +
+	                            "</table>" +
+	                            "<span class='count2'>0</span>/500&nbsp;&nbsp;<button class='btn btn-flat btn-outline-success btn-sm'>등록</button>" +
+	                        "</div>";
+						}
+						$("#replyArea").html(comment);
+					}else{
+						$("#replyArea").html("<div align='center'>작성된 댓글이 없습니다.</div>");
+					}
+	                
+					
+				}, error:function(){
+					console.log("댓글 리스트 조회용 ajax 통신 실패");
+				}
+			});
+		}
+    
     	// 글 삭제 확인용
 	    $("#deleteBtn").click(function(){
 			if(confirm("정말 삭제하시겠습니까?")) {
@@ -240,43 +342,60 @@
 			}
 		});
 
-    	// 대댓글 작성창 관련
-		$(function(){
-	    	// 대댓글 작성창 버튼
-		    $(".addReply2").click(function(){
-		        var $reply2form = $(this).parents(".reply1").next();
+    	// 대댓글 작성창 버튼
+    	function addReply2(rno){
+    		var $reply2form = $("#addReply2-" + rno);
+	
+	        if($reply2form.css("display")=="none"){
+	            $reply2form.css("display", "block");
+	            $reply2form.find("textarea").val("");
+	            $reply2form.children("span[class=count2]").text("0");
+	            $reply2form.find("textarea").focus();
+	        }else{
+	            $reply2form.css("display", "none");
+	        }   
+    	}
+    	
+		// 댓글 글자 수 세기(메인댓글)
+	    $("#enrollReply1").keyup(function(){
+	        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
+	        var inputlength = $(this).val().length;
+	        
+	        $("#count1").html(inputlength);
+	
+	        if(500-inputlength < 0){
+	            $("#count1").css("color", "red");
+	        }else{
+	            $("#count1").css("color","");
+	        }
+	    }); 
+	
+		// 댓글 글자 수 세기(서브댓글)
+		$("textarea").keyup(function() {
+	    //$(".reply2Content").keyup(function(){
+	        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
+	        var inputlength = $(this).val().length;
+	        console.log(inputlength);
+	        //$(this).parents(".enrollReply2").children("span[class=count2]").html(inputlength);
+	        
+	        //if(500-inputlength < 0){
+	        	//$(this).parents(".enrollReply2").children("span[class=count2]").css("color", "red");
+	        //}else{
+	        	//$(this).parents(".enrollReply2").children("span[class=count2]").css("color","");
+	        //}
+	    }); 
 		
-		        if($reply2form.css("display")=="none"){
-		            $reply2form.css("display", "block");
-		            $reply2form.find("textarea").val("");
-		            $reply2form.find("textarea").focus();
-		        }else{
-		            $reply2form.css("display", "none");
-		        }   
-		    });
-		
-			// 댓글 글자 수 세기(메인댓글)
-		    $("#enrollReply1").keyup(function(){
-		        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
-		        var inputlength = $(this).val().length;
-		        
-		        $("#count1").html(inputlength);
-		
-		        if(150-inputlength < 0){
-		            $("#count1").css("color", "red");
-		        }else{
-		            $("#count1").css("color","");
-		        }
-		    }); 
-		
-			// 댓글 글자 수 세기(서브댓글)
-		    $(".reply2Content").keyup(function(){
-		        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
-		        var inputlength = $(this).val().length;
-		        $(this).parents(".enrollReply2").children("span[class=count2]").html(inputlength);
-		        // $("#count1").html(inputlength);
-		    }); 
-		});
+    	
+    	$(function(){
+    		document.getElementById('textarea').addEventListener('keyup', logkey);
+    	});
+    	
+    	function logkey(){
+    		console.log(1);
+    	}
+    	
+    	
+    	
     </script>
 	<jsp:include page="../../common/diaryWidget.jsp"/>
 	

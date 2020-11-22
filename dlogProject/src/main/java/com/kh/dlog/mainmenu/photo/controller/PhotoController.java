@@ -54,7 +54,7 @@ public class PhotoController {
 			return "redirect:selectList.ph";
 		}else {
 			session.setAttribute("alertMsg", "게시판 등록 실패..");
-			return "redirect:selectList.ph";
+			return "common/errorPage";
 		}
 		
 	}
@@ -84,7 +84,7 @@ public class PhotoController {
 			return "redirect:selectList.ph";
 		}else {
 			session.setAttribute("alertMsg", "사진 삭제 실패..");
-			return "redirect:selectList.ph";
+			return "common/errorPage";
 		}
 	}
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.Reply;
 import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 @Repository
@@ -73,6 +74,9 @@ public class FreenoteDao {
 		return (ArrayList)sqlSession.selectList("freenoteMapper.selectSearchList", sc, rowBounds);
 	}
 	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int fno) {
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList", fno);
+	}
 	
 	
 }
