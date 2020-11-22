@@ -18,7 +18,7 @@
 		<result column="introduction_content" property="introductionContent" />	
 	</resultMap>
 
-	<select id="selectList" parameterType="_int" resultMap="memberResultSet">
+	<select id="selectInfoList" parameterType="Member" resultMap="memberResultSet">
 	select
 			member_no
 		  ,	member_name
@@ -30,17 +30,28 @@
 	  from member
 	 where status='Y'
 	</select>
-	<update id="updateMember" parameterType="Member">
+	<update id="infoUpdate" parameterType="Member">
 		 update
 		        member
 		    set 
-		      ,	email = #{email}
-		      , gender = #{gender}
-		      , age = #{age}
-		      , phone = #{phone}
-		      , address = #{address}
-		      , modify_date = sysdate
-		  where user_id = #{userId} 
+		        member_no=#{memberNo}
+		      , member_name=#{memberName}
+		      , member_id=#{memberId}
+		      , nickname=#{nickname}
+		      , email=#{email}
+		      , phone=#{phone}
+		      , profile=#{profile}  
+		  where member_id=#{memberId} 
 	</update>
+	
+	 <select id ="selectIntroList" resultMap="memberResultSet">
+	 select
+	 		member_no
+	      , introduction_title
+	      , introduction_content  
+	  from member
+	  where member_no=#{memberNo}
+	 </select >
+	
 
 </mapper>

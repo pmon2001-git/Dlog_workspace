@@ -10,9 +10,13 @@ public interface MemberService {
 	
 	int insertMember(Member m);
 	
-	ArrayList<Member> selectList();
 	
-	int updateMember(Member m);
+	ArrayList<Member> selectInfoList();
+	
+	int infoUpdate(Member m);
+	
+	ArrayList<Member> selectIntroList();
+	
 	
 	
 

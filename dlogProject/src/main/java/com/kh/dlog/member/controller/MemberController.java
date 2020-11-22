@@ -1,5 +1,7 @@
 package com.kh.dlog.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,25 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 	
-	@RequestMapping("myPage.me")
-	public String myPage() {
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("infoList.in")
+	public String myPage(Model model) {
+		
+		ArrayList<Member> list = mService.selectInfoList();
+		
+		model.addAttribute("list",list);
+		
 		return "mainmenu/mypage/infoListView";
 	}
 	
-	@RequestMapping("update.me")
+	@RequestMapping("infoUpdate.in")
 	public String updateMember(Member m, HttpSession session, Model model) {
 		
 		int result = mService.updateMember(m);
@@ -40,4 +55,13 @@ public class MemberController {
 	
 
 	}
+	 @RequestMapping("introList.it")
+	 public String infoList(Member m, HttpSession session, Model model) {
+		 
+		 ArrayList<Member> list = mService.selectIntroList();
+			
+		 model.addAttribute("list",list);
+		 
+		 return "mainmenu/mypage/introListView";
+	 }
 }

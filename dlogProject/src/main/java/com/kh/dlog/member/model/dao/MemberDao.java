@@ -10,13 +10,21 @@ import com.kh.dlog.member.model.vo.Member;
 @Repository
 public class MemberDao {
 	
-	public ArrayList<Member> selectList(SqlSessionTemplate sqlSession, Member m){
+	
+	
+	
+	
+	public ArrayList<Member> selectInfoList(SqlSessionTemplate sqlSession){
 		
-		return (ArrayList)sqlSession.selectList("diaryMapper.selectMember", m);
+		return (ArrayList)sqlSession.selectList("memberMapper.selectInfoList", null);
 	}
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		
-		return sqlSession.update("memberMapper.updateMember", m);
+		return sqlSession.update("memberMapper.infoUpdate", m);
 	}
 	
+	public ArrayList<Member> selectIntroList(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("memeberMapper.selectIntroList", null);
+	}
 }
