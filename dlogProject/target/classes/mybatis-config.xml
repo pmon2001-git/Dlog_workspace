@@ -8,6 +8,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.Freenote" alias="Freenote"/>
+		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.Reply" alias="Reply" />
 		<typeAlias type="com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition" alias="SearchCondition" />
 		<typeAlias type="com.kh.dlog.mainmenu.photo.model.vo.Photo" alias="Photo" />
 		<typeAlias type="com.kh.dlog.mainmenu.calendar.model.vo.Calendar" alias="Calendar" />

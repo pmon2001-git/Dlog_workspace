@@ -10,7 +10,7 @@
 <link rel="icon" type="image/x-icon" href="resources/images/webImage.png" />
 <style>
     .page-section .container{
-        background-color: rgb(245, 245, 245);
+        background-color: rgb(250, 250, 250);
         padding: 50px;
     }
     #searchForm input, #searchForm select, #sortOpt{

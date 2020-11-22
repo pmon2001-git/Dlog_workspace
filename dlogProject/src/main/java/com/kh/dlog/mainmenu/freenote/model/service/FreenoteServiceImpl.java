@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.dao.FreenoteDao;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+import com.kh.dlog.mainmenu.freenote.model.vo.Reply;
 import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 
 @Service
@@ -77,6 +78,11 @@ public class FreenoteServiceImpl implements FreenoteService {
 	@Override
 	public ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi) {
 		return fDao.selectSearchList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int fno) {
+		return fDao.selectReplyList(sqlSession, fno);
 	}
 
 }
