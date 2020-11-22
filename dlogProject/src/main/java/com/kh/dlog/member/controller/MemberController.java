@@ -26,17 +26,18 @@ public class MemberController {
 		
 		int result = mService.updateMember(m);
 		
-		if(result > 0) { // 성공 => 세션에 담긴 member객체 바꾸기 =>  에러페이지 재요청
+		if(result > 0) { 
 			
-			session.setAttribute("loginUser", mService.loginMember(m)); //디비로부터 다시 갱신된 내용으로 바꿔줘야함 ,,로그인멤버호출하면 전달하면 
+			session.setAttribute("loginUser", mService.loginMember(m));  
 			session.setAttribute("alertMsg", "성공적으로 정보 변경되었습니다.");
 			
 			return "redirect:infoUpdateForm";
-		}else {// 실패 => 에러문구 담아서 에러포워딩
+		}else {
 			
-			model.addAttribute("errorMsg", "정보 변경 실패");//에러문구담아서 포워딩
+			model.addAttribute("errorMsg", "정보 변경 실패");
 			return "common/errorPage";
 		}
 	
 
+	}
 }

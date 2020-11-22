@@ -17,6 +17,18 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public Member loginMember(Member m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public int insertMember(Member m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public ArrayList<Member> selectList() {
@@ -29,6 +41,7 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.updateMember(sqlSession, m);
 		return 0;
 	}
+
 	
 
 }
