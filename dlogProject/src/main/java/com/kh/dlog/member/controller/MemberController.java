@@ -18,7 +18,30 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 	
+	@RequestMapping("mainpage.me")
+	public String mainpage() {
+		return "mainpage/mainPage";
+	}
 	
+	@RequestMapping("loginForm.me")
+	public String memberLoginForm() {
+		return "mainpage/member/memberLoginForm";
+	}
+	
+	@RequestMapping("searchForm.me")
+	public String memberSearchForm() {
+		return "mainpage/member/memberSearchForm";
+	}
+	
+	@RequestMapping("enrollForm.me")
+	public String memberEnrollForm() {
+		return "mainpage/member/memberEnrollForm";
+	}
+	
+	@RequestMapping("pwdUpdateForm.me")
+	public String memberPwdUpdateForm() {
+		return "mainpage/member/memberPwdUpdateForm";
+	}
 	
 	
 	
