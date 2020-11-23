@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.common.template.Pagination;
+import com.kh.dlog.friend.model.service.FriendService;
+import com.kh.dlog.friend.model.vo.Friend;
 import com.kh.dlog.mainmenu.photo.model.service.PhotoService;
 import com.kh.dlog.mainmenu.photo.model.vo.Photo;
 
@@ -28,6 +30,9 @@ public class PhotoController {
 	
 	@Autowired
 	private PhotoService pService;
+	
+	@Autowired
+	private FriendService fService;
 	
 	@RequestMapping("enroll.ph")
 	public String enrollPhoto() {
@@ -89,13 +94,21 @@ public class PhotoController {
 	}
 	
 	@RequestMapping("selectList.ph")
-	public String selectPhotoList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model) {
+	public String selectPhotoList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model, HttpSession session) {
 		
 		int listCount = pService.selectPhotoListCount(2);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 12);
 		ArrayList<Photo> list = pService.selectPhotoList(2, pi);
 		model.addAttribute("pi",pi);
 		model.addAttribute("list",list);
+		
+		// friend session 넣기
+		int friendListCount = fService.selectFriendListCount(2);
+		PageInfo pi2 = Pagination.getPageInfo(friendListCount, currentPage, 3, 5);
+		ArrayList<Friend> friendList = fService.selectFriendList(2, pi2);
+		session.setAttribute("pi2",pi2);
+		session.setAttribute("friendList",friendList);
+		
 		return "mainmenu/photo/photoMain";
 		
 	}
