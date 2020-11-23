@@ -44,11 +44,14 @@ public class MemberController {
 		return "mainpage/member/memberPwdUpdateForm";
 	}
 	
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session, Model model) {
-		
-		System.out.println(m.getMemberId());
-		System.out.println(m.getMemberPwd());
 		
 		Member loginUser = mService.loginMember(m);
 		
@@ -56,13 +59,13 @@ public class MemberController {
 		
 		if(loginUser == null) {
 			
-			session.setAttribute("alertMsg", "로그인실패");
-
-			return "redirect:/";
+			//session.setAttribute("alertMsg", "로그인실패");
+			return "mainpage/member/memberLoginForm";
 			
 		}else {
 			
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "로그인성공");
 			return "mainpage/mainPage";
 			
 		}
