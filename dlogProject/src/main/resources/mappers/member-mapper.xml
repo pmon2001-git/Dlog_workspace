@@ -18,15 +18,15 @@
 		<result column="introduction_content" property="introductionContent" />	
 	</resultMap>
 
-	<select id="selectInfoList" parameterType="Member" resultMap="memberResultSet">
+	<select id="infoList" parameterType="Member" resultMap="memberResultSet">
 	select
 			member_no
+	      , profile  
 		  ,	member_name
 	      , member_id
 	      , nickname
 	      , email
 	      , phone
-	      , profile  
 	  from member
 	 where status='Y'
 	</select>
@@ -44,7 +44,7 @@
 		  where member_id=#{memberId} 
 	</update>
 	
-	 <select id ="selectIntroList" resultMap="memberResultSet">
+	 <select id ="introList" resultMap="memberResultSet">
 	 select
 	 		member_no
 	      , introduction_title
