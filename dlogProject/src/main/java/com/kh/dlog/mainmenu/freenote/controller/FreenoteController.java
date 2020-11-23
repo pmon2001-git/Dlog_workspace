@@ -165,13 +165,14 @@ public class FreenoteController {
 			r.setReplyLevel(2);
 		}
 		int result = fService.insertReply(r);
-		if(result>0) {
-			return "success";
-		}else {
-			return "fail";
-		}
+		return result + "";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="rdelete.fn", produces="text/html; charset=utf-8")
+	public String deleteReply(int rno) {
+		return fService.deleteReply(rno) + "";
+	}
 }
 
 

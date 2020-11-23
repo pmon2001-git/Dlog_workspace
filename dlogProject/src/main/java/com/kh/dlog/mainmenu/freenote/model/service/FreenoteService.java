@@ -35,6 +35,9 @@ public interface FreenoteService {
 	
 	// 7. 댓글 작성용 서비스
 	int insertReply(Reply r);
+	
+	// 8. 댓글 삭제용 서비스
+	int deleteReply(int rno);
 
 	
 	// 커뮤니티

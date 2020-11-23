@@ -100,4 +100,9 @@ public class FreenoteServiceImpl implements FreenoteService {
 		return fDao.insertReply(sqlSession, r);
 	}
 
+	@Override
+	public int deleteReply(int rno) {
+		return fDao.deleteReply(sqlSession, rno);
+	}
+
 }

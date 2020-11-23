@@ -93,5 +93,9 @@ public class FreenoteDao {
 		return sqlSession.insert("freenoteMapper.insertReply", r);
 	}
 	
+	public int deleteReply(SqlSessionTemplate sqlSession, int rno) {
+		return sqlSession.update("freenoteMapper.deleteReply", rno);
+	}
+	
 	
 }

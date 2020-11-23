@@ -113,13 +113,15 @@
     <script>
 	    $(function(){
 			selectReplyList(1);
-			addReply(40);
-		});
+			$("#replyArea").on("click", "button", function() {
+				//console.log('hi');
+				//https://learn.jquery.com/events/event-delegation/
+			});
+			//document.getElementById("addReply2-40").style.display ="block";
+	    });
 		
 		// 댓글리스트 조회용 ajax
 		function selectReplyList(cPage){
-			
-			
 			$.ajax({
 				url:"rlist.fn",
 				data:{
@@ -127,14 +129,14 @@
 					currentPage:cPage
 				},
 				success:function(result){
-					$("#rcount").text(result.rlist.length);
+					$("#rcount").text(result.rlist2.length + result.pi.listCount);
 					
 					if(result.rlist.length > 0){
 						var comment = "";
 						for(var i in result.rlist){
 							
-                        	var comment2 = "";
 							var countReply2 = 0;
+                        	var comment2 = "";
 	                        for(var j in result.rlist2){
 	                        	if(result.rlist2[j].refRno == result.rlist[i].replyNo){
 	                        		comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "'>" +
@@ -161,7 +163,7 @@
 	                                                result.rlist2[j].replyLike +
 	                                            "</td>" +
 	                                            "<td width='200' align='right'>" +
-	                                                "<button class='btn btn-outline-light btn-sm btn-flat'>삭제</button>" +
+	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ");'>삭제</button>" +
 	                                            "</td>" +
 	                                        "</tr>" +
 	                                    "</table>" +
@@ -190,7 +192,7 @@
 			                            "</td>" +
 			                            "<td><button class='btn btn-outline-light btn-sm btn-flat' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button></td>" +
 			                            "<td width='600' align='right'>" +
-			                                "<button class='btn btn-outline-light btn-sm btn-flat'>삭제</button>" +
+			                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ");'>삭제</button>" +
 			                            "</td>" +
 			                        "</tr>" +
 			                    "</table>" +
@@ -260,24 +262,46 @@
 						refFno:${ fn.freenoteNo },
 						refRno:rno
 					}, success:function(result){
-						if(result=='success'){
+						if(result>0){
 							$("#addReply2-" + rno).find("textarea").val("");
 							$("#addReply2-" + rno).children("span").text("0");
 							selectReplyList(1);
-							//$("#addReply2Btn-" + rno).trigger( "click" );
-							//addReply2(rno);
+							addReply2(rno);
 						}
 					}, error:function(){
 						console.log("댓글 작성용 ajax 통신 실패");
 					}
 				});
-				if(rno!=0){
-					$("#addReply2Btn-" + rno).click();
-				}
 			}else{
 				alert("입력필요");
 			}
 		}
+		
+		// 댓글 삭제 CONFIRM 용
+       	function confirmDeleteReply(rno){
+       		if(confirm("댓글을 삭제하시겠습니까?")){
+       			deleteReply(rno);
+       		}
+       	}
+       	
+       	// 댓글 삭제용 ajax
+       	function deleteReply(rno){
+       		
+       		$.ajax({
+       			url:"rdelete.fn",
+       			type:"post",
+       			data:{"rno":rno},
+       			success:function(result){
+       				
+       				if(result>0){
+       					selectReplyList(1);
+       				}
+       				
+       			}, error:function(){
+       				console.log("댓글 삭제용 ajax 통신 실패");
+       			}
+       		});
+       	}
     
     	// 글 삭제 확인용
 	    $("#deleteBtn").click(function(){
@@ -288,8 +312,8 @@
 
     	// 대댓글 작성 및 리스트 확장 버튼
     	function addReply2(rno){
-    		var $reply2form = $("#addReply2-" + rno);
-    		var $reply2list = $(".reply2-" + rno);
+    		var $reply2form = $("#replyArea").find("#addReply2-" + rno);
+    		var $reply2list = $("#replyArea").find(".reply2-" + rno);
 	
 	        if($reply2form.css("display")=="none"){
 	            $reply2form.css("display", "block");
