@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
+
 import com.kh.dlog.member.model.service.MemberService;
 import com.kh.dlog.member.model.vo.Member;
 
@@ -53,12 +53,9 @@ public class MemberController {
 	@RequestMapping("infoList.in")
 	public String infoList(HttpSession session, Model model) {
 		
-		ArrayList<Member> list = mService.selectInfoList();
+		ArrayList<Member> list = mService.infoList();
 		
-		String id = (String) session.getAttribute ( "id" ); 
 		
-
-		// 서비스 
 		model.addAttribute("list",list);
 		
 		return "mypage/infoListView";

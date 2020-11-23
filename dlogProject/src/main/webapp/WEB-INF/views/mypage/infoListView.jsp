@@ -110,6 +110,38 @@
                              
                              </div>
                              <br><br>
+                             
+                             <!-- 수정 버튼 클릭시 보여질 Modal -->
+	                    	<div class="modal" id="deleteForm">
+	                        <div class="modal-dialog">
+	                            <div class="modal-content">
+	                            
+	                                <!-- Modal Header -->
+	                                <div class="modal-header">
+	                                <h4 class="modal-title">개인정보수정</h4>
+	                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                                </div>
+	                                
+	                                <!-- Modal body -->
+	                                <div class="modal-body" align="center">
+	                                
+	                                    <b>
+	                                                    수정하시려면 비밀번호를 입력해주세요. 
+	                                                  
+	                                    </b>
+	
+	                                    <form action="infoUpdate1.in" method="post">
+	                                      	  비밀번호 : 
+	                                    <input type="password" name="memberPwd" required>
+	                                        
+	                                    <button type="submit" class="btn btn-danger btn-sm" >확인</button>
+	                               
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
                           </div>
                          </div>
                      </div>

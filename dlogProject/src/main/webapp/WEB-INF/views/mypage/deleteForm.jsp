@@ -49,7 +49,7 @@
                         <p align="center">회원탈퇴를 진행하시려면 비밀번호를 입력해주세요!  </p>
                          <form action="delete.me" method="post">
                                     <table align="center"  id="deleteMemForm">
-                                     <input type="hidden" name="userId" class="form-control" value="<%=userId%>">
+                                     <input type="hidden" name="userId" class="form-control" value="">
                                         <tr>
                                             <td><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 비밀번호 : &nbsp;&nbsp;&nbsp; </td>
                                             <td><br><input type="password" name="userPwd" maxlength="15" class="form-control" style="height:30px;" placeholder="password"required></td>
@@ -87,7 +87,7 @@
                                     </b>
 
                                     <form action="delete.me" method="post">
-                                        비밀번호 : 
+                                      	  비밀번호 : 
                                         <input type="password" name="userPwd" required><!-- 사용자가 입력한 평문 그대로의 비밀번호가 넘어감 ,,값을 입력안하면 요청안돼-->
                                         
                                         <button type="submit" class="btn btn-danger btn-sm" >탈퇴</button>
