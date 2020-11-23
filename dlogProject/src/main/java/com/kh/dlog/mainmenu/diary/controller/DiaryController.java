@@ -2,6 +2,8 @@ package com.kh.dlog.mainmenu.diary.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,15 +37,30 @@ public class DiaryController {
 		return "mainmenu/diary/diaryListView";
 	}
 	
-	@RequestMapping("enrollForm.di")
+	 @RequestMapping("enrollForm.di")
 	public String enrollForm() {
+		
+		 
 		return "mainmenu/diary/diaryEnrollForm";
 	}
 	
-	@RequestMapping("detail.di")
-	public String selectFreenote(int dNo, Model model) {
-		return "mainmenu/diary/diaryDetailView";
+	 @RequestMapping("insert.di")
+	public String insertDiary(Diary dtn, Model model, HttpSession session) {
+		
+		
+		int result = dService.insertdiary(dtn);
+	
+		if(result>0) {
+			session.setAttribute("alertMsg", "성공적으로 등록되었습니다.");
+			// 수정 필요!! 로그인한 회원 번호로!!
+			model.addAttribute("dno", 1);
+			return "redirect:list.di";
+		}else {
+			return "common/errorPage";
+		}
 	}
+	
+	
 
 }
 

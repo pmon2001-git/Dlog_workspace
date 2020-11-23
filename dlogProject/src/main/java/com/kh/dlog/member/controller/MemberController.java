@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
 import com.kh.dlog.member.model.service.MemberService;
 import com.kh.dlog.member.model.vo.Member;
 
@@ -27,19 +28,23 @@ public class MemberController {
 	
 	
 	@RequestMapping("infoList.in")
-	public String myPage(Model model) {
+	public String infoList(HttpSession session, Model model) {
 		
 		ArrayList<Member> list = mService.selectInfoList();
 		
+		String id = (String) session.getAttribute ( "id" ); 
+		
+
+		// 서비스 
 		model.addAttribute("list",list);
 		
-		return "mainmenu/mypage/infoListView";
+		return "mypage/infoListView";
 	}
 	
 	@RequestMapping("infoUpdate.in")
 	public String updateMember(Member m, HttpSession session, Model model) {
 		
-		int result = mService.updateMember(m);
+		int result = mService.infoUpdate(m);
 		
 		if(result > 0) { 
 			
@@ -62,6 +67,9 @@ public class MemberController {
 			
 		 model.addAttribute("list",list);
 		 
-		 return "mainmenu/mypage/introListView";
+		 return "mypage/introListView";
 	 }
+	 
+	
+	 
 }

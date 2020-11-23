@@ -31,23 +31,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ArrayList<Member> selectInfoList() {
+	public ArrayList<Member> infoList() {
 		
-		return mDao.selectInfoList(sqlSession);
+		return mDao.infoList(sqlSession);
 		
 	}
 
 	@Override
 	public int infoUpdate(Member m) {
-		return mDao.updateMember(sqlSession, m);
+		return mDao.infoUpdate(sqlSession, m);
 		
 	}
 
 
 	@Override
-	public ArrayList<Member> selectIntroList() {
+	public ArrayList<Member> introList() {
 		// TODO Auto-generated method stub
-		return mDao.selectIntroList(sqlSession);
+		return mDao.introList(sqlSession);
 	}
 
 	

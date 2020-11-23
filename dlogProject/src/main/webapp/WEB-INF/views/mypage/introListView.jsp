@@ -49,21 +49,19 @@
                                  <div class="introSelect">
                                      <div class="introSelectForm">
                                           <table>
-                                          <c:forEach var="m" items="${ list }">
-                                             <tr>
-                                                 <td style="font-size:30px;">&nbsp;</td>
+                                          	<tr>
+                                                 <th style="font-size:30px;">&nbsp;</th>
                                              
-                                                 <th style="font-size:30px; font-weight: bolder;">&nbsp;&nbsp; ${ m.introductionTitle } </th>
+                                                 <th style="font-size:30px; font-weight: bolder;">&nbsp;&nbsp; ${ loginUser.introductionTitle } </th>
                                              
                                                  <td><hr id="line"></td>
                                             
-                                                 <td id="content">${ m.introductionContent } </td>
+                                                 <td id="content">${ loginUser.introductionContent } </td>
                                              </tr>
-                                             </c:forEach>
                                          </table>
                                      </div>
                                      <div id="btn">
-                                         <button type="button" onclick="" class="btn btn-success btn-sm">수정하기</button>
+                                         <button type="button" onclick="location.href='infoUpdateForm.in'" class="btn btn-success btn-sm">수정하기</button>
                                      </div>
                              <br>
                             </div> 

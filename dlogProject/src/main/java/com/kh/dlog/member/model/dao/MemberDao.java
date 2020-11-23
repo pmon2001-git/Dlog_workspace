@@ -14,17 +14,17 @@ public class MemberDao {
 	
 	
 	
-	public ArrayList<Member> selectInfoList(SqlSessionTemplate sqlSession){
+	public ArrayList<Member> infoList(SqlSessionTemplate sqlSession){
 		
-		return (ArrayList)sqlSession.selectList("memberMapper.selectInfoList", null);
+		return (ArrayList)sqlSession.selectList("memberMapper.infoList", null);
 	}
-	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+	public int infoUpdate(SqlSessionTemplate sqlSession, Member m) {
 		
 		return sqlSession.update("memberMapper.infoUpdate", m);
 	}
 	
-	public ArrayList<Member> selectIntroList(SqlSessionTemplate sqlSession) {
+	public ArrayList<Member> introList(SqlSessionTemplate sqlSession) {
 		// TODO Auto-generated method stub
-		return (ArrayList)sqlSession.selectList("memeberMapper.selectIntroList", null);
+		return (ArrayList)sqlSession.selectList("memeberMapper.introList", null);
 	}
 }
