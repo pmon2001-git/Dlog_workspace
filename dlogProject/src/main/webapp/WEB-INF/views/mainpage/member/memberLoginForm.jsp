@@ -142,7 +142,7 @@
 
             <div class="content">
 
-                <form action="login.me">
+                <form action="login.me" method="post">
                     <div class="form-group">
                         <label for="userId">아이디</label>
                         <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required>

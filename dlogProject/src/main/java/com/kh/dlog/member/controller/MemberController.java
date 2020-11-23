@@ -55,8 +55,6 @@ public class MemberController {
 		
 		Member loginUser = mService.loginMember(m);
 		
-		System.out.println(loginUser);
-		
 		if(loginUser == null) {
 			
 			//session.setAttribute("alertMsg", "로그인실패");
