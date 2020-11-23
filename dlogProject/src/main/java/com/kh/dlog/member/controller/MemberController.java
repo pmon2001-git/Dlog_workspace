@@ -44,7 +44,30 @@ public class MemberController {
 		return "mainpage/member/memberPwdUpdateForm";
 	}
 	
-	
+	@RequestMapping("login.me")
+	public String loginMember(Member m, HttpSession session, Model model) {
+		
+		System.out.println(m.getMemberId());
+		System.out.println(m.getMemberPwd());
+		
+		Member loginUser = mService.loginMember(m);
+		
+		System.out.println(loginUser);
+		
+		if(loginUser == null) {
+			
+			session.setAttribute("alertMsg", "로그인실패");
+
+			return "redirect:/";
+			
+		}else {
+			
+			session.setAttribute("loginUser", loginUser);
+			return "mainpage/mainPage";
+			
+		}
+		
+	}
 	
 	
 	

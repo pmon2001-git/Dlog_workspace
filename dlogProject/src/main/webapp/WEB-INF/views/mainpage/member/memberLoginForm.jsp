@@ -135,14 +135,14 @@
 
             <div class="content">
 
-                <form action="">
+                <form action="login.me">
                     <div class="form-group">
                         <label for="userId">아이디</label>
-                        <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요" required>
+                        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required>
                       </div>
                       <div class="form-group">
                         <label for="userPwd">비밀번호</label>
-                        <input type="password" class="form-control" id="userPwd" name="userPwd" placeholder="비밀번호를 입력하세요" required>
+                        <input type="password" class="form-control" id="memberPwd" name="memberPwd" placeholder="비밀번호를 입력하세요" required>
                       </div>
                       <button id="loginB" type="submit" class="btn">로그인</button>
                 </form>

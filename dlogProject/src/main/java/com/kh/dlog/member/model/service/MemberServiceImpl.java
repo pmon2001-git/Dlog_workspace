@@ -20,8 +20,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public Member loginMember(Member m) {
-		// TODO Auto-generated method stub
-		return null;
+		return mDao.loginMember(sqlSession, m);
 	}
 	
 	@Override
@@ -48,6 +47,12 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<Member> introList() {
 		// TODO Auto-generated method stub
 		return mDao.introList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> selectIntroList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

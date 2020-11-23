@@ -17,6 +17,27 @@
 		<result column="introduction_title" property="introductionTitle" />
 		<result column="introduction_content" property="introductionContent" />	
 	</resultMap>
+	
+	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+		select
+		       member_no
+		     , member_name
+		     , member_id
+		     , member_pwd
+		     , email
+		     , phone
+		     , nickname
+		     , profile
+		     , enroll_date
+		     , modify_date
+		     , status
+		     , introduction_title
+		     , introduction_content
+		  from member
+		 where status = 'Y'
+		   and member_id = #{memberId}
+		   and member_pwd = #{memberPwd}
+	</select>
 
 	<select id="infoList" parameterType="Member" resultMap="memberResultSet">
 	select
