@@ -96,64 +96,58 @@
                                     </div>
                                     <div class="dropdown-content-body" id="friend_list_outer">
                                         <ul>
-                                            <li>
+                                            <li id="friend_list_search_outer">
                                                 <div class="friend_list_search">
                                                     <input type="text">
                                                 </div>
                                             </li>
-                                            <li class="friend_list">
-                                                <div>
-                                                    <img src="resources/images/avatar/1.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">타락파워전사</div>
-                                                </div>
-                                                <div>
-                                                    <button>삭제</button>
-                                                </div>
-                                            </li>
-                                            <li class="friend_list">
-                                                <div>
-                                                    <img src="resources/images/avatar/2.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">vv번개의신vv</div>
-                                                </div>
-                                                <div>
-                                                    <button>삭제</button>
-                                                </div>
-                                            </li>
-                                            <li class="friend_list">
-                                                <div>
-                                                    <img src="resources/images/avatar/3.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">아시안느</div>
-                                                </div>
-                                                <div>
-                                                    <button>삭제</button>
-                                                </div>
-                                            </li>
+                                            <c:forEach var="f" items="${ friendList }" varStatus="status">
+	                                            <li class="friend_list">
+	                                                <div class="friend_list_images">
+	                                                    <img src="resources/images/avatar/1.jpg">
+	                                                </div>
+	                                                <div class="friend_list_nickname">
+	                                                    <div class="notification-heading friend_list_nick">${ f.friendAccepted }</div>
+	                                                </div>
+	                                                <div class="friend_list_delete" align="right">
+	                                                    <button>삭제</button>
+	                                                </div>
+	                                            </li>
+                                            </c:forEach>
                                         </ul>
                                         <div class="bootstrap-pagination" align="center">
+                                        	<c:if test="${ friendList ne null }">
+	                                        	<input type="hidden" value="${ friendList[0].friendOwner }" id="friend_owner">
+                                        	</c:if>
                                             <nav>
-                                                <ul class="pagination justify-content-center">
-                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a>
-                                                    </li>
+                                                <ul class="pagination justify-content-center friend_pagination">
+	                                                <c:choose>
+								                		<c:when test="${ pi2.currentPage eq 1 }">
+										                    <li class="page-item disabled"><a class="page-link page-moving">&laquo;</a></li>
+								                		</c:when>
+								                		<c:otherwise>
+										                    <li class="page-item"><a class="page-link page-moving">&laquo;</a></li>
+								                		</c:otherwise>
+								                    </c:choose>
+								                    
+								                    <c:forEach var="p" begin="${ pi2.startPage }" end="${ pi2.endPage }">
+								                    	<li class="page-item"><a class="page-link">${ p }</a></li>
+								                    </c:forEach>
+								                    
+								                    <c:choose>
+								                		<c:when test="${ pi2.currentPage eq pi2.maxPage }">
+										                    <li class="page-item disabled"><a class="page-link page-moving">&raquo;</a></li>
+								                		</c:when>
+								                		<c:otherwise>
+								                    		<li class="page-item"><a class="page-link page-moving">&raquo;</a></li>
+								                		</c:otherwise>
+								                    </c:choose>
                                                 </ul>
                                             </nav>
                                         </div>
                                     </div>
                                     <div class="dropdown-content-body" id="friend_request_outer">
-                                        <ul style="padding-right: 0px;">
+                                        <ul>
                                             <li>
                                                 <div class="friend_request_search">
                                                 	<div id="frs_left">
@@ -165,37 +159,13 @@
                                                 </div>
                                             </li>
                                             <li class="friend_request">
-                                                <div>
-                                                    <img src="resources/images/avatar/1.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">타락파워전사</div>
-                                                </div>
-                                                <div>
-                                                    <img src="resources/images/checked.png" width="25" height="25">
-                                                    <img src="resources/images/close.png" width="20" height="20">
-                                                </div>
-                                            </li>
-                                            <li class="friend_request">
-                                                <div>
+                                                <div class="friend_request_images">
                                                     <img src="resources/images/avatar/2.jpg">
                                                 </div>
-                                                <div class="notification-content">
+                                                <div class="friend_request_nickname">
                                                     <div class="notification-heading">vv번개의신vv</div>
                                                 </div>
-                                                <div>
-                                                    <img src="resources/images/checked.png" width="25" height="25">
-                                                    <img src="resources/images/close.png" width="20" height="20">
-                                                </div>
-                                            </li>
-                                            <li class="friend_request">
-                                                <div>
-                                                    <img src="resources/images/avatar/3.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">아시안느</div>
-                                                </div>
-                                                <div>
+                                                <div class="friend_request_yesorno" align="right">
                                                     <img src="resources/images/checked.png" width="25" height="25">
                                                     <img src="resources/images/close.png" width="20" height="20">
                                                 </div>
@@ -401,11 +371,10 @@
 										})
 									</script>
 									
-	                                <div class="bootstrap-pagination" style="margin-left: 300px; margin-top:50px;">
-	                                	<div id="pagingArea">
-							                <ul class="pagination">
-							                
-							                	<c:choose>
+	                                <div class="bootstrap-pagination" align="center">
+                                            <nav>
+                                                <ul class="pagination justify-content-center">
+                                                <c:choose>
 							                		<c:when test="${ pi.currentPage eq 1 }">
 									                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 							                		</c:when>
@@ -415,7 +384,7 @@
 							                    </c:choose>
 							                    
 							                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-							                    	<li class="page-item"><a class="page-link" href="selectList.ph?currentPage=${ p }">${ p }</a></li>
+							                    	<li class="page-item"><a class="page-link page-number" href="selectList.ph?currentPage=${ p }">${ p }</a></li>
 							                    </c:forEach>
 							                    
 							                    <c:choose>
@@ -426,11 +395,9 @@
 							                    		<li class="page-item"><a class="page-link" href="selectList.ph?currentPage=${ pi.currentPage+1 }">Next</a></li>
 							                		</c:otherwise>
 							                    </c:choose>
-							                    
-							                    
-							                </ul>
-							            </div>
-	                                </div>
+                                                </ul>
+                                            </nav>
+                                        </div>
 	                                
 				                    <script>
 				                    	// 현재 페이지 색칠
@@ -484,85 +451,6 @@
 		            </div>
 		        </div>
 		    </div>    
-            
-            <!-- Modal -->
-		    <div class="modal" id="friend_modal">
-		        <div class="modal-dialog" role="document" style="width:300px; height:500px;">
-		            <div class="modal-content">
-		                <div class="modal-body text-center">
-		                    <div class="container">
-		                        <div class="row justify-content-center" style="border:2px solid red">
-		                        	
-		                        	<div id="friend_list_buttons">
-                                        <div class="friend_list_button">친구 목록</div>  
-                                        <div class="friend_request_button">친구 요청</div>  
-                                    </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li>
-                                                <div class="friend_list_search">
-                                                    <input type="text">
-                                                </div>
-                                            </li>
-                                            <li class="friend_list">
-                                                <div>
-                                                    <img src="resources/images/avatar/1.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">타락파워전사</div>
-                                                </div>
-                                                <div>
-                                                    <button>삭제</button>
-                                                </div>
-                                            </li>
-                                            <li class="friend_list">
-                                                <div>
-                                                    <img src="resources/images/avatar/2.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">vv번개의신vv</div>
-                                                </div>
-                                                <div>
-                                                    <button>삭제</button>
-                                                </div>
-                                            </li>
-                                            <li class="friend_list">
-                                                <div>
-                                                    <img src="resources/images/avatar/3.jpg">
-                                                </div>
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">아시안느</div>
-                                                </div>
-                                                <div>
-                                                    <button>삭제</button>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="bootstrap-pagination" align="center">
-                                            <nav>
-                                                <ul class="pagination justify-content-center">
-                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
-		                        	
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>    
-            
             <script>
             	$(function(){
             		
@@ -675,6 +563,36 @@
 						$(this).css({background:"white", color:"rgb(40,40,40)"})
 						$(".friend_list_button").css({background:"lightgray", color:"rgb(40,40,40)"})
 					})
+					
+					// 친구목록 페이지 이동
+                	$(".page-link").click(function(){
+                		$.ajax({
+                			url:"selectList.fr",
+        					data:{
+        						currentPage:Number($(this).text()),
+        						friendOwner:$("#friend_owner").val()
+        					},
+        					success:function(friendList){
+        						$(".friend_list").remove();
+	                            
+        						var value="";
+        						$.each(friendList, function(i, obj){
+        							value += "<li class='friend_list'>" + 
+        										"<div class='friend_list_images'>" + "<img src='resources/images/avatar/1.jpg'>" + "</div>" + 
+        										"<div class='friend_list_nickname'>" + "<div class='notification-heading friend_list_nick'>" + obj.friendAccepted + "</div>" + "</div>" + 
+        										"<div class='friend_list_delete' align='right'>" + "<button>삭제</button>" + "</div>" + 
+        									"</li>";
+        						})
+        						$("#friend_list_search_outer").after(value);
+        						
+        					},error:function(){
+        						console.log("ajax통신 실패");
+        					}
+                		})
+                		$(this).css({background:"rgb(132,200,185)",color:"white"});
+                		$(".friend_pagination .page-link").not($(this)).not(".page-moving").css({background:"white",color:"black"});
+                	})
+					
 				})
 			</script>     
             

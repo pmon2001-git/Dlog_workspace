@@ -410,28 +410,28 @@
 			if($(".switch>input:checkbox:checked").length > 0){
 				$.ajax({
 					url:"widgetNtoY.mo",
-				data:{
-					memoNo:$(this).val(),
-					memoWriter:2
-				},
-				success:function(memoWidget){
-					$(".memo_widget_content").text(memoWidget.memoContent);
-					
-				},error:function(){
-					console.log("ajax통신 실패");
-				}
+					data:{
+						memoNo:$(this).val(),
+						memoWriter:2
+					},
+					success:function(memoWidget){
+						$(".memo_widget_content").text(memoWidget.memoContent);
+						
+					},error:function(){
+						console.log("ajax통신 실패");
+					}
 				})
 			}else{
 				$.ajax({
 					url:"widgetAlltoN.mo",
-				data:{
-					memoWriter:2
-				},
-				success:function(data){
-					$(".memo_widget_content").text("");
-				},error:function(){
-					console.log("ajax통신 실패");
-				}
+					data:{
+						memoWriter:2
+					},
+					success:function(data){
+						$(".memo_widget_content").text("");
+					},error:function(){
+						console.log("ajax통신 실패");
+					}
 				})
 			}
 			$(".switch>input:checkbox").not($(this)).prop("checked",false);
