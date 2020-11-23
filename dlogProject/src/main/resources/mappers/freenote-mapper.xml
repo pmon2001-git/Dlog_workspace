@@ -144,12 +144,20 @@
 		 where freenote_no = #{fno}
 	</update>
 	
+	<select id="selectReplyListCount" parameterType="_int" resultType="_int">
+		select 
+		       count(*)
+		  from reply
+		 where ref_fno = #{fno}
+		   and reply_level = 1
+	</select>
+	
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
 		select 
 		       reply_no
 		     , reply_content
 		     , reply_like
-		     , to_char(create_date, 'yyyy-mm-dd hh24:mi') as create_date
+		     , to_char(create_date, 'yyyy.mm.dd hh24:mi') as create_date
 		     , nickname
 		     , ref_rno
 		     , reply_level
@@ -158,8 +166,51 @@
 		 where ref_fno = #{fno}
 		   and reply_level = 1
 		 order
+		    by create_date desc
+	</select>
+	
+	<select id="selectReplyList2" parameterType="_int" resultMap="replyResultSet">
+		select 
+		       reply_no
+		     , reply_content
+		     , reply_like
+		     , to_char(create_date, 'yyyy.mm.dd hh24:mi') as create_date
+		     , nickname
+		     , ref_rno
+		     , reply_level
+		  from reply
+		  join member using(member_no)
+		 where ref_fno = #{fno}
+		   and reply_level = 2
+		 order
 		    by create_date asc
 	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		insert
+		  into reply
+		  (
+		     reply_no
+		   , reply_content
+		   , ref_fno
+		   , member_no
+		   <if test="refRno != 0">
+		   , ref_rno
+		   </if>
+		   , reply_level
+		  )
+		  values
+		  (
+		     seq_replyno.nextval
+		   , #{replyContent}
+		   , #{refFno}
+		   , #{replyWriter}
+		   <if test="refRno != 0">
+		   , #{refRno}
+		   </if>
+		   , #{replyLevel}
+		  )
+	</insert>
 	
 	
 	<!-- 커뮤니티 -->

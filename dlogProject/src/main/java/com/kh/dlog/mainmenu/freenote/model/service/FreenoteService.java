@@ -29,7 +29,13 @@ public interface FreenoteService {
 	int deleteFreenote(int fno);
 	
 	// 6. 댓글 조회용 서비스
-	ArrayList<Reply> selectReplyList(int fno);
+	int selectReplyListCount(int fno);
+	ArrayList<Reply> selectReplyList(int fno, PageInfo pi);
+	ArrayList<Reply> selectReplyList2(int fno);
+	
+	// 7. 댓글 작성용 서비스
+	int insertReply(Reply r);
+
 	
 	// 커뮤니티
 	// 1. 주제별 조회

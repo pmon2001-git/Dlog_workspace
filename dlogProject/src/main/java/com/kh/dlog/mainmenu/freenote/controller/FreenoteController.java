@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -139,10 +140,36 @@ public class FreenoteController {
 	
 	@ResponseBody
 	@RequestMapping(value="rlist.fn", produces="application/json; charset=utf-8")
-	public String selectReplyList(int fno) {
-		ArrayList<Reply> rlist = fService.selectReplyList(fno);
+	public String selectReplyList(int fno, int currentPage) {
+		int listCount = fService.selectReplyListCount(fno);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
 		
-		return new Gson().toJson(rlist);
+		ArrayList<Reply> rlist = fService.selectReplyList(fno, pi);
+		ArrayList<Reply> rlist2= fService.selectReplyList2(fno);
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("rlist", rlist);
+		jobj.put("rlist2", rlist2);
+		jobj.put("pi", pi);
+		
+		return new Gson().toJson(jobj);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rinsert.fn", produces="text/html; charset=utf-8")
+	public String insertReply(Reply r) {
+
+		if(r.getRefRno()==0) {
+			r.setReplyLevel(1);
+		}else {
+			r.setReplyLevel(2);
+		}
+		int result = fService.insertReply(r);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
 	}
 	
 }
