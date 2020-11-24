@@ -1,6 +1,7 @@
 package com.kh.dlog.friend.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +30,25 @@ public class FriendController {
 		int friendListCount = fService.selectFriendListCount(friendOwner);
 		PageInfo pi2 = Pagination.getPageInfo(friendListCount, currentPage, 3, 5);
 		ArrayList<Friend> friendList = fService.selectFriendList(friendOwner, pi2);
-		return new Gson().toJson(friendList);
+		List<Object> send = new ArrayList<>();
+		send.add(friendList);
+		send.add(pi2);
+		return new Gson().toJson(send);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="delete.fr", produces="text/html; charset=utf-8")
+	public String deleteFriend(Friend f) {
+		
+		System.out.println(f);
+		
+		int result = fService.deleteFriend(f);
+		if(result > 0) {
+			return "삭제 성공";
+		}else {
+			return "삭제 실패";
+		}
 		
 	}
 	
