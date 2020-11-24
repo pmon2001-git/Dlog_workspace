@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="timetableMapper">
+	<resultMap type="timetable" id="timetableResultSet">
+		<id column="timetable_no" property="timetableNo"/>
+		<result column="timetable_writer" property="timetableWriter" />
+		<result column="timetable_day" property="timetableDay" />
+		<result column="timetable_start" property="timetableStart" />
+		<result column="timetable_end" property="timetableEnd" />
+		<result column="timetable_time" property="timetableTime" />
+		<result column="timetable_title" property="timetableTitle" />
+		<result column="timetable_content" property="timetableContent" />
+		<result column="timetable_background" property="timetableBackground" />
+		<result column="timetable_color" property="timetableColor" />
+	</resultMap>
+	
+	<select id="timetableList" parameterType="_int" resultMap="timetableResultSet">
+		select
+		       timetable_no
+		     , timetable_writer
+		     , timetable_day
+		     , timetable_start
+		     , timetable_end
+		     , timetable_time
+		     , timetable_title
+		     , timetable_content
+		     , timetable_background
+		     , timetable_color
+		  from timetable
+		 where timetable_writer = #{timetableWriter}
+	</select>
+	
+	<select id="insertTimetableCheck" parameterType="Timetable" resultType="_int">
+		select count(*)
+		  from timetable
+		 where timetable_writer = #{timetableWriter}
+		   and timetable_day = #{timetableDay}
+		   and (timetable_time like '%'||#{ timetableStart }||'%'
+		    or timetable_time like '%'||#{ timetableEnd }||'%')
+	</select>
+	
+	<insert id="insertTimetable" parameterType="Timetable">
+		insert
+		  into 
+		       timetable
+		      (
+		        timetable_no
+		      , timetable_writer
+		      , timetable_day
+		      , timetable_start
+		      , timetable_end
+		      , timetable_time
+		      , timetable_title
+		      , timetable_content
+		      , timetable_background
+		      , timetable_color
+		      )
+		values
+		      (
+		        seq_timetableno.nextval
+		      , 1
+		      , #{ timetableDay }
+		      , #{ timetableStart }
+		      , #{ timetableEnd }
+		      , #{ timetableTime }
+		      , #{ timetableTitle }
+		      , #{ timetableContent }
+		      , #{ timetableBackground }
+		      , #{ timetableColor }
+		      )
+	</insert>
+	
+	<delete id="insertDeleteTimetable" parameterType="Timetable">
+		delete 
+		       timetable
+		 where timetable_writer = #{timetableWriter}
+		   and timetable_day = #{timetableDay}
+		   and (timetable_time like '%'||#{timetableStart}||'%'
+		    or timetable_time like '%'||#{timetableEnd}||'%')
+	</delete>
+	
+	<select id="updateTimetableCheck" parameterType="Timetable" resultType="_int">
+		select count(*)
+		  from timetable
+		 where timetable_writer = #{timetableWriter}
+		   and timetable_no != #{timetableNo}
+		   and timetable_day = #{timetableDay}
+		   and (timetable_time like '%'||#{ timetableStart }||'%'
+		    or timetable_time like '%'||#{ timetableEnd }||'%')
+	</select>
+	
+	<update id="updateTimetable" parameterType="Timetable">
+		update 
+		       timetable
+		   set
+		        timetable_title = #{timetableTitle}
+		      , timetable_day = #{timetableDay}
+		      , timetable_start = #{timetableStart}
+		      , timetable_end = #{timetableEnd}
+		      , timetable_time = #{timetableTime}
+		      , timetable_background = #{timetableBackground}
+		      , timetable_color = #{timetableColor}
+		      , timetable_content = #{timetableContent}
+		 where timetable_no = #{timetableNo}
+	</update>
+	
+	<delete id="updateDeleteTimetable" parameterType="Timetable">
+		delete 
+		       timetable
+		 where timetable_writer = #{timetableWriter}
+		   and timetable_no != #{timetableNo}
+		   and timetable_day = #{timetableDay}
+		   and (timetable_time like '%'||#{ timetableStart }||'%'
+		    or timetable_time like '%'||#{ timetableEnd }||'%')
+	</delete>
+	
+	<delete id="deleteTimetable" parameterType="string">
+		delete
+		        timetable
+		 where timetable_no = #{tNo}
+	</delete>
+	
+	<delete id="resetTimetable" parameterType="string">
+		delete
+		       timetable
+		 where timetable_writer = #{timetableWriter}
+	</delete>
+	
+</mapper>
