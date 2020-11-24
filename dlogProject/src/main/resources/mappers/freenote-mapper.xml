@@ -50,17 +50,10 @@
 		     , freenote_privacy
 		     , freenote_category
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
-             , (select (select count(*)
-		                  from reply
-		                 where ref_fno = freenote_no
-		                   and reply_level = 1)
-		                +
-		                (select count(*)
-		                   from reply
-		                  where ref_fno = freenote_no
-		                    and reply_level = 2
-		                    and status ='Y')
-		         from dual  
+             , (select count(*)
+                  from reply
+                 where ref_fno = freenote_no
+                   and status ='Y'
                 ) as replyCount
 		  from freenote
 		 where member_no = #{mno}
@@ -130,6 +123,11 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy.mm.dd hh24:mi') as create_date
 		     , nickname
+		     , (select count(*)
+                  from reply
+                 where ref_fno = freenote_no
+                   and status ='Y'
+                ) as replyCount
 		  from freenote f
 		  join member using(member_no)
 		 where freenote_no = #{fno}
@@ -159,13 +157,62 @@
 	
 	<select id="selectReplyListCount" parameterType="_int" resultType="_int">
 		select 
+		(
+		select count(*)
+		  from (
+		        select 
+		             (
+		              select count(*)
+		                from reply r1
+		               where r1.ref_rno = r2.reply_no
+		                 and r1.status = 'Y'
+		             ) as replyCount
+		          from reply r2
+		         where ref_fno = 1
+		           and reply_level = 1
+		           and r2.status = 'N'
+		       ) 
+		 where replyCount > 0
+		) 
+		+
+		(
+		select 
 		       count(*)
 		  from reply
-		 where ref_fno = #{fno}
+		 where ref_fno = 1
+		   and status = 'Y'
 		   and reply_level = 1
+		) as count from dual
 	</select>
 	
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		select * from
+		(
+		select *
+		  from (
+		        select 
+		               reply_no
+		             , reply_content
+		             , reply_like
+		             , to_char(create_date, 'yyyy.mm.dd hh24:mi') as create_date
+		             , nickname
+		             , ref_rno
+		             , reply_level
+		             , r2.status
+		             , (
+		                select count(*)
+		                  from reply r1
+		                 where r1.ref_rno = r2.reply_no
+		                   and r1.status = 'Y'
+		               ) as replyCount
+		          from reply r2
+		          join member using(member_no)
+		         where ref_fno = #{fno}
+		           and reply_level = 1
+		           and r2.status = 'N'
+		       ) 
+		 where replyCount > 0
+		union
 		select 
 		       reply_no
 		     , reply_content
@@ -175,12 +222,13 @@
 		     , ref_rno
 		     , reply_level
 		     , r.status
+		     , null as replyCount
 		  from reply r
 		  join member using(member_no)
 		 where ref_fno = #{fno}
 		   and reply_level = 1
-		 order
-		    by reply_no desc
+		   and r.status = 'Y'
+		) order by reply_no desc
 	</select>
 	
 	<select id="selectReplyList2" parameterType="_int" resultMap="replyResultSet">
@@ -253,17 +301,10 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		     , freenote_topic
-			 , (select (select count(*)
-		                  from reply
-		                 where ref_fno = freenote_no
-		                   and reply_level = 1)
-		                +
-		                (select count(*)
-		                   from reply
-		                  where ref_fno = freenote_no
-		                    and reply_level = 2
-		                    and status ='Y')
-		         from dual  
+			 , (select count(*)
+                  from reply
+                 where ref_fno = freenote_no
+                   and status ='Y'
                 ) as replyCount
 		  from freenote f
 		  join member using(member_no)

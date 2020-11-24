@@ -75,7 +75,7 @@
     	height: 30px;
     }
     #replyPagination button{
-    	width: 25px;
+    	width: 30px;
     }
     .deleteBtn, .reportBtn{
     	background:none;

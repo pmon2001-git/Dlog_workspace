@@ -116,7 +116,7 @@
 	    });
 		
 		// 댓글리스트 조회용 ajax
-		function selectReplyList(cPage, rno){
+		function selectReplyList(cPage, refRno){
 			$.ajax({
 				url:"rlist.fn",
 				data:{
@@ -124,18 +124,17 @@
 					currentPage:cPage
 				},
 				success:function(result){
-					$("#rcount").text(result.rlist2.length + result.pi.listCount);
+					$("#rcount").text(result.replyCount);
 					
 					if(result.rlist.length > 0){
 						var comment = "";
 						for(var i in result.rlist){
-							
-							var countReply2 = 0;
+							var countReply2 = 0; // 대댓글 수
                         	var comment2 = "";
 	                        for(var j in result.rlist2){
 	                        	if(result.rlist2[j].refRno == result.rlist[i].replyNo){
 	                        		// 대댓글 작성 후 대댓글 영역 display 속성 block으로 주기 위해
-	                        		if(result.rlist[i].replyNo == rno){
+	                        		if(result.rlist[i].replyNo == refRno){
 	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:block;'>";
 	                        		}else{
 	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:none;'>";
@@ -165,7 +164,7 @@
 	                                                result.rlist2[j].replyLike +
 	                                            "</td>" +
 	                                            "<td width='200' align='right'>" +
-	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ");'>삭제</button>" +
+	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>" +
 	                                            "</td>" +
 	                                        "</tr>" +
 	                                    "</table>" +
@@ -199,7 +198,7 @@
 			                            "</td>" +
 			                            "<td><button class='btn btn-outline-light btn-sm btn-flat' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button></td>" +
 			                            "<td width='600' align='right'>" +
-			                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ");'>삭제</button>" +
+			                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>" +
 			                            "</td>" +
 			                        "</tr>" +
 			                    "</table>" +
@@ -210,7 +209,7 @@
 	                        
 	                        if(result.rlist[i].status == 'Y'){
 		                     	// 대댓글 작성 후 해당 대댓글 영역 display 속성 block으로 주기 위해
-	                    		if(result.rlist[i].replyNo == rno){
+	                    		if(result.rlist[i].replyNo == refRno){
 	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:block;'>";
 	                    		}else{
 	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'>";
@@ -232,7 +231,7 @@
 	                        }else{
                     			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'></div>";
 	                        }
-	                        
+							
 						}
 						$("#replyArea").html(comment);
 						
@@ -268,22 +267,22 @@
 		}
 		
 		// 댓글 작성용 ajax
-		function addReply(rno, cPage){
+		function addReply(refRno, cPage){
 			
-			if($("#addReply2-" + rno).find("textarea").val().trim().length != 0){
+			if($("#addReply2-" + refRno).find("textarea").val().trim().length != 0){
 				$.ajax({
 					url:"rinsert.fn",
 					type:"post",
 					data:{
-						replyContent:$("#addReply2-" + rno).find("textarea").val(),
+						replyContent:$("#addReply2-" + refRno).find("textarea").val(),
 						replyWriter:1,
 						refFno:${ fn.freenoteNo },
-						refRno:rno
+						refRno:refRno
 					}, success:function(result){
 						if(result>0){
-							$("#addReply2-" + rno).find("textarea").val("");
-							$("#addReply2-" + rno).children("span").text("0");
-							selectReplyList(cPage, rno);
+							$("#addReply2-" + refRno).find("textarea").val("");
+							$("#addReply2-" + refRno).children("span").text("0");
+							selectReplyList(cPage, refRno);
 						}
 					}, error:function(){
 						console.log("댓글 작성용 ajax 통신 실패");
@@ -295,14 +294,14 @@
 		}
 		
 		// 댓글 삭제 CONFIRM 용
-       	function confirmDeleteReply(rno){
+       	function confirmDeleteReply(rno, refRno, cPage){
        		if(confirm("댓글을 삭제하시겠습니까?")){
-       			deleteReply(rno);
+       			deleteReply(rno, refRno, cPage);
        		}
        	}
        	
        	// 댓글 삭제용 ajax
-       	function deleteReply(rno){
+       	function deleteReply(rno, refRno, cPage){
        		
        		$.ajax({
        			url:"rdelete.fn",
@@ -311,7 +310,7 @@
        			success:function(result){
        				
        				if(result>0){
-       					selectReplyList(1);
+       					selectReplyList(cPage, refRno);
        				}
        				
        			}, error:function(){
