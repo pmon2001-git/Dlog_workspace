@@ -74,8 +74,27 @@ public class FreenoteDao {
 		return (ArrayList)sqlSession.selectList("freenoteMapper.selectSearchList", sc, rowBounds);
 	}
 	
-	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int fno) {
-		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList", fno);
+	public int selectReplyListCount(SqlSessionTemplate sqlSession, int fno) {
+		return sqlSession.selectOne("freenoteMapper.selectReplyListCount", fno);
+	}
+	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int fno, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList", fno, rowBounds);
+	}
+	
+	public ArrayList<Reply> selectReplyList2(SqlSessionTemplate sqlSession, int fno) {
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList2", fno);
+	}
+	
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("freenoteMapper.insertReply", r);
+	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int rno) {
+		return sqlSession.update("freenoteMapper.deleteReply", rno);
 	}
 	
 	

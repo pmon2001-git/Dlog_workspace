@@ -44,6 +44,34 @@ public class MemberController {
 		return "mainpage/member/memberPwdUpdateForm";
 	}
 	
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+
+
+	@RequestMapping("login.me")
+	public String loginMember(Member m, HttpSession session, Model model) {
+		
+		Member loginUser = mService.loginMember(m);
+		
+		if(loginUser == null) {
+			
+			//session.setAttribute("alertMsg", "로그인실패");
+			return "mainpage/member/memberLoginForm";
+			
+		}else {
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "로그인성공");
+			return "mainpage/mainPage";
+			
+		}
+		
+	}
+	
 	
 	@RequestMapping("infoList.in")
 	public String infoList(HttpSession session, Model model) {

@@ -79,10 +79,30 @@ public class FreenoteServiceImpl implements FreenoteService {
 	public ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi) {
 		return fDao.selectSearchList(sqlSession, sc, pi);
 	}
+	
+	@Override
+	public int selectReplyListCount(int fno) {
+		return fDao.selectReplyListCount(sqlSession, fno);
+	}
 
 	@Override
-	public ArrayList<Reply> selectReplyList(int fno) {
-		return fDao.selectReplyList(sqlSession, fno);
+	public ArrayList<Reply> selectReplyList(int fno, PageInfo pi) {
+		return fDao.selectReplyList(sqlSession, fno, pi);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList2(int fno) {
+		return fDao.selectReplyList2(sqlSession, fno);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return fDao.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public int deleteReply(int rno) {
+		return fDao.deleteReply(sqlSession, rno);
 	}
 
 }

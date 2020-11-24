@@ -122,15 +122,15 @@
 
             <div class="content">
 
-                <form action="">
+                <form action="enroll.me">
                     <div class="form-group">
                         <label for="userId">아이디</label> <br>
-                        <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요" required style="width: 77%; float: left; margin-right: 10px;">
+                        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required style="width: 77%; float: left; margin-right: 10px;">
                         <a href="" class="btn btn-secondary">중복확인</a>
                     </div>
                     <div class="form-group">
                         <label for="userPwd">비밀번호</label>
-                        <input type="password" class="form-control" id="userPwd" name="userPwd" required placeholder="비밀번호를 입력하세요">
+                        <input type="password" class="form-control" id="memberPwd" name="memberPwd" required placeholder="비밀번호를 입력하세요">
                         <p style="color: red;">8~10이상 영문 대소문자, 숫자, 특수문자 포함</p>
                     </div>
                     <div class="form-group">
@@ -139,7 +139,7 @@
                     </div>
                     <div class="form-group">
                         <label for="userName">이름</label>
-                        <input type="text" class="form-control" id="userName" name="userName" required placeholder="이름를 입력하세요">
+                        <input type="text" class="form-control" id="memberName" name="memberName" required placeholder="이름를 입력하세요">
                     </div>
                     <div class="form-group">
                         <label for="nickname">별명</label><br>
