@@ -50,13 +50,13 @@
 	      , phone
 	  from member
 	 where status='Y'
+	   and member_id=#{memberId}
 	</select>
 	<update id="infoUpdate" parameterType="Member">
 		 update
 		        member
 		    set 
-		        member_no=#{memberNo}
-		      , member_name=#{memberName}
+		        member_name=#{memberName}
 		      , member_id=#{memberId}
 		      , nickname=#{nickname}
 		      , email=#{email}
@@ -65,24 +65,59 @@
 		  where member_id=#{memberId} 
 	</update>
 	
-	 <select id ="introList" resultMap="memberResultSet">
-	 select
-	 		member_no
-	      , introduction_title
-	      , introduction_content  
-	  from member
-	  where member_no=#{memberNo}
+	 <select id ="introList" parameterType="Member" resultMap="memberResultSet">
+		 select
+		 		member_no
+		      , introduction_title
+		      , introduction_content  
+		  from member
+		  where member_id=#{memberId}
 	 </select >
+	 
+	 <select id ="introListMn" parameterType="Member" resultMap="memberResultSet">
+		 select
+		 		member_no
+		      , introduction_title
+		      , introduction_content  
+		  from member
+		  where member_id=#{memberId}
+	 </select >
+	 
+	 <insert id="introInsert" parameterType="Member">
+		insert
+		  into member
+		  (
+			
+		  , introduction_title
+		  , introduction_content
+		  )
+		  values
+		  (
+		  	 
+		   , #{introductionTitle}
+		   , #{introductionContent}
+		 
+		 )
+	</insert>
+	 
+	 
 	 
 	 <update id="introUpdate" parameterType="Member">
 		 update
 		        member
 		    set 
-		        member_no=#{memberNo}
-		      , introduction_title=#{introductionTitle}
+		        introduction_title=#{introductionTitle}
 		      , introduction_content=#{introductionContent}  
-		  where member_no=#{memberNo} 
+		  where member_id=#{memberId} 
 	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		update
+	        member
+	    set status = 'N'
+	      , modify_date= sysdate
+	  where member_id = #{memberId}
+	</delete>
 	
 
 </mapper>

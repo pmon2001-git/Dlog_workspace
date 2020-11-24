@@ -15,9 +15,15 @@ public interface MemberService {
 	
 	int infoUpdate(Member m);
 	
-	ArrayList<Member> introList();
+	ArrayList<Member> introList(Member m);
+	
+	ArrayList<Member> introListMn(Member m);
+	
+	int introInsert(Member m);
 	
 	int introUpdate(Member m);
+
+	int deleteMember(String memberId);
 	
 	
 	

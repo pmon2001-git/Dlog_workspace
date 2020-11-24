@@ -37,6 +37,7 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	
 	@Override
 	public int infoUpdate(Member m) {
 		return mDao.infoUpdate(sqlSession, m);
@@ -45,15 +46,31 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public ArrayList<Member> introList() {
-		return mDao.introList(sqlSession);
+	public ArrayList<Member> introList(Member m) {
+		return mDao.introList(m, sqlSession);
 	}
-
 
 	@Override
-	public int introUpdate(Member m) {
-		return mDao.infoUpdate(sqlSession, m);
+	public ArrayList<Member> introListMn(Member m) {
+		return mDao.introListMn(m, sqlSession);
 	}
+
+	@Override
+	public int introInsert(Member m) {
+		return mDao.introInsert(sqlSession, m);
+	}
+	
+	@Override
+	public int introUpdate(Member m) {
+		return mDao.introUpdate(sqlSession, m);
+	}
+
+	@Override
+	public int deleteMember(String memberId) {
+		return mDao.deleteMember(sqlSession,memberId);
+	}
+
+
 
 	
 

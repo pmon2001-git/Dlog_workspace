@@ -84,6 +84,7 @@ public class MemberController {
 		return "mypage/infoListView";
 	}
 	
+	
 	@RequestMapping("infoUpdate.in")
 	public String updateMember(Member m, HttpSession session, Model model) {
 		
@@ -104,14 +105,54 @@ public class MemberController {
 
 	}
 	 @RequestMapping("introList.it")
-	 public String infoList(Member m, HttpSession session, Model model) {
+	 public String introList(Member m, HttpSession session, Model model) {
 		 
-		 ArrayList<Member> list = mService.introList();
+		 ArrayList<Member> list = mService.introList(m);
 			
 		 model.addAttribute("list",list);
 		 
 		 return "mypage/introListView";
 	 }
+	 
+	 @RequestMapping("introListMn.it")
+	 public String introListMn(Member m, HttpSession session, Model model) {
+		 
+		 ArrayList<Member> list = mService.introListMn(m);
+			
+		 model.addAttribute("list",list);
+		 
+		 return "mypage/introListViewManagement";
+	 }
+	 
+	 
+	 
+	 @RequestMapping("enrollForm.it")
+		public String enrollForm() {
+			return "mypage/introEnrollForm";
+		}
+	 
+	 @RequestMapping("introInsert.it")
+	 public String introInsert(Member m, HttpSession session, Model model) {
+		 
+		 int result = mService.introInsert(m);
+		 
+			if(result > 0) {
+				
+				session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
+				return "redirect:introListMn.it";
+			}else {
+				
+				model.addAttribute("errorMsg", "게시글 등록 실패");
+				return "common/errorPage";
+			}
+	 }
+	 
+	 @RequestMapping("updateForm.it")
+		public String updateForm (){
+		
+			return "mypage/introUpdateForm";
+		}
+	 
 	 
 	 @RequestMapping("introUpdate.it")
 	 public String introUpdate(Member m, HttpSession session, Model model) {
@@ -130,6 +171,30 @@ public class MemberController {
 				return "common/errorPage";
 			}
 	
+	 }
+	 
+	 @RequestMapping("deleteMember.me")
+	 public String deleteMember(Member m, HttpSession session, Model model) {
+		 
+		 
+		 Member loginUser = (Member)session.getAttribute("loginUser");
+		 
+		 int result = mService.deleteMember(loginUser.getMemberId());
+		 
+		 if(result > 0) {
+				
+			 	session.removeAttribute("loginUser"); 
+				session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
+				
+				return"redirect:/";
+				
+				
+			}else { // 실패 => 에러문구 담아서 에러페이지 포워딩 
+				
+				model.addAttribute("errorMsg", "회원탈퇴 실패");
+				return "common/errorPage";
+				
+			}
 	 }
 }
 	 

@@ -8,28 +8,28 @@
 <title>Dlog</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
-
- <style>
-        .introSelectForm{ 
-            height:400px;
-            width:100%;
-          }
-        #content{
-            margin-left:20px;
-            border:0px;
-            padding:20px;
-         }
-         #line{
-            border:gray 2px dashed;
-            width:100%;
-            
-         }
+<style>
+    .introSelectForm{ 
+        height:400px;
+        width:100%;
+      }
+    #content{
+        margin-left:20px;
+        border:0px;
+        padding:20px;
+     }
+     #line{
+        border:gray 2px dashed;
+        width:100%;
         
-    </style>
+     }
+    
+</style>
+
 </head>
 <body>
 
-<jsp:include page="../common/diaryHeader.jsp" />
+<jsp:include page="../common/myPageHeader.jsp" />
 
 
  <!--**********************************
@@ -37,7 +37,7 @@
  ***********************************-->
  <div class="content-body" style="float: left;">
      <div class="row page-titles mx-0">
-         <h3 style="color:rgb(94, 94, 94); padding-left:15px; font-size:17px;"><b>소개글</b></h3>
+         <h3 style="color:rgb(94, 94, 94); padding-left:15px; font-size:17px;"><b>소개글 관리</b></h3>
      </div>
      <!-- row -->
 
@@ -62,9 +62,11 @@
                                              </tr>
                                          </table>
                                      </div>
-                                     <br>
-                                    
+                                     <div align="right">
+                                         <button type="button" onclick="location.href='enrollForm.it'" class="btn btn-success btn-sm">작성하기</button>&nbsp;&nbsp; 
+                                         <button type="button" onclick="location.href='introUpdate.it'" class="btn btn-success btn-sm">수정하기</button>
                                      
+                                     </div>
                              <br>
                             </div> 
                          </div>                                
@@ -79,8 +81,7 @@
      Content body end
  ***********************************--> 
  
-    <jsp:include page="../common/diaryWidget.jsp" />
-	<jsp:include page="../common/diaryFooter.jsp" />
-	
+  <jsp:include page="../common/myPageFooter.jsp" />
+ 
 </body>
 </html>

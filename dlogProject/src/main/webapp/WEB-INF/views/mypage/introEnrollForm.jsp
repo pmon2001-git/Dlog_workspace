@@ -8,9 +8,9 @@
 <title>Dlog</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
-
+    
 <style>
-     .introUpdateForm{ 
+     .introEnrollForm{ 
          height:400px;
          width:100%;
      }
@@ -29,8 +29,7 @@
  </style>
 </head>
 <body>
-
-	<jsp:include page="../common/myPageHeader.jsp" />
+		<jsp:include page="../common/myPageHeader.jsp" />
 	
 <!--**********************************
       Content body start
@@ -48,10 +47,10 @@
                       <div class="card-body" >
                           
                       <!-- 여기다가 작성 -->
-                          <div class="introUpdate"> 
-                              <div class="introUpdateForm">
+                          <div class="introEnroll"> 
+                              <div class="introEnrollForm">
                                   
-                                  <form id="updateForm" action="introUpdate.it" method="post"> 
+                                  <form id="enrollForm" action="introInsert.it" method="post"> 
                                   <table>
                                       <tr>
                                           <td style="font-size:30px;">&nbsp;</td>
@@ -92,7 +91,6 @@
 ***********************************-->
 
  <jsp:include page="../common/myPageFooter.jsp" />
-
-
+	
 </body>
 </html>
