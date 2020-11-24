@@ -15,7 +15,9 @@ public interface MemberService {
 	
 	int infoUpdate(Member m);
 	
-	ArrayList<Member> selectIntroList();
+	ArrayList<Member> introList();
+	
+	int introUpdate(Member m);
 	
 	
 	

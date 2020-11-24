@@ -26,7 +26,15 @@ public class MemberDao {
 	}
 	
 	public ArrayList<Member> introList(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
+		
 		return (ArrayList)sqlSession.selectList("memeberMapper.introList", null);
 	}
+	
+	public int introUpdate(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.introUpdate", m);
+		
+		
+	}
+	
 }

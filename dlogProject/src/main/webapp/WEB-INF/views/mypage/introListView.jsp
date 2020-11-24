@@ -61,7 +61,7 @@
                                          </table>
                                      </div>
                                      <div id="btn">
-                                         <button type="button" onclick="location.href='infoUpdateForm.in'" class="btn btn-success btn-sm">수정하기</button>
+                                         <button type="button" onclick="location.href='introUpdateForm.it'" class="btn btn-success btn-sm">수정하기</button>
                                      </div>
                              <br>
                             </div> 

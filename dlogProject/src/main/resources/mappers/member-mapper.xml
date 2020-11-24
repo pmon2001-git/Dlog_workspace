@@ -73,6 +73,16 @@
 	  from member
 	  where member_no=#{memberNo}
 	 </select >
+	 
+	 <update id="introUpdate" parameterType="Member">
+		 update
+		        member
+		    set 
+		        member_no=#{memberNo}
+		      , introduction_title=#{introductionTitle}
+		      , introduction_content=#{introductionContent}  
+		  where member_no=#{memberNo} 
+	</update>
 	
 
 </mapper>
