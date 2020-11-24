@@ -63,7 +63,7 @@
                                      </div>
                                  <tr>
                                     <td> 이름 &nbsp; : </td>
-                                    <td>${ }</td>
+                                    <td>${loginUser.memberName }</td>
                                  </tr>
                                   <tr>
                                       <td></td>
@@ -71,7 +71,7 @@
                                   </tr>
                                   <tr>
                                      <td> 아이디 &nbsp; : </td>
-                                     <td >${  }</td>
+                                     <td >${ loginUser.memberId }</td>
                                    
                                  </tr>
                                  <tr>
@@ -80,7 +80,7 @@
                                  </tr>
                                   <tr>
                                     <td> 별명 &nbsp;: </td>
-                                    <td >${ }</td>
+                                    <td >${loginUser.nickname }</td>
                                   </tr>
                                   <tr>
                                     <td></td>
@@ -88,7 +88,7 @@
                                   </tr>
                                   <tr>
                                       <td> 이메일 &nbsp; : </td>
-                                      <td >${ }</td>
+                                      <td >${loginUser.email }</td>
                                   </tr>
                                   <tr>
                                       <td></td>
@@ -97,7 +97,7 @@
                                   </tr>
                                   <tr>
                                     <td>전화번호 &nbsp; :</td>
-                                    <td>&nbsp;${ }</td>
+                                    <td>&nbsp;${loginUser.phone }</td>
                                  </tr>
                                   <tr>
                                     <td>&nbsp;</td>

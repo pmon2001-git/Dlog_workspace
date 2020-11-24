@@ -54,10 +54,10 @@
                                     <!-- 3_1. ID/PWD input요소가 들어갈 div -->
                                    
                                     <table align="center"  id="updatePwdForm">
-                                     <input type="hidden" name="userId" class="form-control" value="<%=userId%>">
+                                     <input type="hidden" name="memberId" class="form-control" value="">
                                         <tr>
                                             <td style="font-size:12px;"><br>기존 비밀번호 : &nbsp;&nbsp;&nbsp; </td>
-                                            <td><br><input type="password" name="userPwd" maxlength="18" class="form-control" style="height:10px;" placeholder="password"required></td>
+                                            <td><br><input type="password" name="memberPwd" maxlength="18" class="form-control" style="height:10px;" placeholder="password"required></td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -73,7 +73,7 @@
                                         <tr align="center">
                                             <td colspan="3">
                                                <br><br>
-                                              <input align="center" type="button" onclick="return validatePwd();"class="btn btn-success" id="deleteMemBtn" data-toggle="modal" data-target="#deleteForm" value="변경">
+                                              <input align="center" type="button" onclick="return validate();"class="btn btn-success" id="updatePwdBtn" data-toggle="modal" data-target="#pwdUpdateForm" value="변경">
                                               </td>
                                           </tr>
                                       </table>
@@ -82,6 +82,52 @@
                       </div>   
                      
                       <br><br><br><br><br>
+                      
+                      <script>
+                      
+                      function validate(){
+                    	   // 유효성 검사 :  비밀번호일치
+                    	   var memberPwd = document.getElementById("memberPwd");
+                    	   var memberPwd2 = document.getElementById("checkPwd");
+                    	   var memberPwd3 = document.getElementById("checkPassPwd");
+                    	   
+                    	  
+                    	   var pwd1 = /^[a-z\d!@#$%^&*]{5,15}$/i;  //특수문자(!@#$%^&*)
+           
+                    	 
+
+                    	   if(!pwd1.test(userPwd.value)){
+                    	       alert("유효한 비밀번호를 입력하세요.");
+
+                    	       memberPwd.value ="";
+                    	       memberPwd.focus(); 
+                    	       
+                    	       return false; 
+                    	   }
+                    	   
+                    	   
+                    	   if(userPwd.value != userPwd2.value){
+                    	       alert("동일한 비밀번호를 입력하세요!");
+                    	       memberPwd2.value = "";
+                    	       memberPwd2.focus(); 
+
+                    	       return false; 
+                    	   }
+                    	   
+                    	   if(userPwd.value != userPwd3.value){
+                    	       alert("비밀번호를 다시 확인해주시기 바랍니다.");
+                    	       memberPwd3.value = "";
+                    	       memberPwd3.focus(); 
+
+                    	       return false; 
+                    	   }
+                    	   
+                    	   
+                    	 }
+
+
+
+                      </script>
                     </div>
                 </div>
             </div>

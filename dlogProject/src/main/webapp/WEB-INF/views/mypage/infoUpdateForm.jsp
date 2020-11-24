@@ -149,15 +149,38 @@
 <script>
 
 function validate(){
+	
+	function nameCheck(){
+  		var $userName = $("#updateFormTable input[name=userName]");
+  		
+  		$.ajax({
+  			url:"nameCheck.me",
+  			type:"get",
+  			data:{checkName:$userName.val()},
+  			success:function(count){
+  				if(count == "fail"){
+  					alert("이미 존재 하는 닉네임입니다.")
+  					$userName.focus().setCursorPosition(last);
+  				
+  				}else{
+  				
+  				}
+  			}, error:function(){
+  				console.log("ajax 통신 실패 !");
+  			}
+  			
+  		});
+  		
+  	}
+	
+	
+	
    // 유효성 검사 :  이메일, 비밀번호일치, 닉네임
    var userName = document.getElementById("userName");
-   var userPwd = document.getElementById("userPwd");
-   var userPwd2 = document.getElementById("checkPwd");
-   var email = document.getElementById("userEmail");
+   var email = document.getElementById("email");
    
   
-   var pwd1 = /^[a-z\d!@#$%^&*]{5,15}$/i;  //특수문자(!@#$%^&*)
-   var name = /^[가-힣a-z\d]{3,11}$/;
+   var name = /^[가-힣a-z\d]{2,9}$/;
    var email = /^[0-9a-z]([-_.]?[0-9a-z])*@[0-9a-z]([-_.]?[0-9a-z])*.[a-z]{2,3}$/i;
 
    if(!name.test(userName.value)){
@@ -168,25 +191,8 @@ function validate(){
        return false; 
    }
 
-   if(!pwd1.test(userPwd.value)){
-       alert("유효한 비밀번호를 입력하세요.");
-
-       userPwd.value ="";
-       userPwd.focus(); 
-       
-       return false; 
-   }
    
-   
-   if(userPwd.value != userPwd2.value){
-       alert("동일한 비밀번호를 입력하세요!");
-       userPwd2.value = "";
-       userPwd2.focus(); 
-
-       return false; 
-   }
-   
-   if(!email.test(userEmail.value)){
+   if(!email.test(email.value)){
   	 alert("이메일을 다시 입력해주세요");
  	     email.value = "";
  	     email.focus ="";

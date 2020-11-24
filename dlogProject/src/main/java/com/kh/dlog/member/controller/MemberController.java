@@ -106,13 +106,31 @@ public class MemberController {
 	 @RequestMapping("introList.it")
 	 public String infoList(Member m, HttpSession session, Model model) {
 		 
-		 ArrayList<Member> list = mService.selectIntroList();
+		 ArrayList<Member> list = mService.introList();
 			
 		 model.addAttribute("list",list);
 		 
 		 return "mypage/introListView";
 	 }
 	 
+	 @RequestMapping("introUpdate.it")
+	 public String introUpdate(Member m, HttpSession session, Model model) {
+		 
+		 int result = mService.introUpdate(m);
+			
+			if(result > 0) { 
+				
+				session.setAttribute("loginUser", mService.loginMember(m));  
+				session.setAttribute("alertMsg", "성공적으로 소개글이 변경되었습니다.");
+				
+				return "redirect:introUpdateForm";
+			}else {
+				
+				model.addAttribute("errorMsg", "소개글 변경 실패");
+				return "common/errorPage";
+			}
 	
-	 
+	 }
 }
+	 
+	 

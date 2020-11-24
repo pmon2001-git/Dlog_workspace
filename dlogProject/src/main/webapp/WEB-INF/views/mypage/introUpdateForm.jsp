@@ -5,9 +5,91 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Dlog</title>
+<style>
+     .introUpdateForm{ 
+         height:400px;
+         width:100%;
+     }
+     
+     #content{
+         margin-left:20px;
+         border:0px;
+         padding:20px;
+      }
+      #line{
+         border:gray 2px dashed;
+      }
+      #btn{
+          margin-left:90%;
+      }
+ </style>
 </head>
 <body>
+
+	<jsp:include page="../common/myPageHeader.jsp" />
+	
+<!--**********************************
+      Content body start
+  ***********************************-->
+  <div class="content-body" style="float: left;">
+      <div class="row page-titles mx-0">
+          <h3 style="color:rgb(94, 94, 94); padding-left: 15px; font-size:17px; font-weight:bolder;">소개글 관리</h3>
+      </div>
+      <!-- row -->
+
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-12">
+                  <div class="card" style="width:730px;">
+                      <div class="card-body" >
+                          
+                      <!-- 여기다가 작성 -->
+                          <div class="introUpdate"> 
+                              <div class="introUpdateForm">
+                                  
+                                  <form id="updateForm" action="" method="post"> 
+                                  <table>
+                                      <tr>
+                                          <td style="font-size:30px;">&nbsp;</td>
+                                      </tr>
+                                      <tr>
+                                          <th style="font-size:30px; font-weight: bolder;">&nbsp;&nbsp;<input type="text" name="title" style="border:0px; background-color:transparent;" value="${loginUser.introductionTitle} "></th>
+                                      </tr>
+                                      <tr>
+                                          <td><hr id="line"></td>
+                                      </tr>
+                                      <tr>
+                                          <td id="content">
+                                              <textarea name="content" cols="88" rows="10" style="resize:none;  margin-bottom:10px; border:0px; background-color:transparent;" required>${loginUser.introductionContent }</textarea>
+                                          </td>
+                                      </tr>
+                                      
+                                  </table>
+                              </div>
+                              <div id="btn">
+                                  <button type="submit" class="btn btn-success btn-sm">확인</button>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- #/ container -->
+  </div>        
+  <!--**********************************
+      Content body end
+  ***********************************-->  
+    
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+ <jsp:include page="../common/myPageFooter.jsp" />
+
 
 </body>
 </html>
