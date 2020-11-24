@@ -87,6 +87,7 @@
 	                                        <th>번호</th>
 	                                        <th width="500px">제목</th>
 	                                        <th>카테고리</th>
+	                                        <th>댓글수</th>
 	                                        <th>작성일</th>
 	                                    </tr>
 	                                </thead>
@@ -101,6 +102,7 @@
 		                                        	</c:if>
 		                                        </td>
 		                                        <td>${ f.freenoteCategory }</td>
+		                                        <td>${ f.replyCount }</td>
 		                                        <td>${ f.createDate }</td>
 		                                    </tr>
 	                                    </c:forEach>

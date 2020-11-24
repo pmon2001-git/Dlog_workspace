@@ -19,52 +19,73 @@
         border: .1px solid lightgrey; 
         border-radius: 4px;
     }
-    #replyArea div{
+    #replyArea{
+    	padding:10px;
+    }
+    .reply1, .reply2{
         margin-bottom: 15px;
     }
     .page-section .container textarea{
         width: 100%; 
-        height: 90px; 
+        height: 70px; 
         border: .1px solid lightgrey; 
-        border-radius: 5px;
+        border-radius: 0px;
         resize: none; 
-        /* margin-bottom: 0; */
+        padding: 10px;
     }
-    .page-section .container textarea:focus, .enrollBtn:focus{
+    .page-section .container textarea:focus{
         outline:none
+    }
+    #addReply2-0 textarea{
+    	height: 90px;
     }
     .enrollBtn, #addFriendBtn{
         border:none;
         background-color: rgb(132, 200, 185);
         color: white;
-        border-radius: 5px;
+        border-radius: 0px;
         width: 70px;
         height: 35px;
         font-size: 15px;
         /* margin-top: 0; */
+    }
+    .enrollBtn:hover, #addFriendBtn:hover, #replyArea .enrollBtn:hover{
+        background-color: rgb(172, 223, 213);
+        color: white;
+        border-color: rgb(172, 223, 213);
+    }
+    #replyArea .enrollBtn{
+    	width: 50px;
+    	height: 30px;
+    	border: 1px solid rgb(132, 200, 185);
+    	background: white;
+    	color:rgb(132, 200, 185);
     }
     #addFriendBtn{
         height: 30px;
         margin-top: 10px;
         width: 75px;
     }
-    .enrollBtn:hover, #addFriendBtn:hover{
-        background-color: rgb(172, 223, 213);
-        color: rgb(88, 88, 88);
+    
+    #replyPagination button, .deleteBtn, .addBtn, .reportBtn{
+    	border-radius:0px;
+    	background: white;
+    	border: .5px solid lightgrey;
+    	margin:1px;
+    	height: 30px;
     }
     #replyPagination button{
-        border:none;
-        background:rgb(202, 202, 202);
-        border-radius: 5px;
-        height: 30px;
-        width: 25px;
+    	width: 25px;
     }
-    #replyPagination button:hover{
+    .deleteBtn, .reportBtn{
+    	background:none;
+    	border:none;
+    }
+    #replyPagination button:hover, .deleteBtn:hover, .addBtn:hover, .reportBtn:hover{
         background:rgb(233, 233, 233);
     }
-    #replyPagination{
-        margin: 30px;
-    }
+	
+    
 </style>
 </head>
 <body>
@@ -142,10 +163,10 @@
                 <table>
                     <tr>
                         <td width="500">
-                            댓글 2 &emsp;
+                            댓글 <span id="rcount"></span> &emsp;
                             <!-- <a href="" style="text-decoration: none; color: black;"><i class="far fa-heart" style="color: black;"></i> 좋아요</a> -->
                             <a href="" style="text-decoration: none; color: black"><i class="fas fa-heart" style="color: black;"></i> 좋아요</a>
-                            &nbsp;1
+                            &nbsp;${ fn.freenoteLike }
                         </td>
                         <td width="450" align="right">
                             <a href="">내 다이어리에서 보기 &#8594;</a>
@@ -156,187 +177,281 @@
             </div>
             <hr>
             <div id="replyArea">
-                <div class="reply1">
-                    <table>
-                        <tr>
-                            <td colspan="2" height="40">                            
-                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다
-                            </td>
-                        </tr>
-                        <tr height="30">
-                            <td width="750">
-                                2020.10.01&nbsp;&nbsp;22:40&emsp;
-                                <a href="" style="text-decoration: none; color: black;"><i class="far fa-heart" style="color: black;"></i> 좋아요</a>
-                                <!-- <a href="" style="text-decoration: none; color: black"><i class="fas fa-heart" style="color: black;"></i> 좋아요</a> -->
-                                &nbsp;0
-                            </td>
-                            <td width="200" align="right">
-                                <!-- <button class="btn btn-basic btn-sm">삭제</button> -->
-                                <button class="btn btn-basic btn-sm" id="report" onclick="report(1, 3, 2);">신고</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><button class="btn btn-light btn-sm addReply2">답글</button></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="enrollReply2" align="right" style="margin: 0; display: none;">
-                    <table>
-                        <tr>
-                            <td width="50" style="vertical-align: top;">
-                                <img src="resources/images/reply_arrow.png" width="30">
-                            </td>
-                            <td width="900">
-                                <textarea name="" class="reply2Content" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                    <span class="count2">0</span>/500&nbsp;&nbsp;<button class="enrollBtn">등록</button>
-                </div>
-                <div class="reply2">
-                    <table>
-                        <tr>
-                            <td width="50">
-                                <img src="resources/images/reply_arrow.png" width="30">
-                            </td>
-                            <td colspan="2" height="40">                            
-                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td colspan="2">
-                                눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다
-                            </td>
-                        </tr>
-                        <tr height="30">
-                            <td></td>
-                            <td width="700">
-                                2020.10.01&nbsp;&nbsp;22:40&emsp;
-                                <a href="" style="text-decoration: none; color: black;"><i class="far fa-heart" style="color: black;"></i> 좋아요</a>
-                                <!-- <a href="" style="text-decoration: none; color: black"><i class="fas fa-heart" style="color: black;"></i> 좋아요</a> -->
-                                &nbsp;0
-                            </td>
-                            <td width="200" align="right">
-                                <button class="btn btn-basic btn-sm">삭제</button>
-                                <!-- 신고 -->
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="reply1">
-                    <table>
-                        <tr>
-                            <td colspan="2" height="40">                            
-                                <img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="35" width="35"> &nbsp;작성자 별명
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 듣는다 그것은 웅대한 관현악이며 미묘한 교향악이다 뼈 끝에 스며들어 가는 열락의 소리다
-                            </td>
-                        </tr>
-                        <tr height="30">
-                            <td width="750">
-                                2020.10.01&nbsp;&nbsp;22:40&emsp;
-                                <a href="" style="text-decoration: none; color: black;"><i class="far fa-heart" style="color: black;"></i> 좋아요</a>
-                                <!-- <a href="" style="text-decoration: none; color: black"><i class="fas fa-heart" style="color: black;"></i> 좋아요</a> -->
-                                &nbsp;0
-                            </td>
-                            <td width="200" align="right">
-                                <!-- <button class="btn btn-basic btn-sm">삭제</button> -->
-                                <button class="btn btn-basic btn-sm" id="report" onclick="report(1, 3, 2);">신고</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><button class="btn btn-light btn-sm addReply2">답글</button></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="enrollReply2" align="right" style="margin: 0; display: none;">
-                    <table>
-                        <tr>
-                            <td width="50" style="vertical-align: top;">
-                                <img src="resources/images/reply_arrow.png" width="30">
-                            </td>
-                            <td width="900">
-                                <textarea name="" class="reply2Content" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                    <span class="count2">0</span>/500&nbsp;&nbsp;<button class="enrollBtn">등록</button>
-                </div>
-                <div id="replyPagination" align="center">
-                    <button>&lt;</button>
-    
-                    <button disabled>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
-    
-                    <button>&gt;</button>
-                    
-                </div>
-                <div class="enrollReply1" align="right" style="padding-top: 30px;">
-                    <textarea name="" id="enrollReply1" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
-                    <br>
-                    <span id="count1">0</span>/500&nbsp;&nbsp;<button class="enrollBtn">등록</button>
-                </div>
+                <button class="btn btn-basic btn-sm" id="report" onclick="report(1, 3, 2);">신고</button>
+            </div>
+            <div id="replyPagination" align="center">
+                <button>&lt;</button>
+
+                <button disabled>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+
+                <button>&gt;</button>
                 
+            </div>
+            <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
+                <textarea name="" id="enrollReply1" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
+                <span id="count">0</span>/500&nbsp;&nbsp;<button class="enrollBtn" onclick="addReply(0, 1);">등록</button>
             </div>
 
         </div>
     </section>
 
     <script>
-        $(function(){
-            $(".addReply2").click(function(){
-                var $reply2form = $(this).parents(".reply1").next();
-
-                if($reply2form.css("display")=="none"){
-                    $reply2form.css("display", "block");
-                    $reply2form.find("textarea").val("");
-                    $reply2form.find("textarea").focus();
-                }else{
-                    $reply2form.css("display", "none");
-                }   
-            });
-        })
-
+    
+	    $(function(){
+			selectReplyList(1, 0);
+	    });
+		
+		// 댓글리스트 조회용 ajax
+		function selectReplyList(cPage, rno){
+			$.ajax({
+				url:"rlist.fn",
+				data:{
+					fno:${ fn.freenoteNo },
+					currentPage:cPage
+				},
+				success:function(result){
+					$("#rcount").text(result.rlist2.length + result.pi.listCount);
+					
+					if(result.rlist.length > 0){
+						var comment = "";
+						for(var i in result.rlist){
+							
+							var countReply2 = 0;
+	                    	var comment2 = "";
+	                        for(var j in result.rlist2){
+	                        	if(result.rlist2[j].refRno == result.rlist[i].replyNo){
+	                        		// 대댓글 작성 후 대댓글 영역 display 속성 block으로 주기 위해
+	                        		if(result.rlist[i].replyNo == rno){
+	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:block;'>";
+	                        		}else{
+	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:none;'>";
+	                        		}
+	                        		
+	                        		comment2 += 
+	                                    "<table>" +
+	                                        "<tr>" +
+	                                            "<td width='40'>" +
+	                                                "<img src='resources/images/reply_arrow.png' width='20'>" +
+	                                            "</td>" +
+	                                            "<td colspan='2' height='40'>" +                            
+	                                                "<img src='resources/images/default-profile-pic.jpg' class='rounded-circle' height='35' width='35'> &nbsp;" + result.rlist2[j].replyWriter +
+	                                            "</td>" +
+	                                        "</tr>" +
+	                                        "<tr>" +
+	                                            "<td></td>" +
+	                                            "<td colspan='2'>" +
+													result.rlist2[j].replyContent +
+	                                            "</td>" +
+	                                        "</tr>" +
+	                                        "<tr height='30'>" +
+	                                            "<td></td>" +
+	                                            "<td width='900'>" +
+	                                            	result.rlist2[j].createDate + "&emsp;" +
+	                                                "<a href='' style='text-decoration: none; color: black;'><i class='far fa-heart'></i> 좋아요</a>&nbsp;" +
+	                                                result.rlist2[j].replyLike +
+	                                            "</td>" +
+	                                            "<td width='200' align='right'>";
+	                                if(result.rlist2[j].replyWriter =='honghong'){
+		                                comment2 += "<button class='reportBtn' id='report' onclick='report(1, 3, 2);'>신고</button>";
+	                                	
+	                                }else{
+	                                	comment2 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ");'>삭제</button>";
+	                                }
+	                                comment2 +=
+	                                            "</td>" +
+	                                        "</tr>" +
+	                                    "</table>" +
+	                                "</div>";
+	                                countReply2 += 1;
+	                        	}
+	                        }
+							
+							var comment1 = "<div class='reply1'>" +
+			                    "<table>" + 
+			                        "<tr>" +
+			                            "<td colspan='2' height='40'>" +                            
+			                                "<img src='resources/images/default-profile-pic.jpg' class='rounded-circle' height='35' width='35'> &nbsp;" + result.rlist[i].replyWriter + 
+			                            "</td>" +
+			                        "</tr>" +
+			                        "<tr>" +
+			                            "<td colspan='2'>";
+			                if(result.rlist[i].status == 'Y'){
+								comment1 += result.rlist[i].replyContent;
+			                }else{
+			                	comment1 += "삭제된 댓글입니다";
+			                }
+			                comment1 +=
+			                            "</td>" +
+			                        "</tr>" +
+			                        "<tr height='30'>" +
+			                            "<td width='400'>" +
+			                            	result.rlist[i].createDate + "&emsp;" +
+			                                "<a href='' style='text-decoration: none; color: black;'><i class='far fa-heart'></i> 좋아요</a>&nbsp;" +
+			                                result.rlist[i].replyLike +
+			                                "&emsp;<button class='addBtn' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button>" +
+			                            "</td>" +
+			                            "<td width='650' align='right'>" +
+			                                "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ");'>삭제</button>" +
+			                            "</td>" +
+			                        "</tr>" +
+			                    "</table>" +
+			                "</div>";
+			                
+	                        comment += comment1;
+	                        comment += comment2;
+	                        
+	                        if(result.rlist[i].status == 'Y'){
+		                     	// 대댓글 작성 후 해당 대댓글 영역 display 속성 block으로 주기 위해
+	                    		if(result.rlist[i].replyNo == rno){
+	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:block;'>";
+	                    		}else{
+	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'>";
+	                    		}
+		                        
+		                        comment += 
+		                            "<table>" + 
+		                                "<tr>" +
+		                                    "<td width='40' style='vertical-align: top;'>" +
+		                                        "<img src='resources/images/reply_arrow.png' width='20'>" +
+		                                    "</td>" +
+		                                    "<td width='1000'>" +
+		                                        "<textarea class='reply2Content' placeholder='내용을 입력해주세요' maxlength='500' required onkeyup='countLetter(this.value.length," + result.rlist[i].replyNo + ");'></textarea>" +
+		                                    "</td>" +
+		                                "</tr>" +
+		                            "</table>" +
+		                            "<span id='count" + result.rlist[i].replyNo + "'>0</span>/500&nbsp;&nbsp;<button class='enrollBtn' onclick='addReply(" + result.rlist[i].replyNo + ", " + result.pi.currentPage + ")'>등록</button>" +
+		                        "</div>";
+	                        }else{
+	                			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'></div>";
+	                        }
+	                        
+						}
+						$("#replyArea").html(comment);
+						
+						var $listCount = result.pi.listCount;     	       					
+		       				var $currentPage = result.pi.currentPage;
+	                    var $startPage = result.pi.startPage;
+	                    var $endPage = result.pi.endPage;
+	                    var $maxPage = result.pi.maxPage;
+	                    
+	                    var pagination = "";
+						if($currentPage != "1"){
+						    pagination += "<button type='button' onclick='selectReplyList(" + ($currentPage - 1) + ");' style='background:lightgrey;'>&lt;</button>";
+						}
+	                    for(var $p = $startPage; $p <= $endPage; $p++ ){
+	                    	if($p == $currentPage){
+	                        	pagination += "<button type='button' onclick='selectReplyList(" + $p + ");' disabled>" + $p + "</button>";
+	                    	}else{
+	                        	pagination += "<button type='button' onclick='selectReplyList(" + $p + ");'>" + $p + "</button>";
+	                    	}
+						}
+						if($currentPage != $maxPage){
+						    pagination += "<button type='button' onclick='selectReplyList(" + ($currentPage + 1) + ");' style='background:lightgrey;'>&gt;</button>";
+						}
+						$("#replyPagination").html(pagination);
+		                
+					}else{
+						$("#replyArea").html("<div align='center'>작성된 댓글이 없습니다.</div>");
+					}
+				}, error:function(){
+					console.log("댓글 리스트 조회용 ajax 통신 실패");
+				}
+			});
+		}
+		
+		// 댓글 작성용 ajax
+		function addReply(rno, cPage){
+			
+			if($("#addReply2-" + rno).find("textarea").val().trim().length != 0){
+				$.ajax({
+					url:"rinsert.fn",
+					type:"post",
+					data:{
+						replyContent:$("#addReply2-" + rno).find("textarea").val(),
+						replyWriter:1,
+						refFno:${ fn.freenoteNo },
+						refRno:rno
+					}, success:function(result){
+						if(result>0){
+							$("#addReply2-" + rno).find("textarea").val("");
+							$("#addReply2-" + rno).children("span").text("0");
+							selectReplyList(cPage, rno);
+						}
+					}, error:function(){
+						console.log("댓글 작성용 ajax 통신 실패");
+					}
+				});
+			}else{
+				alert("입력필요");
+			}
+		}
+		
+		// 댓글 삭제 CONFIRM 용
+	   	function confirmDeleteReply(rno){
+	   		if(confirm("댓글을 삭제하시겠습니까?")){
+	   			deleteReply(rno);
+	   		}
+	   	}
+	   	
+	   	// 댓글 삭제용 ajax
+	   	function deleteReply(rno){
+	   		
+	   		$.ajax({
+	   			url:"rdelete.fn",
+	   			type:"post",
+	   			data:{"rno":rno},
+	   			success:function(result){
+	   				
+	   				if(result>0){
+	   					selectReplyList(1);
+	   				}
+	   				
+	   			}, error:function(){
+	   				console.log("댓글 삭제용 ajax 통신 실패");
+	   			}
+	   		});
+	   	}
+    
+    
+		// 대댓글 작성 및 리스트 확장 버튼
+    	function addReply2(rno){
+    		var $reply2form = $("#replyArea").find("#addReply2-" + rno);
+    		var $reply2list = $("#replyArea").find(".reply2-" + rno);
+	
+	        if($reply2form.css("display")=="none"){
+	            $reply2form.css("display", "block");
+	            $reply2list.css("display", "block");
+	            $reply2form.find("textarea").val("");
+	            $reply2form.children("span").text("0");
+	            $reply2form.find("textarea").focus();
+	        }else{
+	            $reply2form.css("display", "none");
+	            $reply2list.css("display", "none");
+	        }   
+    	}
+	 
         // 댓글 글자 수 세기(메인댓글)
-        $(function(){
-            $("#enrollReply1").keyup(function(){
-                // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
-                var inputlength = $(this).val().length;
-                
-                $("#count1").html(inputlength);
-
-                if(150-inputlength < 0){
-                    $("#count1").css("color", "red");
-                }else{
-                    $("#count1").css("color","");
-                }
-            }); 
-        });
-
-        // 댓글 글자 수 세기(서브댓글)
-        $(function(){
-            $(".reply2Content").keyup(function(){
-                // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
-                var inputlength = $(this).val().length;
-                
-                $(this).parents(".enrollReply2").children("span[class=count2]").html(inputlength);
-                // $("#count1").html(inputlength);
-
-                
-            }); 
-        });
+        $("#enrollReply1").keyup(function(){
+	        // 현재 요소(textarea)안에 작성된 값의 길이를 알아내기
+	        var inputlength = $(this).val().length;
+	        
+	        $("#count").html(inputlength);
+	
+	        if(500-inputlength < 0){
+	            $("#count").css("color", "red");
+	        }else{
+	            $("#count").css("color","");
+	        }
+	    }); 
+	
+		// 댓글 글자 수 세기(서브댓글)    	
+    	function countLetter(count, num){
+    		$("#count" + num).text(count);
+    	}
     </script>
 
     <!-- 신고폼 모달 -->

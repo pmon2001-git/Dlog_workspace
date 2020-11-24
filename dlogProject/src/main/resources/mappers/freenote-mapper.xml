@@ -16,7 +16,8 @@
 		<result column="create_date" property="createDate" />
 		<result column="modify_date" property="modifyDate" />
 		<result column="status" property="status" />
-		<result column="nickname" property="freenoteWriter" />		
+		<result column="nickname" property="freenoteWriter" />
+		<result column="replyCount" property="replyCount" />		
 	</resultMap>
 	
 	<resultMap type="Reply" id="replyResultSet">
@@ -49,6 +50,18 @@
 		     , freenote_privacy
 		     , freenote_category
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
+             , (select (select count(*)
+		                  from reply
+		                 where ref_fno = freenote_no
+		                   and reply_level = 1)
+		                +
+		                (select count(*)
+		                   from reply
+		                  where ref_fno = freenote_no
+		                    and reply_level = 2
+		                    and status ='Y')
+		         from dual  
+                ) as replyCount
 		  from freenote
 		 where member_no = #{mno}
 		   and freenote_category like '%'||#{category}||'%'
@@ -150,7 +163,6 @@
 		  from reply
 		 where ref_fno = #{fno}
 		   and reply_level = 1
-		   and status = 'Y'
 	</select>
 	
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
@@ -162,13 +174,13 @@
 		     , nickname
 		     , ref_rno
 		     , reply_level
+		     , r.status
 		  from reply r
 		  join member using(member_no)
 		 where ref_fno = #{fno}
 		   and reply_level = 1
-		   and r.status = 'Y'
 		 order
-		    by create_date desc
+		    by reply_no desc
 	</select>
 	
 	<select id="selectReplyList2" parameterType="_int" resultMap="replyResultSet">
@@ -186,7 +198,7 @@
 		   and reply_level = 2
 		   and r.status = 'Y'
 		 order
-		    by create_date asc
+		    by reply_no asc
 	</select>
 	
 	<insert id="insertReply" parameterType="Reply">
@@ -241,6 +253,18 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		     , freenote_topic
+			 , (select (select count(*)
+		                  from reply
+		                 where ref_fno = freenote_no
+		                   and reply_level = 1)
+		                +
+		                (select count(*)
+		                   from reply
+		                  where ref_fno = freenote_no
+		                    and reply_level = 2
+		                    and status ='Y')
+		         from dual  
+                ) as replyCount
 		  from freenote f
 		  join member using(member_no)
 		 where freenote_topic like '%' || #{topicName} || '%'
@@ -279,6 +303,18 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		     , freenote_topic
+		     , (select (select count(*)
+		                  from reply
+		                 where ref_fno = freenote_no
+		                   and reply_level = 1)
+		                +
+		                (select count(*)
+		                   from reply
+		                  where ref_fno = freenote_no
+		                    and reply_level = 2
+		                    and status ='Y')
+		           from dual  
+                ) as replyCount
 		  from freenote f
 		  join member using(member_no)
 		 where f.status = 'Y'
@@ -305,4 +341,5 @@
 		 	</otherwise>
 		 </choose>
 	</select>
+
 </mapper>

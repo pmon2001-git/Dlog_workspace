@@ -232,8 +232,8 @@ button {
 }
 
 button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: none;
+  /*outline: 5px auto -webkit-focus-ring-color;*/
 }
 
 input,
@@ -5724,8 +5724,9 @@ a.close.disabled {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: padding-box;
-  border: 0.125rem solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.75rem;
+  border: .125rem solid lightgrey;
+  border-radius: 0rem;
+  padding:5px;
 }
 .popover .arrow {
   position: absolute;
