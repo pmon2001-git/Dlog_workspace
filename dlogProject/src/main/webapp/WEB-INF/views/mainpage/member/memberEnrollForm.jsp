@@ -39,13 +39,13 @@
             padding: 30px;
         }
 
-        .content form #enrollMember{
+        .content form #enrollBtn{
             background-color: #84c8b9;
             color: white;
             width: 100%;
         }
 
-        .content form #enrollMember:hover{
+        .content form #enrollBtn:hover{
             background-color:#79b6a9;
         }
 
@@ -122,20 +122,21 @@
 
             <div class="content">
 
-                <form action="enroll.me">
+                <form id="enrollForm" action="enroll.me" method="post">
                     <div class="form-group">
                         <label for="userId">아이디</label> <br>
-                        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required style="width: 77%; float: left; margin-right: 10px;">
-                        <a href="" class="btn btn-secondary">중복확인</a>
+                        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required >
+                        <div id="checkResult" style="font-size:0.8em; padding-top: 5px"></div>
                     </div>
                     <div class="form-group">
-                        <label for="userPwd">비밀번호</label>
-                        <input type="password" class="form-control" id="memberPwd" name="memberPwd" required placeholder="비밀번호를 입력하세요">
-                        <p style="color: red;">8~10이상 영문 대소문자, 숫자, 특수문자 포함</p>
+                        <label for="userPwd" style="float:left">비밀번호 </label>
+                        <input type="password" class="form-control" id="memberPwd" name="memberPwd" required placeholder="8~10이상 영문 대소문자, 숫자, 특수문자 포함">
+                        <div id="checkPwdResult" style="font-size:0.8em; padding-top: 5px"></div>
                     </div>
                     <div class="form-group">
                         <label for="checkPwd">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="checkPwd" name="checkPwd" required placeholder="비밀번호를 입력하세요">
+                        <input type="password" class="form-control" id="comparePwd" name="comparePwd" required disabled placeholder="동일한 비밀번호를 입력하세요">
+                        <div id="comparePwdResult" style="font-size:0.8em; padding-top: 5px"></div>
                     </div>
                     <div class="form-group">
                         <label for="userName">이름</label>
@@ -144,7 +145,7 @@
                     <div class="form-group">
                         <label for="nickname">별명</label><br>
                         <input type="text" class="form-control" id="nickname" name="nickname" placeholder="별명을 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
-                        <a href="" class="btn btn-secondary">중복확인</a>
+                        <button onclick="nicknameCheck();" class="btn btn-secondary">중복확인</button>
                     </div>
                     <div class="form-group">
                         <label for="email">이메일</label>
@@ -152,15 +153,15 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">전화번호</label><br>
-                        <input type="text" class="form-control" id="phone" name="phone" required placeholder="전화번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
-                        <a href="" class="btn btn-secondary">인증하기</a>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required placeholder="전화번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
+                        <button id="sendPhoneNumber" class="btn btn-secondary">인증하기</button>
                     </div>
                     <div class="form-group">
                         <label for="phoneCheck">인증번호 입력</label><br>
-                        <input type="text" class="form-control" id="phoneCheck" name="phoneCheck" required placeholder="인증번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
-                        <a href="" class="btn btn-secondary">인증확인</a>
+                        <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" required placeholder="인증번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
+                        <button id="checkBtn" class="btn btn-secondary">인증확인</button>
                     </div>
-                      <button id="enrollMember" type="submit" class="btn">회원가입</button>
+                      <button id="enrollBtn" type="submit" class="btn">회원가입</button>
                 </form>
 
                 <p>계정이 있습니까? <a href="loginForm.me">로그인</a>하세요</p>
@@ -168,6 +169,192 @@
             </div>
 
         </div>
+        <script>
+        	$(function(){
+        		var $idInput = $("#enrollForm input[name=memberId]");
+        		
+        		$idInput.keyup(function(){
+        			
+        			console.log($idInput.val());
+        			
+        			if($idInput.val().length >= 5){
+        				
+        				$.ajax({
+        					url:"idCheck.me",
+        					data:{memberId:$idInput.val()},
+        					success:function(result){
+        						
+        						if(result == 'success'){
+        							
+        							$("#checkResult").show();
+        							$("#checkResult").css("color", "green").text("사용가능한 아이디입니다.");
+        							$("#enrollBtn").removeAttr("disabled");
+        							
+        						}else{
+        							
+        							$("#checkResult").show();
+        							$("#checkResult").css("color", "red").text("중복된 아이디가 존재합니다. 다시 입력해주세요");
+        							$("#enrollBtn").attr("disabled", true);
+        							
+        						}
+        						
+        					},error:function(){
+        						console.log("아이디 중복체크용 ajax통신 실패");
+        					}
+        				})
+        				
+        			}else{
+        				
+        				$("#checkResult").hide();
+        				$("#enrollBtn").attr("disabled", true);
+        				
+        			}
+        			
+        		})//아이디 체크
+        		
+        		var $pwdCheck = $("#enrollForm input[name=memberPwd]");
+        		
+        		$pwdCheck.keyup(function(){
+        			
+        			console.log($pwdCheck.val());
+        			
+        			if($pwdCheck.val().length >= 8){
+        				
+        				$.ajax({
+        					url:"pwdCheck.me",
+        					data:{memberPwd:$pwdCheck.val()},
+        					success:function(result){
+        						
+        						if(result != 'true'){
+                                    
+                                	$("#checkPwdResult").show();
+            						$("#checkPwdResult").css("color", "red").text("비밀번호가 유효하지 않습니다.다시 입력해 주세요.");
+            						$("#enrollBtn").attr("disabled", true);
+                                    
+                                }else{
+                                	
+                                	$("#checkPwdResult").show();
+            						$("#checkPwdResult").css("color", "green").text("유효한 비밀번호입니다.");
+            						$("#enrollForm input[name=comparePwd]").removeAttr("disabled");
+            						$("#enrollBtn").removeAttr("disabled");
+                                	
+                                }
+        						
+        					},error:function(){
+        						console.log("아이디 중복체크용 ajax통신 실패");
+        					}
+        				})
+
+              		}else{
+              			
+              			$("#checkPwdResult").hide();
+        				$("#enrollBtn").attr("disabled", true);
+              			
+              		}
+
+        		})//비밀번호 체크
+        		
+        		var $pwdCompare = $("#enrollForm input[name=comparePwd]");
+        		
+        		$pwdCompare.keyup(function(){
+        			console.log($pwdCompare.val());
+        			
+        			if($pwdCompare.val().length >= 8){
+        			
+	        			if($pwdCheck.val() != $pwdCompare.val()){
+	        				
+	        				$("#comparePwdResult").show();
+							$("#comparePwdResult").css("color", "red").text("입력한 비밀번호가 일치하지 않습니다.다시 입력해 주세요.");
+							$("#enrollBtn").attr("disabled", true);
+	        				
+	        			}else{
+	        				
+	        				$("#comparePwdResult").show();
+							$("#comparePwdResult").css("color", "green").text("비밀번호가 일치합니다.");
+							$("#enrollBtn").removeAttr("disabled");
+	        				
+	        			}
+	        			
+        			}else{
+        				
+        				$("#comparePwdResult").hide();
+        				$("#enrollBtn").attr("disabled", true);
+        				
+        			}
+        			
+        		})//비밀번호 동일 체크
+
+        	})
+        	
+        	function nicknameCheck(){
+        		
+        		var $nicknameCheck = $("#enrollForm input[name=nickname]");
+        		
+        		if($nicknameCheck.val() == ""){
+        			alert("별명을 입력해 주세요");
+        		}else{
+        			
+        			$.ajax({
+    					url:"nicknameCheck.me",
+    					data:{nickname:$nicknameCheck.val()},
+    					success:function(result){
+    						
+    						if(result == 'success'){
+                                
+                            	alert($nicknameCheck.val() + " 는(은) 이미 사용하고 있는 별명입니다. 다시 입력해주세요.");
+                            	$nicknameCheck.focus();
+                                
+                            }else{
+                            	
+                            	alert($nicknameCheck.val() + " 는(은) 사용가능합니다.");
+                            	
+                            }
+    						
+    					},error:function(){
+    						console.log("아이디 중복체크용 ajax통신 실패");
+    					}
+    				})
+        			
+        		}//별명 중복체크
+        		
+        		$('#sendPhoneNumber').click(function(){
+                    let phoneNumber = $('#phoneNumber').val();
+                    Swal.fire('인증번호 발송 완료!')
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: "sendSMS.me",
+                        data: {"phoneNumber":phoneNumber},
+                        success: function(res){
+                            $('#checkBtn').click(function(){
+                            	
+                                if($.trim(res) ==$('#inputCertifiedNumber').val()){
+                                    Swal.fire(
+                                        '인증성공!',
+                                        '휴대폰 인증이 정상적으로 완료되었습니다.',
+                                        'success'
+                                    )
+
+                                }else{
+                                	
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: '인증오류',
+                                        text: '인증번호가 올바르지 않습니다!',
+                                        footer: '<a href="/home">다음에 인증하기</a>'
+                                    })
+                                    
+                                }
+                            })
+
+
+                        }
+                    })
+                })
+        		
+        	}
+        </script>
 
         <img id="bug1" src="resources/images/bug.png">
 

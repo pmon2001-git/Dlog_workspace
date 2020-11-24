@@ -18,6 +18,20 @@
 		<result column="introduction_content" property="introductionContent" />	
 	</resultMap>
 	
+	<select id="idCheck" parameterType="string" resultType ="_int">
+		select count(*)
+		       member_id
+		  from member
+		 where member_id = #{memberId}
+	</select>
+	
+	<select id="nicknameCheck" parameterType="string" resultType ="_int">
+		select count(*)
+		       nickname
+		  from member
+		 where nickname = #{nickname}
+	</select>
+	
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		select
 		       member_no

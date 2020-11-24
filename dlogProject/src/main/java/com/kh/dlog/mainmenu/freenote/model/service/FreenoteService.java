@@ -48,6 +48,7 @@ public interface FreenoteService {
 	// 2. 검색 조회
 	int selectSearchListCount(SearchCondition sc);
 	ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi);
+
 	
 	
 }

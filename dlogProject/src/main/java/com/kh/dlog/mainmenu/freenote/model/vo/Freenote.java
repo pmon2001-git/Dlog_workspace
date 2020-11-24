@@ -29,5 +29,6 @@ public class Freenote {
 	private String modifyDate;
 	private String status;
 	private String freenoteWriter;
+	private int replyCount;
 
 }

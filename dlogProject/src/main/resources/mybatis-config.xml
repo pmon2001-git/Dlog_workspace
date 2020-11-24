@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.dlog.mainmenu.diary.model.vo.Diary" alias="Diary"/>
 		<typeAlias type="com.kh.dlog.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.dlog.friend.model.vo.Friend" alias="Friend"/>
+		<typeAlias type="com.kh.dlog.widget.timetable.model.vo.Timetable" alias="Timetable"/>
 	</typeAliases>
 	
 	<!-- 
@@ -38,6 +39,7 @@
  		<mapper resource="/mappers/photo-mapper.xml" />
  		<mapper resource="/mappers/diary-mapper.xml" />
  		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/timetable-mapper.xml"/>
  		<mapper resource="/mappers/friend-mapper.xml"/>
  	</mappers>
  	

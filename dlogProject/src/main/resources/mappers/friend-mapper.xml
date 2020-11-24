@@ -5,6 +5,7 @@
 	<resultMap type="Friend" id="friendResultSet">
 		<id column="friend_no" property="friendNo" />
 		<result column="friend_owner" property="friendOwner" />
+		<result column="friend_nickname" property="friendNickname" />
 		<result column="friend_accepted" property="friendAccepted" />
 		<result column="friend_status" property="friendStatus" />
 	</resultMap>
@@ -12,10 +13,12 @@
 	<select id="selectFriendList"
 			parameterType="_int"
 			resultMap="friendResultSet">
-		select friend_no, friend_owner, m.nickname friend_accepted , friend_status
+		select friend_no, friend_owner, m.nickname friend_nickname, friend_accepted, friend_status
 		  from friend f
 		  join member m on(f.friend_accepted=m.member_no)
 		 where friend_owner = #{friendOwner}
+		 order 
+		    by friend_no
 	</select>
 	
 	<select id="selectFriendListCount"
@@ -26,6 +29,12 @@
 		 where friend_owner = #{friendOwner}
 	</select>
 	
-	
+	<delete id="deleteFriend"
+			parameterType="Friend">
+		delete 
+	      from friend
+	     where friend_owner = #{friendOwner}
+	       and friend_accepted = #{friendAccepted}
+	</delete>
 	
 </mapper>

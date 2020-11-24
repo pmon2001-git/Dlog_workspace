@@ -150,6 +150,7 @@ public class FreenoteController {
 		JSONObject jobj = new JSONObject();
 		jobj.put("rlist", rlist);
 		jobj.put("rlist2", rlist2);
+		jobj.put("replyCount", fService.selectFreenote(fno).getReplyCount());
 		jobj.put("pi", pi);
 		
 		return new Gson().toJson(jobj);

@@ -125,7 +125,7 @@
 	                        </tr>
 	                        <tr>
 	                            <td colspan="2">
-	                                ${ fn.createDate } &emsp;좋아요 ${ fn.freenoteLike } &emsp; 댓글 5
+	                                ${ fn.createDate } &emsp;좋아요 ${ fn.freenoteLike } &emsp; 댓글 ${ fn.replyCount }
 	                            </td>
 	                        </tr>
 	                    </table>

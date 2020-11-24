@@ -23,7 +23,7 @@
         resize: none;
     }
     .enrollReply2, .reply2{
-        display: none;
+        /*display: none;*/
     }
     .reply1, .reply2{
         margin-bottom: 15px;;
@@ -31,7 +31,7 @@
     #deleteBtn:hover{
     	cursor:pointer;
     }
-    #pagination button{
+    #replyPagination button{
     	margin:1.5px;
     }
 </style>
@@ -94,10 +94,10 @@
                             </div>
                             <hr>
                             <div id="replyArea"></div>
-                            <div id="pagination" align="center"></div>
+                            <div id="replyPagination" align="center"></div>
                             <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
                                 <textarea id="enrollReply1" class="form-control" placeholder="내용을 입력해주세요" style="height: 80px;" maxlength="500" required></textarea>
-                                <span id="count">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success" onclick="addReply(0);">등록</button>
+                                <span id="count">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success" onclick="addReply(0, 1);">등록</button>
                             </div>
                         </div>
                     </div>
@@ -112,16 +112,11 @@
     
     <script>
 	    $(function(){
-			selectReplyList(1);
-			$("#replyArea").on("click", "button", function() {
-				//console.log('hi');
-				//https://learn.jquery.com/events/event-delegation/
-			});
-			//document.getElementById("addReply2-40").style.display ="block";
+			selectReplyList(1, 0);
 	    });
 		
 		// 댓글리스트 조회용 ajax
-		function selectReplyList(cPage){
+		function selectReplyList(cPage, refRno){
 			$.ajax({
 				url:"rlist.fn",
 				data:{
@@ -129,17 +124,23 @@
 					currentPage:cPage
 				},
 				success:function(result){
-					$("#rcount").text(result.rlist2.length + result.pi.listCount);
+					$("#rcount").text(result.replyCount);
 					
 					if(result.rlist.length > 0){
 						var comment = "";
 						for(var i in result.rlist){
-							
-							var countReply2 = 0;
+							var countReply2 = 0; // 대댓글 수
                         	var comment2 = "";
 	                        for(var j in result.rlist2){
 	                        	if(result.rlist2[j].refRno == result.rlist[i].replyNo){
-	                        		comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "'>" +
+	                        		// 대댓글 작성 후 대댓글 영역 display 속성 block으로 주기 위해
+	                        		if(result.rlist[i].replyNo == refRno){
+	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:block;'>";
+	                        		}else{
+	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:none;'>";
+	                        		}
+	                        		
+	                        		comment2 += 
 	                                    "<table>" +
 	                                        "<tr>" +
 	                                            "<td width='35'>" +
@@ -159,11 +160,11 @@
 	                                            "<td></td>" +
 	                                            "<td width='700'>" +
 	                                            	result.rlist2[j].createDate + "&emsp;" +
-	                                                "<a href=''<i class='mdi mdi-heart-outline'></i> 좋아요</a>&nbsp;" +
+	                                                "<a href=''><i class='mdi mdi-heart-outline'></i> 좋아요</a>&nbsp;" +
 	                                                result.rlist2[j].replyLike +
 	                                            "</td>" +
 	                                            "<td width='200' align='right'>" +
-	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ");'>삭제</button>" +
+	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>" +
 	                                            "</td>" +
 	                                        "</tr>" +
 	                                    "</table>" +
@@ -180,8 +181,13 @@
 			                            "</td>" +
 			                        "</tr>" +
 			                        "<tr>" +
-			                            "<td colspan='3'>" +
-			                                result.rlist[i].replyContent +
+			                            "<td colspan='3'>";
+			                if(result.rlist[i].status == 'Y'){
+								comment1 += result.rlist[i].replyContent;
+			                }else{
+			                	comment1 += "삭제된 댓글입니다";
+			                }
+			                comment1 +=
 			                            "</td>" +
 			                        "</tr>" +
 			                        "<tr height='30'>" +
@@ -192,7 +198,7 @@
 			                            "</td>" +
 			                            "<td><button class='btn btn-outline-light btn-sm btn-flat' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button></td>" +
 			                            "<td width='600' align='right'>" +
-			                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ");'>삭제</button>" +
+			                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>" +
 			                            "</td>" +
 			                        "</tr>" +
 			                    "</table>" +
@@ -201,20 +207,31 @@
 	                        comment += comment1;
 	                        comment += comment2;
 	                        
-	                        comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right'>" +
-	                            "<table>" + 
-	                                "<tr>" +
-	                                    "<td width='35' style='vertical-align: top;'>" +
-	                                        "<img src='resources/images/reply_arrow.png' width='17'>" +
-	                                    "</td>" +
-	                                    "<td width='850'>" +
-	                                        "<textarea class='form-control reply2Content' placeholder='내용을 입력해주세요' maxlength='500' required onkeyup='countLetter(this.value.length," + result.rlist[i].replyNo + ");'></textarea>" +
-	                                    "</td>" +
-	                                "</tr>" +
-	                            "</table>" +
-	                            "<span id='count" + result.rlist[i].replyNo + "'>0</span>/500&nbsp;&nbsp;<button class='btn btn-flat btn-outline-success btn-sm' onclick='addReply(" + result.rlist[i].replyNo + ")'>등록</button>" +
-	                        "</div>";
-	                        
+	                        if(result.rlist[i].status == 'Y'){
+		                     	// 대댓글 작성 후 해당 대댓글 영역 display 속성 block으로 주기 위해
+	                    		if(result.rlist[i].replyNo == refRno){
+	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:block;'>";
+	                    		}else{
+	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'>";
+	                    		}
+		                        
+		                        comment += 
+		                            "<table>" + 
+		                                "<tr>" +
+		                                    "<td width='35' style='vertical-align: top;'>" +
+		                                        "<img src='resources/images/reply_arrow.png' width='17'>" +
+		                                    "</td>" +
+		                                    "<td width='850'>" +
+		                                        "<textarea class='form-control reply2Content' placeholder='내용을 입력해주세요' maxlength='500' required onkeyup='countLetter(this.value.length," + result.rlist[i].replyNo + ");'></textarea>" +
+		                                    "</td>" +
+		                                "</tr>" +
+		                            "</table>" +
+		                            "<span id='count" + result.rlist[i].replyNo + "'>0</span>/500&nbsp;&nbsp;<button class='btn btn-flat btn-outline-success btn-sm' onclick='addReply(" + result.rlist[i].replyNo + ", " + result.pi.currentPage + ")'>등록</button>" +
+		                        "</div>";
+	                        }else{
+                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'></div>";
+	                        }
+							
 						}
 						$("#replyArea").html(comment);
 						
@@ -238,7 +255,7 @@
 						if($currentPage != $maxPage){
 						    pagination += "<button type='button' onclick='selectReplyList(" + ($currentPage + 1) + ");' class='btn btn-secondary btn-sm btn-flat'>&gt;</button>";
 						}
-						$("#pagination").html(pagination);
+						$("#replyPagination").html(pagination);
 		                
 					}else{
 						$("#replyArea").html("<div align='center'>작성된 댓글이 없습니다.</div>");
@@ -250,23 +267,22 @@
 		}
 		
 		// 댓글 작성용 ajax
-		function addReply(rno){
+		function addReply(refRno, cPage){
 			
-			if($("#addReply2-" + rno).find("textarea").val().trim().length != 0){
+			if($("#addReply2-" + refRno).find("textarea").val().trim().length != 0){
 				$.ajax({
 					url:"rinsert.fn",
 					type:"post",
 					data:{
-						replyContent:$("#addReply2-" + rno).find("textarea").val(),
+						replyContent:$("#addReply2-" + refRno).find("textarea").val(),
 						replyWriter:1,
 						refFno:${ fn.freenoteNo },
-						refRno:rno
+						refRno:refRno
 					}, success:function(result){
 						if(result>0){
-							$("#addReply2-" + rno).find("textarea").val("");
-							$("#addReply2-" + rno).children("span").text("0");
-							selectReplyList(1);
-							addReply2(rno);
+							$("#addReply2-" + refRno).find("textarea").val("");
+							$("#addReply2-" + refRno).children("span").text("0");
+							selectReplyList(cPage, refRno);
 						}
 					}, error:function(){
 						console.log("댓글 작성용 ajax 통신 실패");
@@ -278,14 +294,14 @@
 		}
 		
 		// 댓글 삭제 CONFIRM 용
-       	function confirmDeleteReply(rno){
+       	function confirmDeleteReply(rno, refRno, cPage){
        		if(confirm("댓글을 삭제하시겠습니까?")){
-       			deleteReply(rno);
+       			deleteReply(rno, refRno, cPage);
        		}
        	}
        	
        	// 댓글 삭제용 ajax
-       	function deleteReply(rno){
+       	function deleteReply(rno, refRno, cPage){
        		
        		$.ajax({
        			url:"rdelete.fn",
@@ -294,7 +310,7 @@
        			success:function(result){
        				
        				if(result>0){
-       					selectReplyList(1);
+       					selectReplyList(cPage, refRno);
        				}
        				
        			}, error:function(){

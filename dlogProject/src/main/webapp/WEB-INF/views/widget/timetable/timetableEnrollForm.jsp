@@ -9,15 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Dlog</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="resources/images/webImage.png" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+    <!-- Custom Stylesheet -->
     <link href="resources/css/osageuStyle.css" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -255,7 +251,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="selectList.ph" aria-expanded="false" style="background:#F3F3F9">
+                            <a href="selectList.ph" aria-expanded="false">
                                 <i class="icon-picture menu-icon"></i><span class="nav-text">사진게시판</span>
                             </a>
                         </li>
@@ -277,7 +273,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="selectList.mo" aria-expanded="false">
+                            <a href="selectList.mo" aria-expanded="false" style="background:#F3F3F9">
                                 <i class="icon-doc menu-icon"></i><span class="nav-text">메모장</span>
                             </a>
                         </li>
@@ -298,55 +294,145 @@
             ***********************************-->
             <div class="content-body" style="float: left;">
                 <div class="row page-titles mx-0">
-                    <h3 style="color:rgb(94, 94, 94); padding-left: 15px; ">사진게시판</h3>
+                    <h3 style="color:rgb(94, 94, 94); padding-left: 15px; "><b>수업시간표</b></h3>
                 </div>
                 <!-- row -->
-				
-                <i id="addFrame" class="fas fa-plus-square" onclick="addFrame();"></i>
-                <i id="removeFrame" class="fas fa-minus-square" onclick="removeFrame();"></i>
+
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card" style="width:900px; height: auto;">
-                                <div class="card-body" style="margin-left: 30px;">
-                                    
-                                    <form method="post" action="insert.ph" enctype="multipart/form-data">
-	                                    <div class="photo_outer">
-		                                    <div class="photo_insertForm">
-		                                        <div class="photo_insertForm_thumbnail" id="thumbnail1">
-		                                        	
-		                                        </div>
-		                                        <div class="photo_insertForm_file photo_insertFom_choice">
-		                                            <label for="ex_file1">사진 선택</label> 
-		                                            <input type="file" name="upfiles" id="ex_file1" onchange="loadImg(this,1); loadUrl(1);" required>
-		                                            <div id="showUrl1" class="showurl"></div>
-		                                        </div>
-		                                        <div class="photo_insertForm_date photo_insertFom_choice">
-		                                            <div class="photo_enroll_info">날짜 선택</div>
-		                                            <input type="date" name="list[0].photoDate" class="photo_enroll_date" onchange="changeColor(0);" required>
-		                                        </div>
-		                                        <div class="photo_insertForm_content photo_insertFom_choice">
-		                                            <div class="photo_enroll_info">내용 작성</div>
-		                                            <input type="text" name="list[0].photoContent" placeholder = "내용을 입력해주세요" class="photo_enroll_content" maxlength="30" required>
-		                                        </div>
-		                                    </div>
-                                    	</div>
-	                                    <br clear="both">
-	                                    <br><br><br><br>
-	                                    <button type="button" class="btn mb-1 btn-success" style="margin-left: 605px; margin-right:15px; font-size: 20px;" onclick="resetFrame();">초기화</button>
-	                                    <button type="submit" class="btn mb-1 btn-success" style="font-size: 20px;">작성</button>
-                                    </form>
+                            <div class="card" style="width:800px;">
+                                <div class="card-body" >
+                                
+                                <!-- 여기다가 작성 -->
+                                
+                                <form action="insert.ti" method="post">
+                                	<input type="hidden" name="TimetableWriter" value="${ loginUser.memberNo }">
+                                    <table id="timetableTable">
+                                        <tr>
+                                            <th>
+                                              	  과목명 : 
+                                            </th>
+                                            <td>
+                                                &nbsp;&nbsp;<input id="timetableTitle" type="text" name="timetableTitle" required maxlength="10" placeholder="최대10글자" style="width: 93%;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                              	  요일 : 
+                                            </th>
+                                            <td>
+                                                &nbsp;&nbsp; 
+                                                <select name="timetableDay" id="timetableDay" style="width: 90%;height: 25px;">
+                                                    <option value="월요일">월요일</option>
+                                                    <option value="화요일">화요일</option>
+                                                    <option value="수요일">수요일</option>
+                                                    <option value="목요일">목요일</option>
+                                                    <option value="금요일">금요일</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                              	  시작시간 : 
+                                            </th>
+                                            <td>
+                                                &nbsp;&nbsp;
+                                                <select name="timetableStart" id="timetableStart" style="width: 90%; height: 25px;">
+                                                    <option value="8">08:00 ~ 09:00</option>
+                                                    <option value="9">09:00 ~ 10:00</option>
+                                                    <option value="10">10:00 ~ 11:00</option>
+                                                    <option value="11">11:00 ~ 12:00</option>
+                                                    <option value="12">12:00 ~ 13:00</option>
+                                                    <option value="13">13:00 ~ 14:00</option>
+                                                    <option value="14">14:00 ~ 15:00</option>
+                                                    <option value="15">15:00 ~ 16:00</option>
+                                                    <option value="16">16:00 ~ 17:00</option>
+                                                    <option value="17">17:00 ~ 18:00</option>
+                                                    <option value="18">18:00 ~ 19:00</option>
+                                                    <option value="19">19:00 ~ 20:00</option>
+                                                    <option value="20">20:00 ~ 21:00</option>
+                                                    <option value="21">21:00 ~ 22:00</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                               	 종료시간 : 
+                                            </th>
+                                            <td>
+                                                &nbsp;&nbsp;
+                                                <select name="timetableEnd" id="timetableEnd" style="width: 90%; height: 25px;">
+                                                    <option value="8">08:00 ~ 09:00</option>
+                                                    <option value="9">09:00 ~ 10:00</option>
+                                                    <option value="10">10:00 ~ 11:00</option>
+                                                    <option value="11">11:00 ~ 12:00</option>
+                                                    <option value="12">12:00 ~ 13:00</option>
+                                                    <option value="13">13:00 ~ 14:00</option>
+                                                    <option value="14">14:00 ~ 15:00</option>
+                                                    <option value="15">15:00 ~ 16:00</option>
+                                                    <option value="16">16:00 ~ 17:00</option>
+                                                    <option value="17">17:00 ~ 18:00</option>
+                                                    <option value="18">18:00 ~ 19:00</option>
+                                                    <option value="19">19:00 ~ 20:00</option>
+                                                    <option value="20">20:00 ~ 21:00</option>
+                                                    <option value="21">21:00 ~ 22:00</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                               	 배경색상 : 
+                                            </th>
+                                            <td>
+                                                &nbsp;&nbsp;
+                                                <input id="timetableBackground" type="color" name="timetableBackground" style="width: 90%; height: 25px;" value="#000000">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                	글자색상 : 
+                                            </th>
+                                            <td>
+                                                &nbsp;&nbsp;
+                                                <input id="timetableColor" type="color" name="timetableColor" style="width: 90%; height: 25px;" value="#ffffff">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br><br>
+                                    <span>메모</span>
+                                    <textarea maxlength="50" placeholder="최대 50자" name="timetableContent" id="timetableContent" cols="100" rows="10" style="resize: none;" ></textarea>
+                                    <br><br>
+                                    <a href="main.ti" style="float: right;" class="btn btn-danger">취소</a>
+                                    <button type="submit" style="float: right; margin-right: 15px;" class="btn btn-success">등록</button>
+                                </form>
+                                
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- #/ container -->
-            </div>        
+            </div>
             <!--**********************************
                 Content body end
             ***********************************-->  
-            
+            <script>
+            	$(function(){
+            		
+            		$("#timetableStart").change(function(){
+            			if($(this).val() > $("#timetableEnd").val()){
+            				console.log("change!!!")
+            				$("#timetableEnd").val($(this).val());
+            			}
+            			$("#timetableEnd option").attr("disabled", false);
+           				for(var i=8; i<$("#timetableStart").val(); i++){
+           					$("#timetableEnd option[value="+i+"]").attr("disabled", true);
+           				}
+            		});
+            		
+            	});
+            </script>
         </div>
         <!--**********************************
             Main wrapper end
@@ -357,22 +443,68 @@
         ***********************************-->
         <div class="widget-area" style="float:left; margin-top: 100px;">
 
-			<div class="card">
-	        	<div class="memo_widget">
-	            	<div class="memo_widget_title">메모장</div>
-	            	<textarea class="memo_widget_content" rows="5" cols="15" readOnly>${ memoWidget.memoContent }</textarea>
-				</div>
-			</div>
-			
-			<script>
-				$(function(){
-					$(".memo_widget").hover(function(){
-						$(this).children().eq(1).attr("style","overflow:auto;");
-					},function(){
-						$(this).children().eq(1).attr("style","overflow:hidden;");
-					})
-				})
-			</script>     
+            <div class="card">
+	            <div class="memo_widget">
+	                <div class="memo_widget_title">메모장</div>
+	                <textarea class="memo_widget_content" rows="5" cols="15" readOnly>${ memoWidget.memoContent }</textarea>
+	            </div>
+            </div>
+            
+            <!-- 시간표 위젯 -->
+            
+            <div class="card card-widget">
+                <div class="card-body gradient-3">
+                    <div class="media">
+                        <table id="timetableWidget"  style="width: 100%; text-align: center;">
+                            <tr style="height: 30px;">
+                                <th>
+                                    과목명
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="height: 20px;">
+                                    과목 시간 ~ 과목시간
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 20px;">
+                                    과목 시간 ~ 과목시간
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 디데이 -->
+            <div class="card card-widget">
+                <div class="card-body gradient-4">
+                    <div class="media">
+                        <table id="ddayWidget"  style="width: 100%; text-align: center;">
+                            <tr style="height: 30px;">
+                                <th>
+                                    남은날짜
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="height: 20px;">
+                                    디데이 제목
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+            	$(function(){
+            		$(".memo_widget").hover(function(){
+            			$(this).children().eq(1).attr("style","overflow:auto;");
+            		},function(){
+            			$(this).children().eq(1).attr("style","overflow:hidden;");
+            		})
+            	})
+            </script>
             
         </div>
     </div>
@@ -400,83 +532,7 @@
     <script src="resources/js/settings.js"></script>
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>
-    
-	<script>
-		
-		frame = $(".photo_outer").html();
-		frameCount = 0;
-		frameNum = $(".photo_insertForm").length;
-		
-		$(function(){
-            
-			// [+],[-] 버튼에 클릭 모양 추가
-			$("#addFrame").hover().css("cursor","pointer");
-			$("#removeFrame").hover().css("cursor","pointer");
-			
-			// 날짜 선택 시 글자색이 회색에서 검은색으로 변경 --> 보류
-			
-			
-		})
-		
-		// frame 추가
-		addFrame = function(){
-			if($(".photo_insertForm").siblings().length > 0){
-				$(".photo_insertForm").siblings().last().after(frame);
-				frameCount++;
-			}else{
-				$(".photo_insertForm").after(frame);
-				frameCount++;
-			}
-			
-			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('id', 'ex_file'+(frameCount+1));
-			$('.photo_insertForm').eq(frameCount).children().eq(1).children('label').attr('for', 'ex_file'+(frameCount+1));
-			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('onchange', 'loadImg(this,'+(frameCount+1)+'); loadUrl('+(frameCount+1)+');');
-			$('.photo_insertForm').eq(frameCount).children().eq(2).children('input').attr('onchange', 'changeColor('+(frameCount)+');');
-			$('.photo_insertForm').eq(frameCount).children().eq(0).attr('id', 'thumbnail'+(frameCount+1));
-			$('.photo_insertForm').eq(frameCount).children().eq(1).children('div').attr('id', 'showUrl'+(frameCount+1));
-			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('name', 'upfiles');
-			$('.photo_insertForm').eq(frameCount).children().eq(2).children('input').attr('name', 'list['+frameCount+'].photoDate');
-			$('.photo_insertForm').eq(frameCount).children().eq(3).children('input').attr('name', 'list['+frameCount+'].photoContent');
-		}
-		
-		// frame 제거
-		removeFrame = function(){
-			$(".photo_outer").children().last().remove();
-			frameCount--;
-		}
-		
-		// frame 초기화
-		resetFrame = function(){
-			$(".photo_outer").html(frame);
-			frameCount = 0;
-		}
-		
-		// 미리보기
-	   	function loadImg(inputFile, num){
-			
-	        if(inputFile.files.length == 1){
-	            var reader = new FileReader();              
-	            reader.readAsDataURL(inputFile.files[0])   
-	            reader.onload = function(e){ 
-	            	$("#thumbnail"+num).html("<img src="+e.target.result+">");
-	            }
-	        }else{
-	        	$("#thumbnail"+num).html("<img src=''>");
-	        }
-	        
-	    }
-		
-	 	// 파일 첨부 시 파일명 노출
-		function loadUrl(index){
-			$("#showUrl"+index).html($("#ex_file"+index).val().substring($("#ex_file"+index).val().lastIndexOf("\\")+1, $("#ex_file"+index).val().length));
-		}
-		
-	 	// 날짜 색상 변경
-	 	changeColor = function(index){
-	 		$(".photo_enroll_date").eq(index).css("color","rgb(70,70,70)");
-	 	}
-		
-	</script>
+
 </body>
 
 </html>
