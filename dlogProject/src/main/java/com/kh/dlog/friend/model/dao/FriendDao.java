@@ -23,4 +23,9 @@ public class FriendDao {
 		return (ArrayList)sqlSession.selectList("friendMapper.selectFriendList", friendOwner, rowBounds);
 	}
 	
+	public int deleteFriend(SqlSessionTemplate sqlSession, Friend f) {
+		return sqlSession.delete("friendMapper.deleteFriend", f);
+	}
+	
+	
 }

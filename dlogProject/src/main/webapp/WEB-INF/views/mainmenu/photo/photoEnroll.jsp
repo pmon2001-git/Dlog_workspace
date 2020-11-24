@@ -301,7 +301,7 @@
                     <h3 style="color:rgb(94, 94, 94); padding-left: 15px; ">사진게시판</h3>
                 </div>
                 <!-- row -->
-
+				
                 <i id="addFrame" class="fas fa-plus-square" onclick="addFrame();"></i>
                 <i id="removeFrame" class="fas fa-minus-square" onclick="removeFrame();"></i>
                 <div class="container-fluid">
@@ -319,11 +319,11 @@
 		                                        <div class="photo_insertForm_file photo_insertFom_choice">
 		                                            <label for="ex_file1">사진 선택</label> 
 		                                            <input type="file" name="upfiles" id="ex_file1" onchange="loadImg(this,1); loadUrl(1);" required>
-		                                            <div id="showUrl1"></div>
+		                                            <div id="showUrl1" class="showurl"></div>
 		                                        </div>
 		                                        <div class="photo_insertForm_date photo_insertFom_choice">
 		                                            <div class="photo_enroll_info">날짜 선택</div>
-		                                            <input type="date" name="list[0].photoDate" class="photo_enroll_date" required>
+		                                            <input type="date" name="list[0].photoDate" class="photo_enroll_date" onchange="changeColor(0);" required>
 		                                        </div>
 		                                        <div class="photo_insertForm_content photo_insertFom_choice">
 		                                            <div class="photo_enroll_info">내용 작성</div>
@@ -415,6 +415,7 @@
 			
 			// 날짜 선택 시 글자색이 회색에서 검은색으로 변경 --> 보류
 			
+			
 		})
 		
 		// frame 추가
@@ -430,6 +431,7 @@
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('id', 'ex_file'+(frameCount+1));
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('label').attr('for', 'ex_file'+(frameCount+1));
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('onchange', 'loadImg(this,'+(frameCount+1)+'); loadUrl('+(frameCount+1)+');');
+			$('.photo_insertForm').eq(frameCount).children().eq(2).children('input').attr('onchange', 'changeColor('+(frameCount)+');');
 			$('.photo_insertForm').eq(frameCount).children().eq(0).attr('id', 'thumbnail'+(frameCount+1));
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('div').attr('id', 'showUrl'+(frameCount+1));
 			$('.photo_insertForm').eq(frameCount).children().eq(1).children('input').attr('name', 'upfiles');
@@ -469,6 +471,10 @@
 			$("#showUrl"+index).html($("#ex_file"+index).val().substring($("#ex_file"+index).val().lastIndexOf("\\")+1, $("#ex_file"+index).val().length));
 		}
 		
+	 	// 날짜 색상 변경
+	 	changeColor = function(index){
+	 		$(".photo_enroll_date").eq(index).css("color","rgb(70,70,70)");
+	 	}
 		
 	</script>
 </body>

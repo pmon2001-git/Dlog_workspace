@@ -9,5 +9,6 @@ public interface FriendService {
 
 	int selectFriendListCount(int friendOwner);
 	ArrayList<Friend> selectFriendList(int friendOwner, PageInfo pi);
+	int deleteFriend(Friend f);
 	
 }
