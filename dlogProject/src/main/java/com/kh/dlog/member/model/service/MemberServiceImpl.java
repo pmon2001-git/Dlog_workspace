@@ -1,13 +1,18 @@
 package com.kh.dlog.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.json.simple.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dlog.member.model.dao.MemberDao;
 import com.kh.dlog.member.model.vo.Member;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -17,6 +22,16 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public int idCheck(String memberId) {
+		return mDao.idCheck(sqlSession, memberId);
+	}
+	
+	@Override
+	public int nicknameCheck(String nickname) {
+		return mDao.nicknameCheck(sqlSession, nickname);
+	}
 	
 	@Override
 	public Member loginMember(Member m) {

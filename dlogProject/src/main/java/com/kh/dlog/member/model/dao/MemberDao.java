@@ -10,6 +10,14 @@ import com.kh.dlog.member.model.vo.Member;
 @Repository
 public class MemberDao {
 	
+	public int idCheck(SqlSessionTemplate sqlSession, String memberId) {
+		return sqlSession.selectOne("memberMapper.idCheck", memberId);
+	}
+	
+	public int nicknameCheck(SqlSessionTemplate sqlSession, String nickname) {
+		return sqlSession.selectOne("memberMapper.nicknameCheck", nickname);
+	}
+	
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
