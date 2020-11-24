@@ -45,11 +45,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
-	
-	
 	@RequestMapping("infoList.in")
 	public String infoList(HttpSession session, Model model) {
 		

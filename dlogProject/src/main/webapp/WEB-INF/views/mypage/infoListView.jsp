@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Dlog</title>
 <style>
   .infoSelectForm{
       margin-top: 50px;
@@ -63,7 +63,7 @@
                                      </div>
                                  <tr>
                                     <td> 이름 &nbsp; : </td>
-                                    <td>김말순</td>
+                                    <td>${ }</td>
                                  </tr>
                                   <tr>
                                       <td></td>
@@ -71,7 +71,7 @@
                                   </tr>
                                   <tr>
                                      <td> 아이디 &nbsp; : </td>
-                                     <td >user01</td>
+                                     <td >${  }</td>
                                    
                                  </tr>
                                  <tr>
@@ -80,7 +80,7 @@
                                  </tr>
                                   <tr>
                                     <td> 별명 &nbsp;: </td>
-                                    <td >말순</td>
+                                    <td >${ }</td>
                                   </tr>
                                   <tr>
                                     <td></td>
@@ -88,7 +88,7 @@
                                   </tr>
                                   <tr>
                                       <td> 이메일 &nbsp; : </td>
-                                      <td >aaa@naver.com</td>
+                                      <td >${ }</td>
                                   </tr>
                                   <tr>
                                       <td></td>
@@ -97,7 +97,7 @@
                                   </tr>
                                   <tr>
                                     <td>전화번호 &nbsp; :</td>
-                                    <td>&nbsp;010-1111-2222</td>
+                                    <td>&nbsp;${ }</td>
                                  </tr>
                                   <tr>
                                     <td>&nbsp;</td>
