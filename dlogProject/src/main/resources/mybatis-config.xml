@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.dlog.friend.model.vo.Friend" alias="Friend"/>
 		<typeAlias type="com.kh.dlog.widget.timetable.model.vo.Timetable" alias="Timetable"/>
 		<typeAlias type="com.kh.dlog.widget.dday.model.vo.Dday" alias="Dday"/>
+		<typeAlias type="com.kh.dlog.widget.dday.model.vo.WidgetCheck" alias="Wc"/>
 	</typeAliases>
 	
 	<!-- 
