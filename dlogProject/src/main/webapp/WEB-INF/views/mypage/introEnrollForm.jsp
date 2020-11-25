@@ -51,7 +51,15 @@
                               <div class="introEnrollForm">
                                   
                                   <form id="enrollForm" action="introInsert.it" method="post"> 
-                                  <table>
+                                  <input type="hidden"  name="memberNo" value="${loginUser.memberNo} }">
+								  <input type="hidden"  name="memberName" value="${loginUser.memberName} }">
+								  <input type="hidden"  name="memberId" value="${loginUser.memberId} }">
+								  <input type="hidden"  name="memberPwd" value="${loginUser.memberPwd} }">
+								  <input type="hidden"  name="email" value="${loginUser.email} }">
+								  <input type="hidden"  name="phone" value="${loginUser.phone} }">
+								  <input type="hidden"  name="nickname" value="${loginUser.nickname} }">
+								  
+								  <table>
                                       <tr>
                                           <td style="font-size:30px;">&nbsp;</td>
                                       </tr>

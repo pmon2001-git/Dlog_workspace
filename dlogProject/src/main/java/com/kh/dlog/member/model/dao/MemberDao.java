@@ -45,8 +45,11 @@ public class MemberDao {
 	
 	public int introInsert(SqlSessionTemplate sqlSession, Member m) {
 		
+		System.out.println(m.getMemberName());
 		return sqlSession.insert("memberMapper.introInsert", m);
+		
 	}
+	
 	
 	
 	public int introUpdate(SqlSessionTemplate sqlSession, Member m) {
