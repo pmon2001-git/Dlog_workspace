@@ -14,6 +14,7 @@ import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.common.template.Pagination;
 import com.kh.dlog.mainmenu.diary.model.service.DiaryService;
 import com.kh.dlog.mainmenu.diary.model.vo.Diary;
+import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
 
 
 @Controller
@@ -45,22 +46,71 @@ public class DiaryController {
 	}
 	
 	 @RequestMapping("insert.di")
-	public String insertDiary(Diary dtn, Model model, HttpSession session) {
+	public String insertDiary(Diary dn, Model model, HttpSession session) {
 		
 		
-		int result = dService.insertdiary(dtn);
+		int result = dService.insertDiary(dn);
 	
 		if(result>0) {
 			session.setAttribute("alertMsg", "성공적으로 등록되었습니다.");
-			// 수정 필요!! 로그인한 회원 번호로!!
-			model.addAttribute("dno", 1);
 			return "redirect:list.di";
 		}else {
+			model.addAttribute("errorMsg", "게시글 등록 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("detail.di")
+	public String detailDiary(int dno, Model model) {
+		
+		
+		Diary dn = dService.detailDiary(dno);
+		
+		model.addAttribute("dn", dn);
+		return "main/diary/diaryDetailView";
+		
+	}
+	
+	@RequestMapping("delete.di")
+	public String deleteDiary(int dno, Model model, HttpSession session) {
+		
+		int result = dService.deleteDiary(dno);
+		
+		if(result > 0) { 
+			
+			session.setAttribute("alertMsg", "삭제되었습니다!");
+			return "redirect:list.di";
+		}else { 
+			model.addAttribute("errorMsg", "삭제 실패!");
+			return "common/errorPage";
+		}
+	
+	}
+	
+	@RequestMapping("updateForm.di")
+	public String updateForm (int dno, Model model){
+	
+		Diary d = dService.detailDiary(dno);
+		model.addAttribute("d",d);
+		
+		return "mainmenu/diary/diaryUpdateForm";
+	}
+
+	@RequestMapping("update.di")
+	public String updateDiary(Diary dn, Model model, HttpSession session) {
+		
+		
+		int result = dService.updateDiary(dn);
+		if(result>0) {
+			session.setAttribute("alertMsg", "수정되었습니다.");
+			model.addAttribute("dno", dn.getDiaryNo());
+			return "redirect:detail.di";
+		}else {
+			//에러페이지
 			return "common/errorPage";
 		}
 	}
 	
 	
-
 }
 

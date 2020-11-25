@@ -30,12 +30,14 @@
              <div class="col-12">
                  <div class="card" style="width:900px;">
                      <div class="card-body" >
-                         <form action=""method="">
+                         <form action="update.di"method="post">
+                         <input type="hidden" name="diaryNo" value="${ dn.diaryNo }">
                              <div >
-                                 <input type="text" id="title" style="width:680px; height: 35px; border: .5px solid lightgrey; border-radius: 4px; margin-left:30px; " placeholder="&nbsp;제목을 입력해주세요">
+                                 <input type="text" id="title" style="width:680px; height: 35px; border: .5px solid lightgrey; border-radius: 4px; margin-left:30px; " placeholder="&nbsp;제목을 입력해주세요" value="${dn.diaryTitle}">
                              </div>
                              <div class="card-body">
-                                 <div class="summernote" >
+                                 <div class="summernote" name="diaryContent">
+                                 	${dn.diaryContent }
                                  </div>
                              </div>
                          </form>

@@ -29,5 +29,49 @@
 	    by diary_no desc
       
 	</select>
-
+	<insert id="insertDiary" parameterType="Diary">
+		insert
+		  into diary
+		  (
+		  	 diary_no
+		   , member_no  	   
+		   , diary_title
+		   , diary_content
+		   , to_char(diary_date, 'yyyy.mm.dd hh24:mi') as diary_date
+		  )
+		  values
+		  (
+		     seq_diaryno.nextval
+		   , #{diaryWriter}
+		   , #{diaryTitle}
+		   , #{diaryContent}
+		  )
+	</insert>
+	
+	<select id="detailDiary" parameterType="_int" resultMap="diaryResultSet">
+	select
+			diary_no
+		  , diary_title
+		  , diary_content
+       from diary d 
+       join member using(member_no)	
+      where diary_no = #{dno}
+        and d.diary_status='Y' 
+	</select>
+	
+	<update id="delteDiary" parameterType="_int">
+	update
+			diary
+	   set diary_status = 'N'
+	 where diary_no = #{dno}  	
+	</update>
+	
+	<update id="updateDiary" parameterType="Diary">
+	update
+			diary
+	   set diary_title = #{diaryTitle}
+	     , diary_content = #{diaryContent}
+	 where diary_no = #{diaryNo}      		
+	</update>
+	
 </mapper>

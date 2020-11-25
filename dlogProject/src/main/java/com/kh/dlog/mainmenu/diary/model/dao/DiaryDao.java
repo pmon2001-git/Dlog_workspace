@@ -28,4 +28,21 @@ public class DiaryDao {
 		return (ArrayList)sqlSession.selectList("diaryMapper.selectList", null, rowBounds);
 	}
 	
+	public int insertDiary(SqlSessionTemplate sqlSession, Diary d) {
+		return sqlSession.insert("DiaryMapper.insertDiary", d);
+	}
+	
+	public Diary detailDiary(SqlSessionTemplate sqlSession, int dno) {
+		return sqlSession.selectOne("diaryMapper.detailDiary", dno);
+	}
+	
+	public int deleteDiary(SqlSessionTemplate sqlSession, int dno) {
+		return sqlSession.update("diaryMapper.delteDiary", dno);
+	}
+
+	public int updateDiary(SqlSessionTemplate sqlSession, Diary dn) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("diaryMapper.updateDiary", dn);
+	}
+	
 }

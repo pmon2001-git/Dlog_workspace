@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Dlog</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+
 </head>
 <style>
 	.card-body{
@@ -30,12 +33,13 @@
              <div class="col-12">
                  <div class="card" style="width:900px;">
                      <div class="card-body" >
-                         <form action=""method="">
+                         <form action="insert.di"method="post">
+                         <input type="hidden" name="diaryWriter" value="1">
                              <div >
-                                 <input type="text" id="title" style="width:680px; height: 35px; border: .5px solid lightgrey; border-radius: 4px; margin-left:30px; " placeholder="&nbsp;제목을 입력해주세요">
+                                 <input type="text" name="diaryTitle" style="width:680px; height: 35px; border: .5px solid lightgrey; border-radius: 4px; margin-left:30px; " placeholder="&nbsp;제목을 입력해주세요">
                              </div>
                              <div class="card-body">
-                                 <div class="summernote" >
+                                 <div class="summernote" name="diaryContent">
                                  </div>
                              </div>
                          </form>

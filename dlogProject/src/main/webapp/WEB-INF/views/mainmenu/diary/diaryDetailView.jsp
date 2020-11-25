@@ -48,8 +48,8 @@
                                      <div>
                                          <table style="width:100%;">
                                              <tr>
-                                                 <td style="font-size: 16px; font-weight: bolder;">제목 </td>
-                                                 <td style="width:80%;" align="right">작성일 &nbsp;&nbsp;|&nbsp;&nbsp;2020-11-11</td>
+                                                 <td style="font-size: 16px; font-weight: bolder;">${dn.diaryTitle } </td>
+                                                 <td style="width:80%;" align="right">작성일 &nbsp;&nbsp;|&nbsp;&nbsp;${dn.diaryDate }</td>
                                              </tr>    
                                              </table>
                                      </div>
@@ -61,7 +61,7 @@
                                      <table class="detailTable" align="center">
                                          <tr>
                                              <td width="800" style="word-break: break-all; ">
-                                              	  내용
+                                              	  ${dn.diaryContent }
                                              </td>
                                          </tr>
                                      </table>
