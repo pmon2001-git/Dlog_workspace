@@ -159,9 +159,9 @@
                     <div class="form-group">
                         <label for="phoneCheck">인증번호 입력</label><br>
                         <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" required placeholder="인증번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
-                        <button id="checkBtn" class="btn btn-secondary">인증확인</button>
+                        <button id="checkBtn" type="button" class="btn btn-secondary">인증확인</button>
                     </div>
-                      <button id="enrollBtn" type="submit" class="btn">회원가입</button>
+                      <button id="enrollBtn" type="submit" class="btn" disabled>회원가입</button>
                 </form>
 
                 <p>계정이 있습니까? <a href="loginForm.me">로그인</a>하세요</p>
@@ -318,32 +318,31 @@
         		}//별명 중복체크
         		
         		$('#sendPhoneNumber').click(function(){
-                    let phoneNumber = $('#phoneNumber').val();
-                    Swal.fire('인증번호 발송 완료!')
+                    var phoneNumber = $('#phoneNumber').val();
+                    
+                    alert('인증번호 발송 완료!');
 
 
                     $.ajax({
                         type: "GET",
                         url: "sendSMS.me",
                         data: {"phoneNumber":phoneNumber},
-                        success: function(res){
+                        success: function(result){
                             $('#checkBtn').click(function(){
                             	
-                                if($.trim(res) ==$('#inputCertifiedNumber').val()){
-                                    Swal.fire(
-                                        '인증성공!',
-                                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                                        'success'
-                                    )
+                                if(result ==$('#inputCertifiedNumber').val()){
+                                    alert(
+                                        '휴대폰 인증이 정상적으로 완료되었습니다.'
+                                    );
+                                    $("#enrollBtn").removeAttr("disabled")
 
                                 }else{
                                 	
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: '인증오류',
-                                        text: '인증번호가 올바르지 않습니다!',
-                                        footer: '<a href="/home">다음에 인증하기</a>'
-                                    })
+                                	alert(
+                                            '인증번호가 올바르지 않습니다.'
+                                    );
+                                	$("#enrollBtn").attr("disabled", true);
+                                	$('#phoneNumber').focus();
                                     
                                 }
                             })
@@ -351,7 +350,7 @@
 
                         }
                     })
-                })
+                });
         		
         	}
         </script>

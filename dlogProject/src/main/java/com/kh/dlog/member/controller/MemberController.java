@@ -10,21 +10,25 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.dlog.member.model.service.MemberService;
 import com.kh.dlog.member.model.vo.Member;
+import com.kh.dlog.template.Coolsms;
 
-import net.nurigo.java_sdk.Coolsms;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
 	private MemberService mService;
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("mainpage.me")
 	public String mainpage() {
@@ -102,9 +106,9 @@ public class MemberController {
 		
 	}
 	
-	/*
+	
 	@ResponseBody
-	@RequestMapping("sendSMS.me")
+	@RequestMapping(value="sendSMS.me")
 	public String sendSMS(String phoneNumber) {
 		
 		Random rand  = new Random();
@@ -117,24 +121,23 @@ public class MemberController {
 	        System.out.println("수신자 번호 : " + phoneNumber);
 	        System.out.println("인증번호 : " + numStr);
 	       
-	        String api_key = "";
-	        String api_secret = "";
+	        String api_key = "NCSDDMHFZCHOCFLE";
+	        String api_secret = "P7GRQDVKXWOBMNYIDFODEA8WIKDEHXCQ";
 	        Coolsms coolsms = new Coolsms(api_key, api_secret);
 
 	       
 	        HashMap<String, String> params = new HashMap<String, String>();
 	        params.put("to", phoneNumber);    // 수신전화번호
-	        params.put("from", "");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+	        params.put("from", "01030171804");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
 	        params.put("type", "SMS");
 	        params.put("text", "휴대폰인증 테스트 메시지 : 인증번호는" + "["+numStr+"]" + "입니다.");
 
-	        JSONObject result = (JSONObject) coolsms.send(params); // 보내기&전송결과받기
+	        JSONObject result = coolsms.send(params); // 보내기&전송결과받기 
 	        
-	        
-	        
+	        return numStr;
 		
 	}
-	*/
+	
 
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session, Model model) {
@@ -143,17 +146,33 @@ public class MemberController {
 		
 		if(loginUser == null) {
 			
-			//session.setAttribute("alertMsg", "로그인실패");
+			session.setAttribute("alertMsg", "로그인실패");
 			return "mainpage/member/memberLoginForm";
 			
 		}else {
 			
 			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("alertMsg", "로그인성공");
 			return "mainpage/mainPage";
 			
 		}
 		
+	}
+	
+	
+	@RequestMapping("enroll.me")
+	public String insertMember(Member m, HttpSession session) {
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+		
+		m.setMemberPwd(encPwd);
+		
+		int result = mService.insertMember(m);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "성공적으로 회원가입되었습니다.");
+			return "";
+		}else {
+			return "";
+		}
 	}
 	
 	
