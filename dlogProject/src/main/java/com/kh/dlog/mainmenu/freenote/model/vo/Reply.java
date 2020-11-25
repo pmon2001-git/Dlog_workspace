@@ -23,5 +23,6 @@ public class Reply {
 	private String replyWriter;
 	private int refRno;
 	private int replyLevel;
+	private int likeStatus;
 
 }

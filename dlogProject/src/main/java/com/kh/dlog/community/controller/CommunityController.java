@@ -2,6 +2,8 @@ package com.kh.dlog.community.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import com.kh.dlog.common.template.Pagination;
 import com.kh.dlog.mainmenu.freenote.model.service.FreenoteService;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
 import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
+import com.kh.dlog.member.model.vo.Member;
 
 @Controller
 public class CommunityController {
@@ -63,11 +66,11 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("detail.co")
-	public String selectCommunity(int fno, Model model) {
+	public String selectCommunity(int fno, Model model, HttpSession session) {
 		int result = fService.increaseCount(fno);
 		
 		if(result>0) {
-			Freenote fn = fService.selectFreenote(fno);
+			Freenote fn = fService.selectFreenote(fno, ((Member)session.getAttribute("loginUser")).getMemberNo());
 			model.addAttribute("fn", fn);
 			return "mainpage/community/communityDetailView";			
 		}else {

@@ -18,7 +18,9 @@
      .card-body label{
          margin: 13px 0;
      }
-
+	#replyArea{
+		padding: 5px;
+	}
     #replyArea textarea, .enrollReply1 textarea{
         resize: none;
     }
@@ -33,6 +35,9 @@
     }
     #replyPagination button{
     	margin:1.5px;
+    }
+    .likeBtn:hover{
+    	cursor:pointer;
     }
 </style>
 </head>
@@ -87,10 +92,24 @@
                             </div>
                             <div id="etcArea">
                                 댓글 <span id="rcount"></span> &emsp;
-                                좋아요
-                                <!-- <a href=""><i class="mdi mdi-heart-outline" style="color: black;"></i> 좋아요</a> -->
-                                <!-- <a href=""><i class="mdi mdi-heart" style="color: black;"></i> 좋아요</a> -->
-                                ${ fn.freenoteLike }
+                                <!-- 좋아요 -->
+                                <c:choose>
+                                	<c:when test="${ fn.freenoteWriter != loginUser.nickname }">
+		                                <a class="likeBtn" onclick="likePost();">
+                                		<c:choose>
+                                			<c:when test="${ fn.likeStatus eq 0 }">
+		                                		<span id="heart"><i class="mdi mdi-heart-outline"></i></span> 좋아요</a>
+		                                	</c:when>
+		                                	<c:otherwise>
+		                                		<span id="heart"><i class="mdi mdi-heart"></i></span> 좋아요</a>
+		                                	</c:otherwise>
+		                                </c:choose>
+		                                <span id="likeCount">${ fn.freenoteLike }</span>
+	                                </c:when>
+	                                <c:otherwise>
+	                                	좋아요 ${ fn.freenoteLike }
+	                                </c:otherwise>
+                                </c:choose>
                             </div>
                             <hr>
                             <div id="replyArea"></div>
@@ -110,6 +129,71 @@
         Content body end
     ***********************************-->  
     
+    <!-- 좋아요, 삭제 버튼 관련 스크립트 -->
+    <script>
+		// 글 삭제 확인용
+	    $("#deleteBtn").click(function(){
+			if(confirm("정말 삭제하시겠습니까?")) {
+				location.href="delete.fn?fno=${ fn.freenoteNo }";
+			}
+		});
+		
+	    function likePost(){
+			$.ajax({
+				url:"likePost.fn",
+				type:"post",
+				data:{
+					memberNo:${loginUser.memberNo},
+					fno:${fn.freenoteNo}
+				}, success:function(result){
+					
+					
+					if(result>0){
+						alert("추천되었습니다");
+						$("#likeCount").html( parseInt($("#likeCount").text()) + 1);
+						$("#heart").html("<i class='mdi mdi-heart'></i>");
+					}else{
+						alert("추천 취소");
+						$("#likeCount").html( parseInt($("#likeCount").text()) - 1 );
+						$("#heart").html("<i class='mdi mdi-heart-outline'></i>");
+					}
+					
+					
+				}, error:function(){
+					console.log("게시글 좋아요 ajax 통신 실패");
+				}
+			});
+		}
+	    
+	    function likeReply(rno){
+			$.ajax({
+				url:"likeReply.fn",
+				type:"post",
+				data:{
+					memberNo:${loginUser.memberNo},
+					rno:rno
+				}, success:function(result){
+					
+					if(result>0){
+						alert("추천되었습니다");
+						$("#likeCount-" + rno).html( parseInt($("#likeCount-" + rno).text()) + 1);
+						$("#heart-" + rno).html("<i class='mdi mdi-heart'></i>");
+					}else{
+						alert("추천 취소");
+						$("#likeCount-" + rno).html( parseInt($("#likeCount-" + rno).text()) - 1 );
+						$("#heart-" + rno).html("<i class='mdi mdi-heart-outline'></i>");
+					}
+					
+				}, error:function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+	
+    </script>
+    
+    
+    <!-- 댓글관련 스크립트 -->
     <script>
 	    $(function(){
 			selectReplyList(1, 0);
@@ -159,10 +243,19 @@
 	                                        "<tr height='30'>" +
 	                                            "<td></td>" +
 	                                            "<td width='700'>" +
-	                                            	result.rlist2[j].createDate + "&emsp;" +
-	                                                "<a href=''><i class='mdi mdi-heart-outline'></i> 좋아요</a>&nbsp;" +
-	                                                result.rlist2[j].replyLike +
-	                                            "</td>" +
+	                                            	result.rlist2[j].createDate + "&emsp;";
+	                        	    if(result.rlist2[j].replyWriter != '${loginUser.nickname}'){
+	                        	    	if(result.rlist2[j].likeStatus == 0){
+	                        	    		comment2 += "<a class='likeBtn' onclick='likeReply(" + result.rlist2[j].replyNo + ")'><span id='heart-" + result.rlist2[j].replyNo + "'><i class='mdi mdi-heart-outline'></i></span> 좋아요</a>&nbsp;" +
+                                 			"<span id='likeCount-" + result.rlist2[j].replyNo + "'>" + result.rlist2[j].replyLike + "</span>";
+	                        	    	}else{
+	                        	    		comment2 += "<a class='likeBtn' onclick='likeReply(" + result.rlist2[j].replyNo + ")'><span id='heart-" + result.rlist2[j].replyNo + "'><i class='mdi mdi-heart'></i></span> 좋아요</a>&nbsp;" +
+                                 			"<span id='likeCount-" + result.rlist2[j].replyNo + "'>" + result.rlist2[j].replyLike + "</span>";
+	                        	    	}
+	                        	    }else{
+	                        	    	comment2 += "좋아요 " + result.rlist2[j].replyLike;
+	                        	    }
+	                        	    comment2 += "</td>" +
 	                                            "<td width='200' align='right'>" +
 	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>" +
 	                                            "</td>" +
@@ -176,12 +269,12 @@
 							var comment1 = "<div class='reply1'>" +
 			                    "<table>" + 
 			                        "<tr>" +
-			                            "<td colspan='3' height='40'>" +                            
+			                            "<td colspan='2' height='40'>" +                            
 			                                "<img src='resources/images/default-profile-pic.jpg' class='rounded-circle' height='35' width='35'> &nbsp;" + result.rlist[i].replyWriter + 
 			                            "</td>" +
 			                        "</tr>" +
 			                        "<tr>" +
-			                            "<td colspan='3'>";
+			                            "<td colspan='2'>";
 			                if(result.rlist[i].status == 'Y'){
 								comment1 += result.rlist[i].replyContent;
 			                }else{
@@ -191,14 +284,27 @@
 			                            "</td>" +
 			                        "</tr>" +
 			                        "<tr height='30'>" +
-			                            "<td width='210'>" +
-			                            	result.rlist[i].createDate + "&emsp;" +
-			                                "<a href=''><i class='mdi mdi-heart-outline'></i> 좋아요</a>&nbsp;" +
-			                                result.rlist[i].replyLike +
+			                            "<td width='300'>" +
+			                            	result.rlist[i].createDate + "&emsp;";
+			                if(result.rlist[i].status == 'Y' && '${loginUser.nickname}' != result.rlist[i].replyWriter){
+			                	
+			                	if(result.rlist[i].likeStatus == 0){
+			                		comment1 += "<a class='likeBtn' onclick='likeReply(" + result.rlist[i].replyNo + ")'><span id='heart-" + result.rlist[i].replyNo + "'><i class='mdi mdi-heart-outline'></i></span> 좋아요</a>&nbsp;" +
+	                                			"<span id='likeCount-" + result.rlist[i].replyNo + "'>" + result.rlist[i].replyLike + "</span>&emsp;";
+			                	}else{
+			                		comment1 += "<a class='likeBtn' onclick='likeReply(" + result.rlist[i].replyNo + ")'><span id='heart-" + result.rlist[i].replyNo + "'><i class='mdi mdi-heart'></i></span> 좋아요</a>&nbsp;" +
+	                                			"<span id='likeCount-" + result.rlist[i].replyNo + "'>" + result.rlist[i].replyLike + "</span>&emsp;";
+			                	}
+			                }else{
+			                	comment1 += "좋아요 " + result.rlist[i].replyLike + "&emsp;";
+			                }
+			                comment1 +=		"<button class='btn btn-outline-light btn-sm btn-flat' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button>" +
 			                            "</td>" +
-			                            "<td><button class='btn btn-outline-light btn-sm btn-flat' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button></td>" +
-			                            "<td width='600' align='right'>" +
-			                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>" +
+			                            "<td width='600' align='right'>";
+			                if(result.rlist[i].status == 'Y'){
+			                	comment1 += "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>";
+			                }
+			                comment1 +=
 			                            "</td>" +
 			                        "</tr>" +
 			                    "</table>" +
@@ -275,7 +381,7 @@
 					type:"post",
 					data:{
 						replyContent:$("#addReply2-" + refRno).find("textarea").val(),
-						replyWriter:1,
+						replyWriter:${ loginUser.memberNo },
 						refFno:${ fn.freenoteNo },
 						refRno:refRno
 					}, success:function(result){
@@ -289,7 +395,7 @@
 					}
 				});
 			}else{
-				alert("입력필요");
+				alert("댓글을 작성해주세요.");
 			}
 		}
 		
@@ -318,13 +424,6 @@
        			}
        		});
        	}
-    
-    	// 글 삭제 확인용
-	    $("#deleteBtn").click(function(){
-			if(confirm("정말 삭제하시겠습니까?")) {
-				location.href="delete.fn?fno=${ fn.freenoteNo }";
-			}
-		});
 
     	// 대댓글 작성 및 리스트 확장 버튼
     	function addReply2(rno){
@@ -361,8 +460,9 @@
     	function countLetter(count, num){
     		$("#count" + num).text(count);
     	}
-    	
     </script>
+    
+    
 	<jsp:include page="../../common/diaryWidget.jsp"/>
 	
 	<jsp:include page="../../common/diaryFooter.jsp"/>

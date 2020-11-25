@@ -20,7 +20,7 @@ public interface FreenoteService {
 	
 	// 3. 프리노트 조회용 서비스
 	int increaseCount(int fno);
-	Freenote selectFreenote(int fno);
+	Freenote selectFreenote(int fno, int loginUserNo);
 	
 	// 4. 프리노트 수정용 서비스
 	int updateFreenote(Freenote fn);
@@ -30,14 +30,24 @@ public interface FreenoteService {
 	
 	// 6. 댓글 조회용 서비스
 	int selectReplyListCount(int fno);
-	ArrayList<Reply> selectReplyList(int fno, PageInfo pi);
-	ArrayList<Reply> selectReplyList2(int fno);
+	ArrayList<Reply> selectReplyList(int fno, int loginUserNo, PageInfo pi);
+	ArrayList<Reply> selectReplyList2(int fno, int loginUserNo);
 	
 	// 7. 댓글 작성용 서비스
 	int insertReply(Reply r);
 	
 	// 8. 댓글 삭제용 서비스
 	int deleteReply(int rno);
+	
+	// 9. 게시글 좋아요 서비스
+	int checkLikePost(Freenote fn);
+	int likePost(Freenote fn);
+	int dislikePost(Freenote fn);
+	
+	// 9. 게시글 좋아요 서비스
+	int checkLikeReply(Reply r);
+	int likeReply(Reply r);
+	int dislikeReply(Reply r);
 
 	
 	// 커뮤니티

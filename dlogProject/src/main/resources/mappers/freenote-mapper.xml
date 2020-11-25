@@ -17,7 +17,8 @@
 		<result column="modify_date" property="modifyDate" />
 		<result column="status" property="status" />
 		<result column="nickname" property="freenoteWriter" />
-		<result column="replyCount" property="replyCount" />		
+		<result column="replyCount" property="replyCount" />
+		<result column="likestatus" property="likeStatus" />		
 	</resultMap>
 	
 	<resultMap type="Reply" id="replyResultSet">
@@ -31,6 +32,7 @@
 		<result column="nickname" property="replyWriter" />
 		<result column="ref_rno" property="refRno" />
 		<result column="reply_level" property="replyLevel" />
+		<result column="likestatus" property="likeStatus" />
 	</resultMap>
 
 	<select id="selectListCount" parameterType="SearchCondition" resultType="_int">
@@ -109,7 +111,7 @@
 		   and status = 'Y'
 	</update>
 	
-	<select id="selectFreenote" parameterType="_int" resultMap="freenoteResultSet">
+	<select id="selectFreenote" parameterType="Freenote" resultMap="freenoteResultSet">
 		select
 		       freenote_no
 		     , freenote_title
@@ -128,9 +130,15 @@
                  where ref_fno = freenote_no
                    and status ='Y'
                 ) as replyCount
+             , (
+		        select count(*)
+		          from freenote_like f2
+		         where f2.freenote_no = f.freenote_no
+		           and member_no = #{freenoteWriter}
+		       ) as likeStatus
 		  from freenote f
 		  join member using(member_no)
-		 where freenote_no = #{fno}
+		 where freenote_no = #{freenoteNo}
 		   and f.status = 'Y'
 	</select>
 	
@@ -168,7 +176,7 @@
 		                 and r1.status = 'Y'
 		             ) as replyCount
 		          from reply r2
-		         where ref_fno = 1
+		         where ref_fno = #{fno}
 		           and reply_level = 1
 		           and r2.status = 'N'
 		       ) 
@@ -179,13 +187,13 @@
 		select 
 		       count(*)
 		  from reply
-		 where ref_fno = 1
+		 where ref_fno = #{fno}
 		   and status = 'Y'
 		   and reply_level = 1
 		) as count from dual
 	</select>
 	
-	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+	<select id="selectReplyList" parameterType="Freenote" resultMap="replyResultSet">
 		select * from
 		(
 		select *
@@ -205,9 +213,15 @@
 		                 where r1.ref_rno = r2.reply_no
 		                   and r1.status = 'Y'
 		               ) as replyCount
+		             , (
+                        select count(*)
+                          from reply_like
+                         where reply_no = r2.reply_no
+                           and member_no = #{freenoteWriter}
+                       ) as likeStatus    
 		          from reply r2
 		          join member using(member_no)
-		         where ref_fno = #{fno}
+		         where ref_fno = #{freenoteNo}
 		           and reply_level = 1
 		           and r2.status = 'N'
 		       ) 
@@ -223,15 +237,21 @@
 		     , reply_level
 		     , r.status
 		     , null as replyCount
+		     , (
+                select count(*)
+                  from reply_like
+                 where reply_no = r.reply_no
+                   and member_no = #{freenoteWriter}
+               ) as likeStatus
 		  from reply r
 		  join member using(member_no)
-		 where ref_fno = #{fno}
+		 where ref_fno = #{freenoteNo}
 		   and reply_level = 1
 		   and r.status = 'Y'
 		) order by reply_no desc
 	</select>
 	
-	<select id="selectReplyList2" parameterType="_int" resultMap="replyResultSet">
+	<select id="selectReplyList2" parameterType="Freenote" resultMap="replyResultSet">
 		select 
 		       reply_no
 		     , reply_content
@@ -240,9 +260,15 @@
 		     , nickname
 		     , ref_rno
 		     , reply_level
+		     , (
+                select count(*)
+                  from reply_like
+                 where reply_no = r.reply_no
+                   and member_no = #{freenoteWriter}
+               ) as likeStatus   
 		  from reply r
 		  join member using(member_no)
-		 where ref_fno = #{fno}
+		 where ref_fno = #{freenoteNo}
 		   and reply_level = 2
 		   and r.status = 'Y'
 		 order
@@ -281,6 +307,62 @@
 		   set status = 'N'
 		 where reply_no = #{rno}
 	</update>
+	
+	<select id="checkLikePost" parameterType="Freenote" resultType="_int">
+		select count(*)
+		  from freenote_like
+		 where member_no = #{freenoteWriter}
+		   and freenote_no = #{freenoteNo}
+	</select>
+	
+	<insert id="likePost" parameterType="Freenote">
+		insert
+		  into freenote_like
+		  (
+		     member_no
+		   , freenote_no  
+		  )
+		  values
+		  (
+		     #{freenoteWriter}
+		   , #{freenoteNo}  
+		  )
+	</insert>
+	
+	<delete id="dislikePost" parameterType="Freenote">
+		delete
+		  from freenote_like
+		 where member_no = #{freenoteWriter}
+		   and freenote_no = #{freenoteNo}
+	</delete>
+	
+		<select id="checkLikeReply" parameterType="Reply" resultType="_int">
+		select count(*)
+		  from reply_like
+		 where member_no = #{replyWriter}
+		   and reply_no = #{replyNo}
+	</select>
+	
+	<insert id="likeReply" parameterType="Reply">
+		insert
+		  into reply_like
+		  (
+		     member_no
+		   , reply_no  
+		  )
+		  values
+		  (
+		     #{replyWriter}
+		   , #{replyNo}  
+		  )
+	</insert>
+	
+	<delete id="dislikeReply" parameterType="Reply">
+		delete
+		  from reply_like
+		 where member_no = #{replyWriter}
+		   and reply_no = #{replyNo}
+	</delete>
 	
 	
 	<!-- 커뮤니티 -->
