@@ -16,7 +16,8 @@ public class Friend {
 	// field
 	private int friendNo;
 	private int friendOwner;
-	private String friendAccepted;
+	private String friendNickname;
+	private int friendAccepted;
 	private String friendStatus;
 	
 }

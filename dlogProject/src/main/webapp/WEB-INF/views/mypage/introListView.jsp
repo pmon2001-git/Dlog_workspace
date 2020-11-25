@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Dlog</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+
  <style>
         .introSelectForm{ 
             height:400px;
@@ -18,11 +21,10 @@
          }
          #line{
             border:gray 2px dashed;
+            width:100%;
             
          }
-         #btn{
-             margin-left:90%;
-         }
+        
     </style>
 </head>
 <body>
@@ -60,9 +62,9 @@
                                              </tr>
                                          </table>
                                      </div>
-                                     <div id="btn">
-                                         <button type="button" onclick="location.href='introUpdateForm.it'" class="btn btn-success btn-sm">수정하기</button>
-                                     </div>
+                                     <br>
+                                    
+                                     
                              <br>
                             </div> 
                          </div>                                

@@ -18,6 +18,20 @@
 		<result column="introduction_content" property="introductionContent" />	
 	</resultMap>
 	
+	<select id="idCheck" parameterType="string" resultType ="_int">
+		select count(*)
+		       member_id
+		  from member
+		 where member_id = #{memberId}
+	</select>
+	
+	<select id="nicknameCheck" parameterType="string" resultType ="_int">
+		select count(*)
+		       nickname
+		  from member
+		 where nickname = #{nickname}
+	</select>
+	
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		select
 		       member_no
@@ -50,13 +64,13 @@
 	      , phone
 	  from member
 	 where status='Y'
+	   and member_id=#{memberId}
 	</select>
 	<update id="infoUpdate" parameterType="Member">
 		 update
 		        member
 		    set 
-		        member_no=#{memberNo}
-		      , member_name=#{memberName}
+		        member_name=#{memberName}
 		      , member_id=#{memberId}
 		      , nickname=#{nickname}
 		      , email=#{email}
@@ -65,24 +79,72 @@
 		  where member_id=#{memberId} 
 	</update>
 	
-	 <select id ="introList" resultMap="memberResultSet">
-	 select
-	 		member_no
-	      , introduction_title
-	      , introduction_content  
-	  from member
-	  where member_no=#{memberNo}
+	 <select id ="introList" parameterType="Member" resultMap="memberResultSet">
+		 select
+		 		member_no
+		      , introduction_title
+		      , introduction_content  
+		  from member
+		  where member_id=#{memberId}
 	 </select >
+	 
+	 <select id ="introListMn" parameterType="Member" resultMap="memberResultSet">
+		 select
+		 		member_no
+		      , introduction_title
+		      , introduction_content  
+		  from member
+		  where member_id=#{memberId}
+	 </select >
+	 
+	 <insert id="introInsert" parameterType="Member">
+		insert
+		  into member
+		  (
+			member_no
+		  , member_name	
+		  , member_id
+		  , member_pwd
+		  , email
+		  , phone
+		  , nickname
+		  , introduction_title
+		  , introduction_content
+		  )
+		  values
+		  (
+		     #{memberNo} 
+		   , #{memberName}	
+		   , #{memberId}
+		   , #{memberPwd}
+		   , #{email}
+		   , #{phone}
+		   , #{nickname} 
+		   , #{introductionTitle}
+		   , #{introductionContent}
+		 
+		 )
+	</insert>
+	 
+	 
 	 
 	 <update id="introUpdate" parameterType="Member">
 		 update
 		        member
-		    set 
-		        member_no=#{memberNo}
+		    set
+		     	member_no=#{memberNo}
 		      , introduction_title=#{introductionTitle}
 		      , introduction_content=#{introductionContent}  
-		  where member_no=#{memberNo} 
+		  where member_id=#{memberId} 
 	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		update
+	        member
+	    set status = 'N'
+	      , modify_date= sysdate
+	  where member_id = #{memberId}
+	</delete>
 	
 
 </mapper>

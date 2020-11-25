@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Dlog</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+
 <style>
      .introUpdateForm{ 
          height:400px;
@@ -48,7 +51,7 @@
                           <div class="introUpdate"> 
                               <div class="introUpdateForm">
                                   
-                                  <form id="updateForm" action="" method="post"> 
+                                  <form id="updateForm" action="introUpdate.it" method="post"> 
                                   <table>
                                       <tr>
                                           <td style="font-size:30px;">&nbsp;</td>

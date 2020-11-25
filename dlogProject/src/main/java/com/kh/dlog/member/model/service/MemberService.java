@@ -6,6 +6,10 @@ import com.kh.dlog.member.model.vo.Member;
 
 public interface MemberService {
 	
+	int idCheck(String memberId);
+	
+	int nicknameCheck(String nickname);
+	
 	Member loginMember(Member m);
 	
 	int insertMember(Member m);
@@ -15,9 +19,15 @@ public interface MemberService {
 	
 	int infoUpdate(Member m);
 	
-	ArrayList<Member> introList();
+	ArrayList<Member> introList(Member m);
+	
+	ArrayList<Member> introListMn(Member m);
+	
+	int introInsert(Member m);
 	
 	int introUpdate(Member m);
+
+	int deleteMember(String memberId);
 	
 	
 	

@@ -45,10 +45,10 @@
             <div class="nav-header">
                 <div class="brand-logo" style="background:rgb(204, 202, 202)">
                     <a href="#">
-                        <b class="logo-abbr"><img src="images/DlogLogo-text-short.png" alt="" width="19px"></b>
-                        <span class="logo-compact"><img src="images/DlogLogo-text.png" alt="" width="87"></span>
+                        <b class="logo-abbr"><img src="resources/images/DlogLogo-text-short.png" alt="" width="19px"></b>
+                        <span class="logo-compact"><img src="resources/images/DlogLogo-text.png" alt="" width="87"></span>
                         <span class="brand-title">
-                            <img src="images/DlogLogo-text.png" alt="" width="87px">
+                            <img src="resources/images/DlogLogo-text.png" alt="" width="87px">
                         </span>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                                         <ul>
                                             <li class="notification-unread">
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/1.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Saiful Islam</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -106,7 +106,7 @@
                                             </li>
                                             <li class="notification-unread">
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/2.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/2.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Adam Smith</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -116,7 +116,7 @@
                                             </li>
                                             <li>
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/3.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/3.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Barak Obama</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -126,7 +126,7 @@
                                             </li>
                                             <li>
                                                 <a href="javascript:void()">
-                                                    <img class="float-left mr-3 avatar-img" src="images/avatar/4.jpg" alt="">
+                                                    <img class="float-left mr-3 avatar-img" src="resources/images/avatar/4.jpg" alt="">
                                                     <div class="notification-content">
                                                         <div class="notification-heading">Hilari Clinton</div>
                                                         <div class="notification-timestamp">08 Hours ago</div>
@@ -193,7 +193,7 @@
                             </li>
                             <li class="icons dropdown">
                                 <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                                    <img src="images/default-profile-pic.jpg" height="40" width="40" alt="">
+                                    <img src="resources/images/default-profile-pic.jpg" height="40" width="40" alt="">
                                 </div>
                                 <div class="drop-down dropdown-profile   dropdown-menu">
                                     <div class="dropdown-content-body">

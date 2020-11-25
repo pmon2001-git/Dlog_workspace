@@ -68,7 +68,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   color:rgb(100,100,100);
   padding-left: 5px;
 }
-
 .photo_insertForm{
   width: 47%;
   height: 550px;
@@ -87,7 +86,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   object-fit: contain;
 }
 .photo_insertForm_date input[type=date]{
-	color:#3b3b3b;
+	color:gray;
 	font-size:20px;
 	outline:0px;
 }
@@ -155,6 +154,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   border: 0px;
   font-size: 18px;
   padding-left: 10px;
+  color:rgb(70,70,70);
 }
 #addFrame{
 	width:40px !important;
@@ -192,8 +192,9 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 	height:100% !important;
 	color:white;
 }
-
-
+.showurl{
+	color:rgb(70,70,70);
+}
 
 
 /* 메모장 */
@@ -421,8 +422,10 @@ input:checked + .slider:before {
 }
 .friend_list_search{
   height: 40px;
-  width: 100%;
-  margin-bottom: 5px;
+  width: 88%;
+  margin-top:20px;
+  margin-left:20px;
+  margin-bottom: 30px;
 }
 .friend_list_search input{
   height: 100%;
@@ -430,6 +433,9 @@ input:checked + .slider:before {
   box-shadow: 1px 1px 1px lightgray inset;
   border: 1px solid lightgray;
   padding: 10px;
+}
+.friend_list_height{
+	height:250px;
 }
 .friend_request_search{
   height: 40px;
@@ -4110,7 +4116,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #8b8b8b;
+  color: gray;
   background-color: #fff;
   border: 1px solid #dee2e6; 
   }
