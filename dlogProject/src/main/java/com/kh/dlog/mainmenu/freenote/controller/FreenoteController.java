@@ -20,6 +20,7 @@ import com.kh.dlog.mainmenu.freenote.model.service.FreenoteService;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
 import com.kh.dlog.mainmenu.freenote.model.vo.Reply;
 import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
+import com.kh.dlog.member.model.vo.Member;
 
 @Controller
 public class FreenoteController {
@@ -83,11 +84,12 @@ public class FreenoteController {
 	}
 	
 	@RequestMapping("detail.fn")
-	public String selectFreenote(int fno, Model model) {
+	public String selectFreenote(int fno, Model model, HttpSession session) {
+		
 		int result = fService.increaseCount(fno);
 		
 		if(result>0) {
-			Freenote fn = fService.selectFreenote(fno);
+			Freenote fn = fService.selectFreenote(fno, ((Member)session.getAttribute("loginUser")).getMemberNo());
 			model.addAttribute("fn", fn);
 			return "mainmenu/freenote/freenoteDetailView";			
 		}else {
@@ -101,7 +103,7 @@ public class FreenoteController {
 		// 로그인한 회원번호로 수정
 		int mno = 1;
 		ArrayList<String> cateList = fService.selectCategory(mno);
-		Freenote fn = fService.selectFreenote(fno);
+		Freenote fn = fService.selectFreenote(fno, 0);
 		model.addAttribute("cateList", cateList);
 		model.addAttribute("fn", fn);
 		return "mainmenu/freenote/freenoteUpdateForm";
@@ -140,17 +142,17 @@ public class FreenoteController {
 	
 	@ResponseBody
 	@RequestMapping(value="rlist.fn", produces="application/json; charset=utf-8")
-	public String selectReplyList(int fno, int currentPage) {
+	public String selectReplyList(int fno, int currentPage, HttpSession session) {
 		int listCount = fService.selectReplyListCount(fno);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
 		
-		ArrayList<Reply> rlist = fService.selectReplyList(fno, pi);
-		ArrayList<Reply> rlist2= fService.selectReplyList2(fno);
+		ArrayList<Reply> rlist = fService.selectReplyList(fno, ((Member)session.getAttribute("loginUser")).getMemberNo(), pi);
+		ArrayList<Reply> rlist2= fService.selectReplyList2(fno, ((Member)session.getAttribute("loginUser")).getMemberNo());
 		
 		JSONObject jobj = new JSONObject();
 		jobj.put("rlist", rlist);
 		jobj.put("rlist2", rlist2);
-		jobj.put("replyCount", fService.selectFreenote(fno).getReplyCount());
+		jobj.put("replyCount", fService.selectFreenote(fno, 0).getReplyCount());
 		jobj.put("pi", pi);
 		
 		return new Gson().toJson(jobj);
@@ -165,14 +167,45 @@ public class FreenoteController {
 		}else {
 			r.setReplyLevel(2);
 		}
-		int result = fService.insertReply(r);
-		return result + "";
+		return fService.insertReply(r) + "";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="rdelete.fn", produces="text/html; charset=utf-8")
 	public String deleteReply(int rno) {
 		return fService.deleteReply(rno) + "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="likePost.fn", produces="text/html; charset=utf-8")
+	public String likePost(int memberNo, int fno) {
+		Freenote fn = new Freenote();
+		fn.setFreenoteWriter(memberNo+"");
+		fn.setFreenoteNo(fno);
+		int result = fService.checkLikePost(fn);
+		if(result == 0) {
+			fService.likePost(fn);
+			return "1";
+		}else {
+			fService.dislikePost(fn);
+			return "0";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="likeReply.fn", produces="text/html; charset=utf-8")
+	public String likeReply(int memberNo, int rno) {
+		Reply r = new Reply();
+		r.setReplyWriter(memberNo+"");
+		r.setReplyNo(rno);
+		int result = fService.checkLikeReply(r);
+		if(result == 0) {
+			fService.likeReply(r);
+			return "1";
+		}else {
+			fService.dislikeReply(r);
+			return "0";
+		}
 	}
 }
 

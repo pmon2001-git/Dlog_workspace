@@ -84,7 +84,9 @@
     #replyPagination button:hover, .deleteBtn:hover, .addBtn:hover, .reportBtn:hover{
         background:rgb(233, 233, 233);
     }
-	
+	.likeBtn:hover{
+		cursor:pointer;
+	}
     
 </style>
 </head>
@@ -105,7 +107,7 @@
         });
     </script>
     
-    <!-- Contact Section-->
+    <!-- Content Section-->
     <section class="page-section">
         <div class="container" style="margin-top: 80px; width: 1050px;">
             <div id="titleArea">
@@ -163,14 +165,35 @@
                 <table>
                     <tr>
                         <td width="500">
-                            댓글 <span id="rcount"></span> &emsp;
-                            <!-- <a href="" style="text-decoration: none; color: black;"><i class="far fa-heart" style="color: black;"></i> 좋아요</a> -->
-                            <a href="" style="text-decoration: none; color: black"><i class="fas fa-heart" style="color: black;"></i> 좋아요</a>
-                            &nbsp;${ fn.freenoteLike }
+                            댓글&nbsp; <span id="rcount"></span> &emsp;
+                            <!-- 좋아요 -->
+                            <c:choose>
+                            	<c:when test="${ fn.freenoteWriter != loginUser.nickname }">
+                              		<a class="likeBtn" onclick="likePost();" style="text-decoration: none; color: black">
+                            		<c:choose>
+                            			<c:when test="${ fn.likeStatus eq 0 }">
+                              				<span id="heart"><i class="far fa-heart"></i></span> 좋아요</a>
+                              			</c:when>
+                              			<c:otherwise>
+                              				<span id="heart"><i class="fas fa-heart"></i></span> 좋아요</a>
+                              			</c:otherwise>
+                            		</c:choose>
+                            		<span id="likeCount">&nbsp;${ fn.freenoteLike }</span>
+                            	</c:when>
+                             	<c:otherwise>
+                             		좋아요&nbsp; ${ fn.freenoteLike }
+                             	</c:otherwise>
+                        	</c:choose>
                         </td>
                         <td width="450" align="right">
-                            <a href="">내 다이어리에서 보기 &#8594;</a>
-                            <!-- <button class="btn btn-basic btn-sm" id="report" onclick="report(3, 1, 2);">신고</button> -->
+                        	<c:choose>
+                        		<c:when test="${ loginUser.nickname == fn.freenoteWriter }">
+		                            <a href="detail.fn?fno=${ fn.freenoteNo }">내 다이어리에서 보기 &#8594;</a>
+		                        </c:when>
+		                        <c:otherwise>
+		                            <button class="btn btn-basic btn-sm" id="report" onclick="report(3, 1, 2);">신고</button>
+		                        </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </table>
@@ -179,18 +202,7 @@
             <div id="replyArea">
                 <button class="btn btn-basic btn-sm" id="report" onclick="report(1, 3, 2);">신고</button>
             </div>
-            <div id="replyPagination" align="center">
-                <button>&lt;</button>
-
-                <button disabled>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-
-                <button>&gt;</button>
-                
-            </div>
+            <div id="replyPagination" align="center"></div>
             <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
                 <textarea name="" id="enrollReply1" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
                 <span id="count">0</span>/500&nbsp;&nbsp;<button class="enrollBtn" onclick="addReply(0, 1);">등록</button>
@@ -199,6 +211,63 @@
         </div>
     </section>
 
+	<!-- 좋아요 관련 스크립트 -->
+	<script>
+		function likePost(){
+			$.ajax({
+				url:"likePost.fn",
+				type:"post",
+				data:{
+					memberNo:${loginUser.memberNo},
+					fno:${fn.freenoteNo}
+				}, success:function(result){
+					
+					
+					if(result>0){
+						alert("추천되었습니다");
+						$("#likeCount").html( parseInt($("#likeCount").text()) + 1);
+						$("#heart").html("<i class='fas fa-heart' style='color: black;'></i>");
+					}else{
+						alert("추천 취소");
+						$("#likeCount").html( parseInt($("#likeCount").text()) - 1 );
+						$("#heart").html("<i class='far fa-heart' style='color: black;'></i>");
+					}
+					
+					
+				}, error:function(){
+					console.log("게시글 좋아요 ajax 통신 실패");
+				}
+			});
+		}
+	    
+	    function likeReply(rno){
+			$.ajax({
+				url:"likeReply.fn",
+				type:"post",
+				data:{
+					memberNo:${loginUser.memberNo},
+					rno:rno
+				}, success:function(result){
+					
+					if(result>0){
+						alert("추천되었습니다");
+						$("#likeCount-" + rno).html( parseInt($("#likeCount-" + rno).text()) + 1);
+						$("#heart-" + rno).html("<i class='fas fa-heart'></i>");
+					}else{
+						alert("추천 취소");
+						$("#likeCount-" + rno).html( parseInt($("#likeCount-" + rno).text()) - 1 );
+						$("#heart-" + rno).html("<i class='far fa-heart'></i>");
+					}
+					
+				}, error:function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+
+	</script>
+	
+	<!-- 댓글관련 스크립트 -->
     <script>
     
 	    $(function(){
@@ -206,7 +275,7 @@
 	    });
 		
 		// 댓글리스트 조회용 ajax
-		function selectReplyList(cPage, rno){
+		function selectReplyList(cPage, refRno){
 			$.ajax({
 				url:"rlist.fn",
 				data:{
@@ -214,7 +283,7 @@
 					currentPage:cPage
 				},
 				success:function(result){
-					$("#rcount").text(result.rlist2.length + result.pi.listCount);
+					$("#rcount").text(result.replyCount);
 					
 					if(result.rlist.length > 0){
 						var comment = "";
@@ -225,7 +294,7 @@
 	                        for(var j in result.rlist2){
 	                        	if(result.rlist2[j].refRno == result.rlist[i].replyNo){
 	                        		// 대댓글 작성 후 대댓글 영역 display 속성 block으로 주기 위해
-	                        		if(result.rlist[i].replyNo == rno){
+	                        		if(result.rlist[i].replyNo == refRno){
 	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:block;'>";
 	                        		}else{
 	                        			comment2 += "<div class='reply2 reply2-" + result.rlist[i].replyNo + "' style='display:none;'>";
@@ -250,16 +319,28 @@
 	                                        "<tr height='30'>" +
 	                                            "<td></td>" +
 	                                            "<td width='900'>" +
-	                                            	result.rlist2[j].createDate + "&emsp;" +
-	                                                "<a href='' style='text-decoration: none; color: black;'><i class='far fa-heart'></i> 좋아요</a>&nbsp;" +
-	                                                result.rlist2[j].replyLike +
-	                                            "</td>" +
+	                                            	result.rlist2[j].createDate + "&emsp;";
+	                                if(result.rlist2[j].replyWriter != '${loginUser.nickname}'){
+	                                	if(result.rlist2[j].likeStatus == 0){
+	                                		comment2 += "<a class='likeBtn' onclick='likeReply(" + result.rlist2[j].replyNo + ")' style='text-decoration: none; color: black;'>" +
+	                                					"<span id='heart-" + result.rlist2[j].replyNo + "'><i class='far fa-heart'></i></span> 좋아요</a>&nbsp;" +
+	                                					"<span id='likeCount-" + result.rlist2[j].replyNo + "'>" + result.rlist2[j].replyLike + "</span>";
+	                                	}else{
+	                                		comment2 += "<a class='likeBtn' onclick='likeReply(" + result.rlist2[j].replyNo + ")' style='text-decoration: none; color: black;'>" +
+                        					"<span id='heart-" + result.rlist2[j].replyNo + "'><i class='fas fa-heart'></i></span> 좋아요</a>&nbsp;" +
+                        					"<span id='likeCount-" + result.rlist2[j].replyNo + "'>" + result.rlist2[j].replyLike + "</span>";
+	                                	}
+	                                }else{
+	                                	comment2 += "좋아요 " + result.rlist2[j].replyLike;
+	                                }
+	                                                
+	                                comment2+=  "</td>" +
 	                                            "<td width='200' align='right'>";
-	                                if(result.rlist2[j].replyWriter =='honghong'){
+	                                if(result.rlist2[j].replyWriter !='${loginUser.nickname}'){
 		                                comment2 += "<button class='reportBtn' id='report' onclick='report(1, 3, 2);'>신고</button>";
 	                                	
 	                                }else{
-	                                	comment2 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ");'>삭제</button>";
+	                                	comment2 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>";
 	                                }
 	                                comment2 +=
 	                                            "</td>" +
@@ -289,13 +370,28 @@
 			                        "</tr>" +
 			                        "<tr height='30'>" +
 			                            "<td width='400'>" +
-			                            	result.rlist[i].createDate + "&emsp;" +
-			                                "<a href='' style='text-decoration: none; color: black;'><i class='far fa-heart'></i> 좋아요</a>&nbsp;" +
-			                                result.rlist[i].replyLike +
-			                                "&emsp;<button class='addBtn' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button>" +
+			                            	result.rlist[i].createDate + "&emsp;";
+							if(result.rlist[i].status == 'Y' && '${loginUser.nickname}' != result.rlist[i].replyWriter){
+			                	if(result.rlist[i].likeStatus == 0){
+			                		comment1 += "<a class='likeBtn' onclick='likeReply(" + result.rlist[i].replyNo + ")' style='text-decoration: none; color: black;'>" +
+			                					"<span id='heart-" + result.rlist[i].replyNo + "'><i class='far fa-heart'></i></span> 좋아요</a>&nbsp;" +
+	                                			"<span id='likeCount-" + result.rlist[i].replyNo + "'>" + result.rlist[i].replyLike + "</span>&emsp;";
+			                	}else{
+			                		comment1 += "<a class='likeBtn' onclick='likeReply(" + result.rlist[i].replyNo + ")' style='text-decoration: none; color: black;'>" + 
+			                					"<span id='heart-" + result.rlist[i].replyNo + "'><i class='fas fa-heart'></i></span> 좋아요</a>&nbsp;" +
+	                                			"<span id='likeCount-" + result.rlist[i].replyNo + "'>" + result.rlist[i].replyLike + "</span>&emsp;";
+			                	}
+			                }else{
+			                	comment1 += "좋아요 " + result.rlist[i].replyLike + "&emsp;";
+			                }            	
+			               
+			                comment1 +=  	"<button class='addBtn' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button>" +
 			                            "</td>" +
-			                            "<td width='650' align='right'>" +
-			                                "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ");'>삭제</button>" +
+			                            "<td width='650' align='right'>";
+			                if(result.rlist[i].status == 'Y'){ 
+			                	comment1 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>";
+			                }
+			                comment1 +=
 			                            "</td>" +
 			                        "</tr>" +
 			                    "</table>" +
@@ -306,7 +402,7 @@
 	                        
 	                        if(result.rlist[i].status == 'Y'){
 		                     	// 대댓글 작성 후 해당 대댓글 영역 display 속성 block으로 주기 위해
-	                    		if(result.rlist[i].replyNo == rno){
+	                    		if(result.rlist[i].replyNo == refRno){
 	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:block;'>";
 	                    		}else{
 	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:none;'>";
@@ -364,41 +460,41 @@
 		}
 		
 		// 댓글 작성용 ajax
-		function addReply(rno, cPage){
+		function addReply(refRno, cPage){
 			
-			if($("#addReply2-" + rno).find("textarea").val().trim().length != 0){
+			if($("#addReply2-" + refRno).find("textarea").val().trim().length != 0){
 				$.ajax({
 					url:"rinsert.fn",
 					type:"post",
 					data:{
-						replyContent:$("#addReply2-" + rno).find("textarea").val(),
-						replyWriter:1,
+						replyContent:$("#addReply2-" + refRno).find("textarea").val(),
+						replyWriter:${ loginUser.memberNo },
 						refFno:${ fn.freenoteNo },
-						refRno:rno
+						refRno:refRno
 					}, success:function(result){
 						if(result>0){
-							$("#addReply2-" + rno).find("textarea").val("");
-							$("#addReply2-" + rno).children("span").text("0");
-							selectReplyList(cPage, rno);
+							$("#addReply2-" + refRno).find("textarea").val("");
+							$("#addReply2-" + refRno).children("span").text("0");
+							selectReplyList(cPage, refRno);
 						}
 					}, error:function(){
 						console.log("댓글 작성용 ajax 통신 실패");
 					}
 				});
 			}else{
-				alert("입력필요");
+				alert("댓글을 작성해주세요.");
 			}
 		}
 		
 		// 댓글 삭제 CONFIRM 용
-	   	function confirmDeleteReply(rno){
+	   	function confirmDeleteReply(rno, refRno, cPage){
 	   		if(confirm("댓글을 삭제하시겠습니까?")){
-	   			deleteReply(rno);
+	   			deleteReply(rno, refRno, cPage);
 	   		}
 	   	}
 	   	
 	   	// 댓글 삭제용 ajax
-	   	function deleteReply(rno){
+	   	function deleteReply(rno, refRno, cPage){
 	   		
 	   		$.ajax({
 	   			url:"rdelete.fn",
@@ -407,7 +503,7 @@
 	   			success:function(result){
 	   				
 	   				if(result>0){
-	   					selectReplyList(1);
+	   					selectReplyList(cPage, refRno);
 	   				}
 	   				
 	   			}, error:function(){

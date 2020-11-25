@@ -38,8 +38,8 @@ public class FreenoteDao {
 		return sqlSession.update("freenoteMapper.increaseCount", fno);
 	}
 	
-	public Freenote selectFreenote(SqlSessionTemplate sqlSession, int fno) {
-		return sqlSession.selectOne("freenoteMapper.selectFreenote", fno);
+	public Freenote selectFreenote(SqlSessionTemplate sqlSession, Freenote fn) {
+		return sqlSession.selectOne("freenoteMapper.selectFreenote", fn);
 	}
 	
 	public int updateFreenote(SqlSessionTemplate sqlSession, Freenote fn) {
@@ -78,15 +78,15 @@ public class FreenoteDao {
 		return sqlSession.selectOne("freenoteMapper.selectReplyListCount", fno);
 	}
 	
-	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int fno, PageInfo pi) {
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, Freenote fn, PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList", fno, rowBounds);
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList", fn, rowBounds);
 	}
 	
-	public ArrayList<Reply> selectReplyList2(SqlSessionTemplate sqlSession, int fno) {
-		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList2", fno);
+	public ArrayList<Reply> selectReplyList2(SqlSessionTemplate sqlSession, Freenote fn) {
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectReplyList2", fn);
 	}
 	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
@@ -96,6 +96,31 @@ public class FreenoteDao {
 	public int deleteReply(SqlSessionTemplate sqlSession, int rno) {
 		return sqlSession.update("freenoteMapper.deleteReply", rno);
 	}
+	
+	public int checkLikePost(SqlSessionTemplate sqlSession, Freenote fn) {
+		return sqlSession.selectOne("freenoteMapper.checkLikePost", fn);
+	}
+	
+	public int likePost(SqlSessionTemplate sqlSession, Freenote fn) {
+		return sqlSession.insert("freenoteMapper.likePost", fn);
+	}
+	
+	public int dislikePost(SqlSessionTemplate sqlSession, Freenote fn) {
+		return sqlSession.delete("freenoteMapper.dislikePost", fn);
+	}
+	
+	public int checkLikeReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("freenoteMapper.checkLikeReply", r);
+	}
+	
+	public int likeReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("freenoteMapper.likeReply", r);
+	}
+	
+	public int dislikeReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.delete("freenoteMapper.dislikeReply", r);
+	}
+	
 	
 	
 }

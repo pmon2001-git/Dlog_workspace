@@ -46,8 +46,11 @@ public class FreenoteServiceImpl implements FreenoteService {
 	}
 
 	@Override
-	public Freenote selectFreenote(int fno) {
-		return fDao.selectFreenote(sqlSession, fno);
+	public Freenote selectFreenote(int fno, int loginUserNo) {
+		Freenote fn = new Freenote();
+		fn.setFreenoteNo(fno);
+		fn.setFreenoteWriter(loginUserNo+"");
+		return fDao.selectFreenote(sqlSession, fn);
 	}
 
 	@Override
@@ -86,13 +89,19 @@ public class FreenoteServiceImpl implements FreenoteService {
 	}
 
 	@Override
-	public ArrayList<Reply> selectReplyList(int fno, PageInfo pi) {
-		return fDao.selectReplyList(sqlSession, fno, pi);
+	public ArrayList<Reply> selectReplyList(int fno, int loginUserNo, PageInfo pi) {
+		Freenote fn = new Freenote();
+		fn.setFreenoteNo(fno);
+		fn.setFreenoteWriter(loginUserNo+"");
+		return fDao.selectReplyList(sqlSession, fn, pi);
 	}
 
 	@Override
-	public ArrayList<Reply> selectReplyList2(int fno) {
-		return fDao.selectReplyList2(sqlSession, fno);
+	public ArrayList<Reply> selectReplyList2(int fno, int loginUserNo) {
+		Freenote fn = new Freenote();
+		fn.setFreenoteNo(fno);
+		fn.setFreenoteWriter(loginUserNo+"");
+		return fDao.selectReplyList2(sqlSession, fn);
 	}
 
 	@Override
@@ -103,6 +112,36 @@ public class FreenoteServiceImpl implements FreenoteService {
 	@Override
 	public int deleteReply(int rno) {
 		return fDao.deleteReply(sqlSession, rno);
+	}
+	
+	@Override
+	public int checkLikePost(Freenote fn) {
+		return fDao.checkLikePost(sqlSession, fn);
+	}
+
+	@Override
+	public int likePost(Freenote fn) {
+		return fDao.likePost(sqlSession, fn);
+	}
+
+	@Override
+	public int dislikePost(Freenote fn) {
+		return fDao.dislikePost(sqlSession, fn);
+	}
+
+	@Override
+	public int checkLikeReply(Reply r) {
+		return fDao.checkLikeReply(sqlSession, r);
+	}
+
+	@Override
+	public int likeReply(Reply r) {
+		return fDao.likeReply(sqlSession, r);
+	}
+
+	@Override
+	public int dislikeReply(Reply r) {
+		return fDao.dislikeReply(sqlSession, r);
 	}
 
 }
