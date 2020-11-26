@@ -196,7 +196,7 @@
                         <td width="450" align="right">
                         	<c:choose>
                         		<c:when test="${ loginUser.nickname == fn.freenoteWriter }">
-		                            <a href="detail.fn?fno=${ fn.freenoteNo }">내 다이어리에서 보기 &#8594;</a>
+		                            <a href="detail.fn?fno=${ fn.freenoteNo }" style="color:black;">내 다이어리에서 보기 &#8594;</a>
 		                        </c:when>
 		                        <c:otherwise>
 		                            <button class="deleteBtn" id="report" onclick="report(${fn.freenoteNo}, ${fn.freenoteNo}, '글');">신고</button>&nbsp;&nbsp;
@@ -209,10 +209,12 @@
             <hr>
             <div id="replyArea"></div>
             <div id="replyPagination" align="center"></div>
-            <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
-                <textarea name="" id="enrollReply1" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
-                <span id="count">0</span>/500&nbsp;&nbsp;<button class="enrollBtn" onclick="addReply(0, 1);">등록</button>
-            </div>
+            <c:if test="${fn.freenoteCommentYN eq 'Y' }">
+	            <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
+	                <textarea name="" id="enrollReply1" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
+	                <span id="count">0</span>/500&nbsp;&nbsp;<button class="enrollBtn" onclick="addReply(0, 1);">등록</button>
+	            </div>
+            </c:if>
 
         </div>
     </section>
@@ -230,11 +232,11 @@
 					
 					
 					if(result>0){
-						alert("추천되었습니다");
+						alert("좋아요");
 						$("#likeCount").html( parseInt($("#likeCount").text()) + 1);
 						$("#heart").html("<i class='fas fa-heart' style='color: black;'></i>");
 					}else{
-						alert("추천 취소");
+						alert("좋아요 취소");
 						$("#likeCount").html( parseInt($("#likeCount").text()) - 1 );
 						$("#heart").html("<i class='far fa-heart' style='color: black;'></i>");
 					}
@@ -410,7 +412,7 @@
 	                        comment += comment1;
 	                        comment += comment2;
 	                        
-	                        if(result.rlist[i].status == 'Y'){
+	                        if(result.rlist[i].status == 'Y' && '${fn.freenoteCommentYN}' == 'Y'){
 		                     	// 대댓글 작성 후 해당 대댓글 영역 display 속성 block으로 주기 위해
 	                    		if(result.rlist[i].replyNo == refRno){
 	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:block;'>";

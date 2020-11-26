@@ -78,10 +78,12 @@
                                         <td width="400" style="font-size: 20px;">[${ fn.freenoteCategory }] ${ fn.freenoteTitle }</td>
                                         <td width="500" align="right">
                                             ${fn.createDate}
+                                        <c:if test="${ fn.freenoteWriter eq loginUser.nickname }">
                                             &nbsp;|&nbsp;
                                             <a href="updateForm.fn?fno=${ fn.freenoteNo }">수정</a>
                                             &nbsp;|&nbsp;
                                             <a id="deleteBtn">삭제</a>
+                                        </c:if>
                                         </td>
                                     </tr>
                                 </table>
@@ -114,10 +116,12 @@
                             <hr>
                             <div id="replyArea"></div>
                             <div id="replyPagination" align="center"></div>
-                            <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
-                                <textarea id="enrollReply1" class="form-control" placeholder="내용을 입력해주세요" style="height: 80px;" maxlength="500" required></textarea>
-                                <span id="count">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success" onclick="addReply(0, 1);">등록</button>
-                            </div>
+                            <c:if test="${fn.freenoteCommentYN eq 'Y' }">
+	                            <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
+	                                <textarea id="enrollReply1" class="form-control" placeholder="내용을 입력해주세요" style="height: 80px;" maxlength="500" required></textarea>
+	                                <span id="count">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success" onclick="addReply(0, 1);">등록</button>
+	                            </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -138,6 +142,29 @@
 			}
 		});
 		
+		// 글 좋아요 hover
+		/*
+		$(".likeBtn").hover(
+			function(){
+				if(${ fn.likeStatus } == 0){
+					$("#heart").html("<i class='mdi mdi-heart'></i>");
+				}else{
+					$("#heart").html("<i class='mdi mdi-heart-outline'></i>");
+				}
+			}, function(){
+				if(${ fn.likeStatus } == 0){
+					$("#heart").html("<i class='mdi mdi-heart-outline'></i>");
+				}else{
+					$("#heart").html("<i class='mdi mdi-heart'></i>");
+				}
+			}
+		);
+		*/
+		
+		// 댓글 좋아요 hover
+		$()
+		
+		// 글 좋아요 버튼
 	    function likePost(){
 			$.ajax({
 				url:"likePost.fn",
@@ -165,6 +192,7 @@
 			});
 		}
 	    
+		// 댓글 좋아요 버튼
 	    function likeReply(rno){
 			$.ajax({
 				url:"likeReply.fn",
@@ -189,7 +217,6 @@
 				}
 			});
 		}
-	
     </script>
     
     
@@ -256,9 +283,11 @@
 	                        	    	comment2 += "좋아요 " + result.rlist2[j].replyLike;
 	                        	    }
 	                        	    comment2 += "</td>" +
-	                                            "<td width='200' align='right'>" +
-	                                                "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>" +
-	                                            "</td>" +
+	                                            "<td width='200' align='right'>";
+	                                if(result.rlist2[j].replyWriter == '${loginUser.nickname}' || '${fn.freenoteWriter}' == '${loginUser.nickname}'){
+	                                	comment2 += "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>";
+	                                }
+	                                comment2 += "</td>" +
 	                                        "</tr>" +
 	                                    "</table>" +
 	                                "</div>";
@@ -301,7 +330,7 @@
 			                comment1 +=		"<button class='btn btn-outline-light btn-sm btn-flat' id='addReply2Btn-" + result.rlist[i].replyNo + "' onclick='addReply2(" + result.rlist[i].replyNo + ");'>답글&nbsp;" + countReply2 + "</button>" +
 			                            "</td>" +
 			                            "<td width='600' align='right'>";
-			                if(result.rlist[i].status == 'Y'){
+			                if(result.rlist[i].status == 'Y' && (result.rlist[i].replyWriter == '${loginUser.nickname}' || '${fn.freenoteWriter}' == '${loginUser.nickname}')){
 			                	comment1 += "<button class='btn btn-outline-light btn-sm btn-flat' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>";
 			                }
 			                comment1 +=
@@ -313,7 +342,7 @@
 	                        comment += comment1;
 	                        comment += comment2;
 	                        
-	                        if(result.rlist[i].status == 'Y'){
+	                        if(result.rlist[i].status == 'Y' && '${fn.freenoteCommentYN}' == 'Y'){
 		                     	// 대댓글 작성 후 해당 대댓글 영역 display 속성 block으로 주기 위해
 	                    		if(result.rlist[i].replyNo == refRno){
 	                    			comment += "<div class='enrollReply2' id='addReply2-" + result.rlist[i].replyNo + "' align='right' style='display:block;'>";

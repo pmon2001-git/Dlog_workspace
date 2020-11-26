@@ -34,8 +34,14 @@
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>
     
+    <!-- summernote -->
     <script src="resources/plugins/summernote/dist/summernote.min.js"></script>
     <script src="resources/plugins/summernote/dist/summernote-init.js"></script>
+        
+    <!-- dataTable -->
+    <script src="resources/plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="resources/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="resources/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
 </body>
 </html>
