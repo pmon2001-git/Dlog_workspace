@@ -51,30 +51,7 @@ public class FreenoteDao {
 		return sqlSession.update("freenoteMapper.deleteFreenote", fno);
 	}
 	
-	
-	// 커뮤니티
-	public int selectCommListCount(SqlSessionTemplate sqlSession, String topicName) {
-		return sqlSession.selectOne("freenoteMapper.selectCommListCount", topicName);
-	}
-	
-	public ArrayList<Freenote> selectCommList(SqlSessionTemplate sqlSession, String topicName, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
-		int limit = pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("freenoteMapper.selectCommList", topicName, rowBounds);
-	}
-	
-	public int selectSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
-		return sqlSession.selectOne("freenoteMapper.selectSearchListCount", sc);
-	}
-	
-	public ArrayList<Freenote> selectSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
-		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
-		int limit = pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("freenoteMapper.selectSearchList", sc, rowBounds);
-	}
-	
+	// 댓글
 	public int selectReplyListCount(SqlSessionTemplate sqlSession, int fno) {
 		return sqlSession.selectOne("freenoteMapper.selectReplyListCount", fno);
 	}
@@ -122,12 +99,39 @@ public class FreenoteDao {
 		return sqlSession.delete("freenoteMapper.dislikeReply", r);
 	}
 	
+	// 커뮤니티
+	public int selectCommListCount(SqlSessionTemplate sqlSession, String topicName) {
+		return sqlSession.selectOne("freenoteMapper.selectCommListCount", topicName);
+	}
+	
+	public ArrayList<Freenote> selectCommList(SqlSessionTemplate sqlSession, String topicName, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectCommList", topicName, rowBounds);
+	}
+	
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		return sqlSession.selectOne("freenoteMapper.selectSearchListCount", sc);
+	}
+	
+	public ArrayList<Freenote> selectSearchList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectSearchList", sc, rowBounds);
+	}
+	
 	public int checkReport(SqlSessionTemplate sqlSession, Report r) {
 		return sqlSession.selectOne("freenoteMapper.checkReport", r);
 	}
 	
 	public int insertReport(SqlSessionTemplate sqlSession, Report r) {
 		return sqlSession.insert("freenoteMapper.insertReport", r);
+	}
+	
+	public ArrayList<Freenote> selectAdminCommList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("freenoteMapper.selectAdminCommList");
 	}
 	
 }

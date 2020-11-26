@@ -31,5 +31,6 @@ public class Freenote {
 	private String freenoteWriter;
 	private int replyCount;
 	private int likeStatus;
+	private String memberId;
 
 }

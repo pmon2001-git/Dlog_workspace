@@ -13,6 +13,8 @@
     <!-- Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
     <link href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -65,7 +67,7 @@
                         <ul class="clearfix">
                             <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                <a style="font-size: 14px; margin-right: 10px;"><b>관리자</b>님 환영합니다.</a>
-                               <button class="btn btn-primary btn-sm">로그아웃</button>
+                               <button class="btn btn-primary btn-sm" onclick="location.href='logout.me';">로그아웃</button>
                             </li>
                         </ul>
                     </div>
@@ -83,39 +85,34 @@
                     <ul class="metismenu" id="menu">
             
                         <!-- 메인메뉴 -->
-                        <li class="nav-label">회원 관리</li>
                         <li>
-                            <a href="url" aria-expanded="false">
-                                <span class="nav-text">&nbsp; &nbsp; 회원조회</span>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <span class="nav-text">회원 관리</span>
                             </a>
-                        </li>
-                        <li class="nav-label">커뮤니티 관리</li>
-                        <li>
-                            <a href="url" aria-expanded="false">
-                                <span class="nav-text">&nbsp; &nbsp; 게시글 관리</span>
-                            </a>
-                        </li>
-                        <li class="nav-label">고객센터 관리</li>
-                        <li>
-                            <a href="url" aria-expanded="false">
-                                <span class="nav-text">&nbsp; &nbsp; 문의글 관리</span>
-                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="url">회원조회</a></li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="url" aria-expanded="false">
-                                <span class="nav-text">&nbsp; &nbsp; 신고관리</span>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <span class="nav-text">커뮤니티 관리</span>
                             </a>
+                            <ul aria-expanded="false">
+                                <li><a href="admin_list.co">게시글 관리</a></li>
+                            </ul>
                         </li>
+                        
                         <li>
-                            <a href="url" aria-expanded="false">
-                                <span class="nav-text">&nbsp; &nbsp; 공지사항</span>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <span class="nav-text">고객센터 관리</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="url" aria-expanded="false">
-                                <span class="nav-text">&nbsp; &nbsp; FAQ</span>
-                            </a>
-                        </li>
+                            <ul aria-expanded="false">
+                                <li><a href="url">문의글 관리</a></li>
+                                <li><a href="url">신고관리</a></li>
+                                <li><a href="url">공지사항</a></li>
+                                <li><a href="url">FAQ</a></li>
+                            </ul>
+                        </li>                        
                         
                     </ul>
                 </div>
