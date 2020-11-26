@@ -163,6 +163,7 @@
 		 where freenote_no = #{fno}
 	</update>
 	
+	<!-- 댓글 -->
 	<select id="selectReplyListCount" parameterType="_int" resultType="_int">
 		select 
 		(
@@ -426,17 +427,10 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		     , freenote_topic
-		     , (select (select count(*)
-		                  from reply
-		                 where ref_fno = freenote_no
-		                   and reply_level = 1)
-		                +
-		                (select count(*)
-		                   from reply
-		                  where ref_fno = freenote_no
-		                    and reply_level = 2
-		                    and status ='Y')
-		           from dual  
+		     , (select count(*)
+                  from reply
+                 where ref_fno = freenote_no
+                   and status ='Y'
                 ) as replyCount
 		  from freenote f
 		  join member using(member_no)
@@ -464,5 +458,37 @@
 		 	</otherwise>
 		 </choose>
 	</select>
+	
+	<select id="checkReport" parameterType="Report" resultType="_int">
+		select
+		       count(*)
+		  from report
+		 where report_writer = #{reportWriter}
+		   and report_postNo = #{reportPostNo}
+		   and report_posttype = #{reportPostType}
+	</select>
 
+	<insert id="insertReport" parameterType="Report">
+		insert 
+		  into report
+		  (
+		     report_no
+		   , report_writer
+		   , report_posttype
+		   , report_type
+		   , report_content
+		   , report_link
+		   , report_postno
+		  )
+		  values
+		  (
+		     seq_reportno.nextval
+		   , #{reportWriter}
+		   , #{reportPostType}
+		   , #{reportType}
+		   , #{reportContent}
+		   , #{reportLink}
+		   , #{reportPostNo}
+		  )
+	</insert>
 </mapper>

@@ -87,7 +87,15 @@
 	.likeBtn:hover{
 		cursor:pointer;
 	}
-    
+    .modal-content{
+    	border-radius:5px !important;
+    }
+    .modal-content .form-control{
+    	border: 0.5px solid lightgrey;
+    	border-radius:3px;
+    }
+    .page-section *{
+    }
 </style>
 </head>
 <body>
@@ -191,7 +199,7 @@
 		                            <a href="detail.fn?fno=${ fn.freenoteNo }">내 다이어리에서 보기 &#8594;</a>
 		                        </c:when>
 		                        <c:otherwise>
-		                            <button class="btn btn-basic btn-sm" id="report" onclick="report(3, 1, 2);">신고</button>
+		                            <button class="deleteBtn" id="report" onclick="report(${fn.freenoteNo}, ${fn.freenoteNo}, '글');">신고</button>&nbsp;&nbsp;
 		                        </c:otherwise>
                             </c:choose>
                         </td>
@@ -199,9 +207,7 @@
                 </table>
             </div>
             <hr>
-            <div id="replyArea">
-                <button class="btn btn-basic btn-sm" id="report" onclick="report(1, 3, 2);">신고</button>
-            </div>
+            <div id="replyArea"></div>
             <div id="replyPagination" align="center"></div>
             <div class="enrollReply1" id="addReply2-0" align="right" style="padding-top: 30px;">
                 <textarea name="" id="enrollReply1" placeholder="내용을 입력해주세요"  maxlength="500"></textarea>
@@ -336,11 +342,11 @@
 	                                                
 	                                comment2+=  "</td>" +
 	                                            "<td width='200' align='right'>";
-	                                if(result.rlist2[j].replyWriter !='${loginUser.nickname}'){
-		                                comment2 += "<button class='reportBtn' id='report' onclick='report(1, 3, 2);'>신고</button>";
+	                                if(result.rlist2[j].replyWriter =='${loginUser.nickname}' || '${fn.freenoteWriter}' == '${loginUser.nickname}'){
+	                                	comment2 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>";
 	                                	
 	                                }else{
-	                                	comment2 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist2[j].replyNo + ", " + result.rlist[i].replyNo + ", " + result.pi.currentPage + ");'>삭제</button>";
+		                                comment2 += "<button class='reportBtn' id='report' onclick='report(" + ${fn.freenoteNo} + ", " + result.rlist2[j].replyNo + ", 2);'>신고</button>";
 	                                }
 	                                comment2 +=
 	                                            "</td>" +
@@ -389,7 +395,11 @@
 			                            "</td>" +
 			                            "<td width='650' align='right'>";
 			                if(result.rlist[i].status == 'Y'){ 
-			                	comment1 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>";
+			                	if(result.rlist[i].replyWriter =='${loginUser.nickname}' || '${fn.freenoteWriter}' == '${loginUser.nickname}'){
+			                		comment1 += "<button class='deleteBtn' onclick='confirmDeleteReply(" + result.rlist[i].replyNo + ", 0, 1);'>삭제</button>";
+			                	}else{
+	                                comment1 += "<button class='reportBtn' id='report' onclick='report(" + ${fn.freenoteNo} + ", " + result.rlist[i].replyNo + ", 2);'>신고</button>";
+			                	}
 			                }
 			                comment1 +=
 			                            "</td>" +
@@ -562,8 +572,10 @@
                 <!-- Modal body -->
                 <div class="modal-body" style="padding:16px;">
                     <form method="post" id="reportForm">
+                        <input type="hidden" name="reportWriter" value="${ loginUser.memberNo }">
                         <input type="hidden" name="reportPostNo" id="reportPostNo">
                         <input type="hidden" name="reportPostType" id="reportPostType">
+                        <input type="hidden" name="reportLink">
                         <p style="font-size: 13px; padding-left:20px;">
                             * 신고하신 내용은 증거자료를 참고하여 Dlog 약관에 의거해 조치됩니다. <br>
                             * 증거 내용이 불충분하거나 타당한 이유가 아니면 무효 처리됩니다. <br>
@@ -604,13 +616,18 @@
 		$(function(){
 			$(".close").click(function() {
 				reportModal.style.display = "none";
+				document.getElementById("reportForm").reset();
 			});
 		});
 		
-		function report(postNo, userNo2, reportPostType){
+		function report(fno, postNo, reportPostType){
 			$("#reportPostNo").val(postNo);
-			$("#reportUserNo2").val(userNo2);
-			$("#reportPostType").val(reportPostType);
+			if(reportPostType==2){
+				$("#reportPostType").val("댓글");
+			}else{
+				$("#reportPostType").val(reportPostType);
+			}
+			$("input[name=reportLink]").val("http://localhost:8888/dlog/detail.co?fno=" + fno);
 			reportModal.style.display = "block";
 		}
 		
@@ -620,11 +637,11 @@
 			
 			$.ajax({
 				type:"post",
-				url:"insert.rp",
+				url:"report.co",
 				data:form.serialize(),
-				success:function(result2){
+				success:function(result){
 					
-					if(result2>0){
+					if(result>0){
 						alert("신고되었습니다.");
 						reportModal.style.display = "none";
 						document.getElementById("reportForm").reset();

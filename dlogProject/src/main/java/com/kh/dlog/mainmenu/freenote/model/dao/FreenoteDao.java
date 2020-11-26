@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.dlog.admin.report.model.vo.Report;
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
 import com.kh.dlog.mainmenu.freenote.model.vo.Reply;
@@ -121,6 +122,12 @@ public class FreenoteDao {
 		return sqlSession.delete("freenoteMapper.dislikeReply", r);
 	}
 	
+	public int checkReport(SqlSessionTemplate sqlSession, Report r) {
+		return sqlSession.selectOne("freenoteMapper.checkReport", r);
+	}
 	
+	public int insertReport(SqlSessionTemplate sqlSession, Report r) {
+		return sqlSession.insert("freenoteMapper.insertReport", r);
+	}
 	
 }
