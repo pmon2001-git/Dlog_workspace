@@ -1,5 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ddayMapper">
+	<resultMap type="Dday" id="ddayResultSet">
+		<id column="dday_no" property="ddayNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="dday_title" property="ddayTitle" />
+		<result column="dday_date" property="ddayDate"/>
+		<result column="dday_widget" property="ddayWidget" />
+		<result column="dday_count" property="ddayCount" />
+	</resultMap>
+	
+	<select id="ddayCount" parameterType="string" resultType="_int">
+		select
+		       count(*)
+		  from dday
+		 where member_no = 1
+	</select>
+	
+	<select id="ddayList" parameterType="string" resultMap="ddayResultSet">
+		select
+		        dday_no
+		      , member_no
+		      , dday_title
+		      , to_char(dday_date, 'YYYY-MM-DD') dday_date
+		      , dday_widget
+		      , TO_DATE(dday_date,'YYYY/MM/DD') - to_date(sysdate, 'YYYY/MM/DD') dday_count
+		  from dday
+		 where member_no = 1
+		 order
+		    by dday_count
+	</select>
+	
+	<insert id="insertDday" parameterType="Dday">
+		insert
+		  into 
+		       dday
+		      (
+		       dday_no
+		     , member_no
+		     , dday_title
+		     , dday_date
+		      )
+		values
+		      (
+		        seq_ddayNo.nextval
+		      , 1
+		      , #{ddayTitle}
+		      , #{ddayDate}
+		      )
+	</insert>
+	
+	<update id="updateDday" parameterType="Dday">
+		update 
+		       dday
+		   set 
+		        dday_title = #{ddayTitle}
+		      , dday_date = #{ddayDate}
+		  where dday_no = #{ddayNo}
+	</update>
+	
+	<delete id="deleteDday" parameterType="string">
+		delete
+		       dday
+		 where dday_no = #{ddayNo}
+	</delete>
+
+	<update id="widgetDday1" parameterType="string">
+		update
+		       dday
+		   set
+		       DDAY_WIDGET = 'Y'
+		 where dday_no = #{ddayNo}
+	</update>
+	
+	<update id="widgetDday2" parameterType="string">
+		update
+		       dday
+		   set
+		       DDAY_WIDGET = 'Y'
+		 where dday_no = #{ddayNo}
+	</update>
+	
+	<update id="widgetDday3" parameterType="string">
+		update
+		       dday
+		   set
+		       DDAY_WIDGET = 'Y'
+		 where dday_no = #{ddayNo}
+	</update>
+	
+	<update id="widgetDday" parameterType="string">
+		update
+		       dday
+		   set
+		       DDAY_WIDGET = 'N'
+		 where dday_no = #{ddayNo}
+	</update>
 	
 </mapper>

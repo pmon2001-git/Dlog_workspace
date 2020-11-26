@@ -1,7 +1,5 @@
 package com.kh.dlog.widget.dday.model.vo;
 
-import java.util.ArrayList;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +11,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Dday {
-	private String ddayNo;
-	private String memberNo;
-	private String ddayTitle;
-	private String ddayDate;
-	private String ddayWidget;
-	private String ddayCount;
+public class WidgetCheck {
+	
+	private String widgetCheck1;
+	private String widgetCheck2;
+	private String widgetCheck3;
+	private int widgetCount;
+	
 }

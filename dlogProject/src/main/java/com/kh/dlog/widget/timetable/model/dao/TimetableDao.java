@@ -41,10 +41,10 @@ public class TimetableDao {
 	
 	public int deleteTimetable(SqlSessionTemplate sqlSession, String[] deleteTimetableCheck) {
 		
-		int result = 0;
+		int result = 1;
 		
 		for(String tNo : deleteTimetableCheck) {
-			result += sqlSession.delete("timetableMapper.deleteTimetable", tNo);
+			result = result * sqlSession.delete("timetableMapper.deleteTimetable", tNo);
 		}
 		
 		return result;

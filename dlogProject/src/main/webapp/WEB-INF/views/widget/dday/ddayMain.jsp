@@ -28,13 +28,19 @@
         .ddayContent:hover{
             cursor: pointer;
         }
+        .ddayContentWidgetCheck:hover{
+            cursor: pointer;
+        }
+        .ddayContentDeleteCheck:hover{
+            cursor: pointer;
+        }
         input[type="checkbox"]:after {
             border: 1px solid black;
             width: 20px;
             height: 20px;
         }
         .ddayCheck input:hover{cursor: pointer;}
-        .ddayContent{
+        .ddayContent,.ddayContentWidgetCheck,.ddayContentDeleteCheck{
             width: 80%;
             height: 100%;
             margin-right: 20px;
@@ -69,18 +75,18 @@
         .ddayRadio{
             display: none;
             border: 1px solid blue;
-            width: 3%;
-            height: 55%;
+            width: 20px;
+            height: 20px;
             margin-top: 1%;
             border-radius: 100%;
             box-sizing: border-box;
             float: left;
         }
         .ddayRadioClick{
-            width: 75%;
-            height: 70%;
-            margin-top: 10%;
-            margin-left: 13%;
+            width: 10px;
+            height: 10px;
+            margin-top: 4px;
+            margin-left: 4px;
             border-radius: 100%;
             box-sizing: border-box;
             float: left;
@@ -93,7 +99,12 @@
 </head>
 
 <body>
-
+	<c:if test="${ !empty alertMsg }">
+		<script>
+			alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
     <!--*******************
         Preloader start
     ********************-->
@@ -373,46 +384,73 @@
                     <h3 style="color:rgb(94, 94, 94); padding-left: 15px; "><b>디데이</b></h3>
                 </div>
                 <!-- row -->
+                <form action="delete.dd" method="post">
+	                <div class="container-fluid">
+	                    <div class="row">
+	                        <div class="col-12">
+	                            <div class="card" style="width:900px;">
+	                                <div class="card-body" >
+	                                    <!-- 여기다가 작성 -->
+	                                    <div style="height: 50px;">
+		                                    <c:if test="${ !empty dlist }">
+		                                        <button type="button" id="deleteDdayBtn" style="float: right; width: 30px; background:white;" class="ion-minus"></button>
+		                                    </c:if>
+	                                        <button id="insertDdayBtn" type="button" style="float: right; width: 30px; background:white; margin-right: 15px;" class="ion-plus"  data-toggle="modal" data-target="#insertModal"></button>
+	                                    </div>
+	                                    <c:if test="${ !empty dlist }">
+	                                   	 <c:forEach var="dday" items="${ dlist }">
+			                                   <div class="ddayWrap">
+			                                        <div class="dday">
+			                                            <div class="ddayCheck"><input type="checkbox" name="deleteDday" value="${ dday.ddayNo }"></div>
+			                                            <div class="ddayRadio">
+			                                                <div class="ddayRadioClick <c:if test="${ dday.ddayWidget == 'Y' }">rclick</c:if>"></div>
+			                                            </div>
+			                                            <div class="ddayContent" data-toggle="modal" data-target="#updateModal">
+			                                            	<div class="ddayDateWrap">
+			                                            		<span class="ddayDate">${ dday.ddayDate }</span>
+			                                            		<span class="ddayTitle">&nbsp;${ dday.ddayTitle }</span>
+			                                            		<span class="widgetStatus">
+			                                            			<c:if test="${ dday.ddayWidget == 'Y' }">위젯 사용중</c:if>
+			                                            		</span>
+			                                            		<input type="hidden" name="ddayNo" value="${ dday.ddayNo }">
+		                                            		</div>
+				                                     	</div>
+		                                            	<div class="ddayCount" align="center">
+		                                            		 <c:choose>
+		                                            		 	<c:when test="${ dday.ddayCount == 0}">D-Day</c:when>
+		                                            		 	<c:otherwise>${ dday.ddayCount }</c:otherwise>
+		                                            		 </c:choose> 
+		                                            	</div>
+	                                        		</div>
+	                                       		</div>
+	                                      </c:forEach>
+	                                        
+		                                        <button type="button" id="checkDdayBtn" style="float: right;" class="btn btn-success">편집</button>
+		
+		                                        <button type="button" id="commitCancelBtn" style="float: right; display:none;" class="btn btn-success" >취소</button>
+		                                        <button type="button" id="commitDdayBtn" style="float: right; margin-right: 15px; display:none;" class="btn btn-success" >저장</button>
+		                                        <button type="button" id="commitDeleteDdayBtn" style="float: right; margin-right: 15px; display:none;" class="btn btn-success" >삭제</button>
+	                                        </c:if>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
                 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card" style="width:900px;">
-                                <div class="card-body" >
-                                    <!-- 여기다가 작성 -->
-                                    <div style="height: 50px;">
-                                        <button type="button" style="float: right; width: 30px; background:white;" class="ion-minus" onclick="deleteDday();"></button>
-                                        <button type="button" style="float: right; width: 30px; background:white; margin-right: 15px;" class="ion-plus"  data-toggle="modal" data-target="#insertModal"></button>
-                                    </div>
-                                    <div class="ddayWrap">
-                                        <div class="dday">
-                                            <div class="ddayCheck"><input type="checkbox" name="deleteDday"></div>
-                                            <div class="ddayRadio">
-                                                <div class=ddayRadioClick></div>
-                                            </div>
-                                            <div class="ddayContent" data-toggle="modal" data-target="#updateModal">
-                                            <c:forEach var="dday" items="$( list )">
-                                            	<div class="ddayDateWrap">
-                                            		<span class="ddayDate">${ dday.ddayDate }</span>
-                                            		<span class="ddayTitle">&nbsp;${ dday.ddayTitle }</span>
-                                            		<span class="widgetStatus">
-                                            			<c:if test="${ dday.ddayStatus } == Y">위젯 사용중</c:if>
-                                            		</span>
-                                            		<input type="hidden" name="ddayNo" value="${ dday.ddayNo }">
-                                            	</div>
-                                            </c:forEach>
-                                            </div>
-                                            	<div class="ddayCount">D-20</div>
-                                        </div>
-                                        <button type="button" style="float: right;" class="btn btn-success" onclick="checkDday();">편집</button>
-
-                                        <button type="button" style="float: right; margin-right: 15px; display:none;" class="btn btn-success" >저장</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                	<button style="display:none;" type="submit" id="deleteDdayListBtn"></button>
+                </form>
+                
+                <form action="widgetCheck.dd" method="post">
+                	<c:forEach var="d" items="${ dlist }">
+	                	<input type="hidden" name="dlist" value="${ d.ddayNo }">
+                	</c:forEach>
+                	<input type="hidden" name="widgetCheck1" id="widgetCheck1" />
+                	<input type="hidden" name="widgetCheck2" id="widgetCheck2" />
+                	<input type="hidden" name="widgetCheck3" id="widgetCheck3" />
+                	<input type="hidden" name="widgetCount" id="widgetCount" />
+                	<button style="display:none;" type="submit" id="widgetCheckListBtn"></button>
+                </form>
                 <!-- #/ container -->
             </div>  
             <!--**********************************
@@ -435,65 +473,31 @@
 	                <textarea class="memo_widget_content" rows="5" cols="15" readOnly>${ memoWidget.memoContent }</textarea>
 	            </div>
             </div>
-            
-            <!-- 시간표 위젯 -->
-            
-            <div class="card card-widget">
+        
+        	<div class="card card-widget">
                 <div class="card-body gradient-3">
                     <div class="media">
                         <table id="timetableWidget"  style="width: 100%; text-align: center;">
                             <tr style="height: 30px;">
                                 <th>
-                                    과목명
+                                  	  과목명
                                 </th>
                             </tr>
                             <tr>
                                 <td style="height: 20px;">
-                                    과목 시간 ~ 과목시간
+                                	    과목 시간 ~ 과목시간
                                 </td>
                             </tr>
                             <tr>
                                 <td style="height: 20px;">
-                                    과목 시간 ~ 과목시간
+                                 	   과목 시간 ~ 과목시간
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
-
-            <!-- 디데이 -->
-            <div class="card card-widget">
-                <div class="card-body gradient-4">
-                    <div class="media">
-                        <table id="ddayWidget"  style="width: 100%; text-align: center;">
-                            <tr style="height: 30px;">
-                                <th>
-                                    남은날짜
-                                </th>
-                            </tr>
-                            <tr>
-                                <td style="height: 20px;">
-                                    디데이 제목
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-            	$(function(){
-            		$(".memo_widget").hover(function(){
-            			$(this).children().eq(1).attr("style","overflow:auto;");
-            		},function(){
-            			$(this).children().eq(1).attr("style","overflow:hidden;");
-            		})
-            	})
-            </script>
-            
         </div>
-    </div>
     <!--**********************************
         Widget area end
     ***********************************-->
@@ -518,19 +522,23 @@
     <script src="resources/js/settings.js"></script>
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>
+    
 	<script>
+		var widgetCount = 0;
         $(function(){
-            count = 0;
+            
             $('.ddayRadio').click(function(){
                 if($(this).children('.ddayRadioClick').hasClass('rclick')){
                     $(this).children('.ddayRadioClick').removeClass('rclick')
-                    count = count-1
+                    $("#widgetCheck"+ (widgetCount+1)).val("")
+                    widgetCount = widgetCount-1;
                 }else{
-                    if(count >= 3){
-                        alert("3개까지 선택 가능합니다.")
+                    if(widgetCount >= 3){
+                        alert("최대 3개까지 선택 가능합니다.")
                     }else{
                         $(this).children('.ddayRadioClick').addClass('rclick')
-                        count = count+1
+                        $("#widgetCheck"+(widgetCount+1)).val($(this).next().children().children().eq(3).val())
+                       widgetCount = widgetCount+1;
                     }
                 }
             });
@@ -538,23 +546,107 @@
             $(".ddayContent").click(function(){
             	$("#updateDdayTitle").val($(this).children(0).children().eq(1).text());
             	$("#updateDdayDate").val($(this).children(0).children().eq(0).text());
-            	$("#updateDdayNo").val($(this).children(0).children().eq(3).text());
+            	$("#updateDdayNo").val($(this).children(0).children().eq(3).val());
+            });
+     
+            $("#insertDdayBtn").click(function(){
+            	$("#checkDdayBtn").css('display', 'block');
+            	$("#commitDeleteDdayBtn").css('display', 'none');
+            	$("#commitDdayBtn").css('display', 'none');
+            	$("#commitCancelBtn").css('display', 'none');
+                $('.ddayRadio').css('display', 'none');
+                $(".dday input").css('display', 'none');
+                $(".ddayContentDeleteCheck").attr("data-toggle","modal");
+                $(".ddayContentWidgetCheck").attr("data-toggle","modal");
+                $(".ddayContentDeleteCheck").attr("data-toggle","modal").addClass('ddayContent').removeClass('ddayContentDeleteCheck');
+                $(".ddayContentWidgetCheck").attr("data-toggle","modal").addClass('ddayContent').removeClass('ddayContentWidgetCheck');
             });
             
-        });
-
-        function checkDday(){
-            $(".dday input").css('display', 'true')
-        }
-        function deleteDday(){
-            $('ddayRadio').css('display', 'true')
-        }
+            $("#commitCancelBtn").click(function(){
+            	$("#checkDdayBtn").css('display', 'block');
+            	$("#commitDeleteDdayBtn").css('display', 'none');
+            	$("#commitDdayBtn").css('display', 'none');
+            	$("#commitCancelBtn").css('display', 'none');
+                $('.ddayRadio').css('display', 'none');
+                $(".dday input").css('display', 'none');
+                $(".ddayContentDeleteCheck").attr("data-toggle","modal");
+                $(".ddayContentWidgetCheck").attr("data-toggle","modal");
+                $(".ddayContentDeleteCheck").attr("data-toggle","modal").addClass('ddayContent').removeClass('ddayContentDeleteCheck');
+                $(".ddayContentWidgetCheck").attr("data-toggle","modal").addClass('ddayContent').removeClass('ddayContentWidgetCheck');
+            })
+              
+            $("#commitDeleteDdayBtn").click(function(){
+            	$("#deleteDdayListBtn").click();
+            });
+            
+            $("#commitDdayBtn").click(function(){
+            	$("#widgetCount").val(widgetCount);
+            	$("#widgetCheckListBtn").click();
+            });
+            
+            $("#deleteDdayBtn").click(function(){
+            	$("#checkDdayBtn").css('display', 'none');
+            	$("#commitDdayBtn").css('display', 'none');
+            	$("#commitDeleteDdayBtn").css('display', 'block');
+            	$("#commitCancelBtn").css('display', 'block');
+            	$(".dday input").css('display', 'block');
+                $('.ddayRadio').css('display', 'none');
+                $(".ddayContent").attr("data-toggle","");
+                $(".ddayContent").addClass('ddayContentDeleteCheck').removeClass('ddayContentWidgetCheck').removeClass('ddayContent');
+                $(".ddayContentDeleteCheck").click(function(){
+                	if($(this).siblings('.ddayCheck').children().eq(0).attr("checked") == "checked"){
+                		$(this).siblings('.ddayCheck').children().eq(0).attr("checked", false);
+                	}else{
+                		$(this).siblings('.ddayCheck').children().eq(0).attr("checked","checked");
+                	}
+                });
+            })
+            
+            $("#checkDdayBtn").click(function(){
+            	$("#checkDdayBtn").css('display', 'none');
+            	$("#commitDeleteDdayBtn").css('display', 'none');
+            	$("#commitDdayBtn").css('display', 'block');
+            	$("#commitCancelBtn").css('display', 'block');
+                $('.ddayRadio').css('display', 'block');
+                $(".dday input").css('display', 'none');
+                $(".ddayContent").attr("data-toggle","");
+                $(".ddayContent").addClass('ddayContentWidgetCheck').removeClass('ddayContentDeleteCheck').removeClass('ddayContent');
+                $(".ddayContentWidgetCheck").click(function(){
+                	$(this).siblings('.ddayRadio').click();
+                });
+            });
+            
+            
+            
+        });    
+        
+    </script>
+    
+    <c:if test="${ !empty dlist }">
+    	<c:forEach var="d" items="${dlist}">
+    		<c:if test="${ d.ddayWidget == 'Y' }">
+    			<script>
+    				$("#widgetCheck"+(widgetCount+1)).val(${d.ddayNo});
+    				widgetCount = widgetCount + 1;
+    			</script>
+    		</c:if>
+    	</c:forEach>
+    </c:if>
+    
+    <script>
+    	$(function(){
+    		$(".memo_widget").hover(function(){
+    			$(this).children().eq(1).attr("style","overflow:auto;");
+    		},function(){
+    			$(this).children().eq(1).attr("style","overflow:hidden;");
+    		})
+    	})
     </script>
 
     <!-- Button to Open the Modal -->
     
   <!-- The Modal -->
-    <form action="insert.dd">
+    <form action="insert.dd" method="post">
         <div class="modal " id="insertModal">
             <div class="modal-dialog">
             <div class="modal-content">
@@ -571,6 +663,7 @@
                     <input type="text" name="ddayTitle" style="width: 100%; height: 40px;"> <br><br>
                     날짜 설정 
                     <input type="date" name="ddayDate" style="width: 100%; height: 40px;">
+                    <input type="hidden" name="memberNo" id="${ loginUser.memberNo }">
                 </div>
         
                 <!-- Modal footer -->
@@ -584,7 +677,7 @@
         </div>
     </form>
     <!-- The Modal -->
-    <form action="update.dd">
+    <form action="update.dd" method="post">
         <div class="modal" id="updateModal">
             <div class="modal-dialog">
             <div class="modal-content">
@@ -602,11 +695,12 @@
                     날짜 설정 
                     <input type="date" name="ddayDate" id="updateDdayDate" style="width: 100%; height: 40px;">
                     <input type="hidden" name="ddayNo" id="updateDdayNo">
+                    <input type="hidden" name="memberNo" id="${ loginUser.memberNo }">
                 </div>
         
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">등록</button>
+                    <button type="submit" class="btn btn-success">저장</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                 </div>
         
