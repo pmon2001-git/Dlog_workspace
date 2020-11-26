@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Dlog</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/DlogLogo-title.png">
+
 </head>
 <body>
 
@@ -53,7 +56,7 @@
                                   <tbody align="center">
                                   	  <c:forEach var="d" items="${ list }">
 	                                      <tr>
-	                                          <th>${ d.diaryNo }</th>
+	                                          <th class="dno">${ d.diaryNo }</th>
 	                                          <td>${ d.diaryTitle }</td>
 	                                          <td>${ d.diaryDate }</td>
 	                                          <td><a onclick="noticeUpdate(this); event.stopImmediatePropagation();">수정</a>&nbsp;&nbsp;
@@ -97,7 +100,7 @@
                                           </ul>
                                       </td>
                                       <td width="100" align="center">
-                                          <button class="btn btn-success">작성</button>
+                                          <button class="btn btn-success" onclick="location.href='enrollForm.di';">작성</button>
                                       </td>
                                   </tr>
                               </table>
@@ -122,7 +125,7 @@
 			   var answer = confirm("수정하시겠습니까 ?");
 			   if(answer){
 			    console.log(e.parentNode)
-			   var nno = e.parentNode.parentNode.childNodes[1].textContent;
+			   var dno = e.parentNode.parentNode.childNodes[1].textContent;
 			   location.href="updateForm.di?dno="+dno;
 			    }else{
 			      return;
@@ -132,7 +135,7 @@
 			const diaryDelete =  function(e){
 			    var answer = confirm("삭제하시겠습니까 ?");
 			    if(answer){
-			       var nno = e.parentNode.parentNode.childNodes[1].textContent;
+			       var dno = e.parentNode.parentNode.childNodes[1].textContent;
 			           // 삭제 진행
 			       location.href="delete.di?dno="+dno;
 			     }else{
@@ -140,8 +143,8 @@
 			     }
 			    };
 			    
-			$(".tb1>tbody>tr").click(function(){
-		    	var nno = $(this).children().eq(0).text();
+			$(".table table-hover>tbody>tr").click(function(){
+		    	var dno = $(this).children(".dno"); // 아래
 			 	location.href="detail.di?dno="+ dno;    	
 		     });
 			

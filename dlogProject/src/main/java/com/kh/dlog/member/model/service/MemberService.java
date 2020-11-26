@@ -10,6 +10,8 @@ public interface MemberService {
 	
 	int nicknameCheck(String nickname);
 	
+	String idSearch(Member m);
+	
 	Member loginMember(Member m);
 	
 	int insertMember(Member m);
@@ -28,6 +30,8 @@ public interface MemberService {
 	int introUpdate(Member m);
 
 	int deleteMember(String memberId);
+
+	
 	
 	
 	

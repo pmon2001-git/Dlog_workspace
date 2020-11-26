@@ -153,7 +153,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">전화번호</label><br>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required placeholder="전화번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
+                        <input type="text" class="form-control" id="phoneNumber" name="phone" required placeholder="전화번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
                         <button id="sendPhoneNumber" class="btn btn-secondary">인증하기</button>
                     </div>
                     <div class="form-group">
@@ -175,8 +175,6 @@
         		
         		$idInput.keyup(function(){
         			
-        			console.log($idInput.val());
-        			
         			if($idInput.val().length >= 5){
         				
         				$.ajax({
@@ -188,7 +186,6 @@
         							
         							$("#checkResult").show();
         							$("#checkResult").css("color", "green").text("사용가능한 아이디입니다.");
-        							$("#enrollBtn").removeAttr("disabled");
         							
         						}else{
         							
@@ -216,8 +213,6 @@
         		
         		$pwdCheck.keyup(function(){
         			
-        			console.log($pwdCheck.val());
-        			
         			if($pwdCheck.val().length >= 8){
         				
         				$.ajax({
@@ -236,7 +231,6 @@
                                 	$("#checkPwdResult").show();
             						$("#checkPwdResult").css("color", "green").text("유효한 비밀번호입니다.");
             						$("#enrollForm input[name=comparePwd]").removeAttr("disabled");
-            						$("#enrollBtn").removeAttr("disabled");
                                 	
                                 }
         						
@@ -257,7 +251,6 @@
         		var $pwdCompare = $("#enrollForm input[name=comparePwd]");
         		
         		$pwdCompare.keyup(function(){
-        			console.log($pwdCompare.val());
         			
         			if($pwdCompare.val().length >= 8){
         			
@@ -271,7 +264,6 @@
 	        				
 	        				$("#comparePwdResult").show();
 							$("#comparePwdResult").css("color", "green").text("비밀번호가 일치합니다.");
-							$("#enrollBtn").removeAttr("disabled");
 	        				
 	        			}
 	        			

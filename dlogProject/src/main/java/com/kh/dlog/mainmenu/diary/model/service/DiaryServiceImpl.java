@@ -28,31 +28,27 @@ public class DiaryServiceImpl implements DiaryService{
 
 	@Override
 	public ArrayList<Diary> selectList(PageInfo pi) {
-		return dDao.selectList(sqlSession,pi);
+		return dDao.selectList(sqlSession, pi);
 	}
 
 	@Override
 	public int insertDiary(Diary d) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dDao.insertDiary(sqlSession, d);
 	}
 
 	@Override
 	public Diary detailDiary(int dno) {
-		// TODO Auto-generated method stub
-		return null;
+		return dDao.detailDiary(sqlSession, dno);
 	}
 
 	@Override
-	public int updateDiary(Diary d) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateDiary(Diary dn) {
+		return dDao.updateDiary(sqlSession, dn);
 	}
 
 	@Override
 	public int deleteDiary(int dno) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dDao.deleteDiary(sqlSession, dno);
 	}
 
 	}

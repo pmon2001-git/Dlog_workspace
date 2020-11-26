@@ -18,8 +18,16 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.nicknameCheck", nickname);
 	}
 	
+	public String idSearch(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.idSearch", m);
+	}
+	
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
+	}
+	
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
 	
