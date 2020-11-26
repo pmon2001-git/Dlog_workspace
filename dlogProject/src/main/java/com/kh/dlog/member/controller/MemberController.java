@@ -168,7 +168,7 @@ public class MemberController {
 			if(loginUser != null /*&& bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())*/) {
 				
 				session.setAttribute("loginUser", loginUser);
-				return "mainpage/mainPage";
+				return "redirect:/";
 				
 			}else {
 				
