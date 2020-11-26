@@ -18,6 +18,8 @@ public interface MemberService {
 	
 	Member loginMember(Member m);
 	
+	ArrayList<Member> selectMemberList();
+	
 	int insertMember(Member m);
 	
 	

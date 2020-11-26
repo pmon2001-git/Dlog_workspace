@@ -201,6 +201,7 @@ public class MemberController {
 	public String loginMember(Member m, HttpSession session, Model model) {
 		
 		Member loginUser = mService.loginMember(m);
+		ArrayList<Member> list = mService.selectMemberList();
 		
 		if(loginUser.getMemberNo() != 1) {
 		
@@ -218,7 +219,7 @@ public class MemberController {
 			
 		}else {
 			
-			session.setAttribute("loginUser", loginUser);
+			model.addAttribute("list", list);
 			return "admin/memberDataList";
 			
 		}

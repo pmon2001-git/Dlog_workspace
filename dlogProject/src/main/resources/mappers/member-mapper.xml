@@ -78,6 +78,20 @@
 		   and member_id = #{memberId}
 	</select>
 	
+	<select id="selectMemberList" resultMap="memberResultSet">
+		select 
+		       member_no
+		     , member_id
+		     , nickname
+		     , member_name
+		     , email
+		     , phone
+		     , enroll_date
+		     , status
+		  from member
+		 where member_no >= 2
+	</select>
+	
 	<insert id="insertMember" parameterType="Member">
 		insert
 		  into member

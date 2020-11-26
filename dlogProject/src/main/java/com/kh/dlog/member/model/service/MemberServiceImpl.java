@@ -54,6 +54,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public ArrayList<Member> selectMemberList() {
+		return mDao.selectMemberList(sqlSession);
+	}
+	
+	@Override
 	public int insertMember(Member m) {
 		return mDao.insertMember(sqlSession, m);
 	}
