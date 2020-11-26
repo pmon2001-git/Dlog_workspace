@@ -180,7 +180,7 @@ public class MemberController {
 		}else {
 			
 			session.setAttribute("loginUser", loginUser);
-			return "admin/memberDataList";
+			return "mainpage/mainPage";
 			
 		}
 		
