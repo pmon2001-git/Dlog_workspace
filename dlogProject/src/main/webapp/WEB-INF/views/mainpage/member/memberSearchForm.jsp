@@ -117,6 +117,13 @@
     </style>
 </head>
 <body>
+
+	<c:if test="${ !empty searchAlert }">
+		<script>
+			alert("${searchAlert}");
+		</script>
+		<c:remove var="searchAlert" scope="session"/>
+	</c:if>
 	
 	<div class="outer">
 
@@ -164,7 +171,7 @@
 
                 <br><br>
 
-                <form id="pwdSearchForm" method="post">
+                <form action="pwdSearch.me" id="pwdSearchForm" method="post">
                     <div class="form-group">
                         <label for="userId">아이디</label>
                         <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required>
@@ -177,7 +184,7 @@
                         <label for="phone">전화번호</label>
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" required>
                     </div>
-                    <button id="pwdB" type="button" class="btn">비밀번호 변경</button>
+                    <button id="pwdB" type="submit" class="btn">비밀번호 변경</button>
                 </form>
 
             </div>
@@ -216,6 +223,7 @@
                 		
                 	})
                 	
+                	/*
                 	$("#pwdB").click(function(){
                 		
                 		var $id = $("#pwdSearchForm input[name=memberId]");
@@ -224,22 +232,10 @@
                 		
                 		$.ajax({
                 			url:"pwdSearch.me",
-                			data:{"memberName":$name.val(),"phone":$phone.val()},
+                			data:{"memberId":$id.val(), "memberName":$name.val(),"phone":$phone.val()},
                 			success:function(result){
                 				
-                				if(result == 'success'){
-                					
-                					$("#exampleModalCenter").html();
-                                    $('#exampleModalCenter').modal('toggle');
-                                    $("#loginFrom").removeAttr("disabled");
-                					
-                				}else{
-                					
-                					$("#exampleModalCenter").html();
-                                    $('#exampleModalCenter').modal('toggle');
-                                    $("#loginFrom").attr("disabled", true);
-                					
-                				}
+                				alert("비밀번호를 변경할 수 없습니다.");
                 				
                 			},error:function(){
                 				console.log("ajax통신 실패");
@@ -247,6 +243,7 @@
                 		})
                 		
                 	})
+                	*/
         </script>
 
         <img id="bug1" src="resources/images/bug.png">

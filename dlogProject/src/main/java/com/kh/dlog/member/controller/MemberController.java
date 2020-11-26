@@ -157,6 +157,45 @@ public class MemberController {
 		}
 		
 	}
+	
+	@RequestMapping("pwdSearch.me")
+	public String pwdSearch(Member m, HttpSession session, Model model) {
+		
+		String memberNo = mService.pwdSearch(m);
+		
+		if(memberNo == null) {
+			session.setAttribute("searchAlert", "비밀번호를 찾을 수 없습니다.");
+			return "mainpage/member/memberSearchForm";
+		}else {
+			model.addAttribute("memberNo", Integer.parseInt(memberNo));
+			return "mainpage/member/memberPwdUpdateForm";
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("pwdUpdate.me")
+	public String pwdUpdate(Member m, HttpSession session) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+		
+		m.setMemberPwd(encPwd);
+		
+		int result = mService.pwdUpdate(m);
+		
+		if(result > 0) {
+			
+			session.setAttribute("resultChange", "성공적으로 비밀번호가 변경되었습니다.");
+			return "success";
+			
+		}else {
+			
+			session.setAttribute("resultChange", "비밀번호 변경에 실패했습니다.");
+			return "fail";
+			
+		}
+		
+	}
 
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session, Model model) {

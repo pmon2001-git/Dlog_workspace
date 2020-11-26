@@ -22,6 +22,14 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idSearch", m);
 	}
 	
+	public String pwdSearch(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.pwdSearch", m);
+	}
+	
+	public int pwdUpdate(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.pwdUpdate", m);
+	}
+	
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}

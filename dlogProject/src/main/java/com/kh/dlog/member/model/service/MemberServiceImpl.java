@@ -39,6 +39,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public String pwdSearch(Member m) {
+		return mDao.pwdSearch(sqlSession, m);
+	}
+	
+	@Override
+	public int pwdUpdate(Member m) {
+		return mDao.pwdUpdate(sqlSession, m);
+	}
+	
+	@Override
 	public Member loginMember(Member m) {
 		return mDao.loginMember(sqlSession, m);
 	}
