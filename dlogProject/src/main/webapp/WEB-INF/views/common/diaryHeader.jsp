@@ -280,7 +280,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="url" aria-expanded="false">
+                            <a href="list.vo" aria-expanded="false">
                                 <i class="icon-speech menu-icon"></i><span class="nav-text">단어장</span>
                             </a>
                         </li>
