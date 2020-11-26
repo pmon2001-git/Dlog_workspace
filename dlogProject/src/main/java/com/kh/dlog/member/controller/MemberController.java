@@ -138,21 +138,49 @@ public class MemberController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping("idSearch.me")
+	public String idSearch(Member m, HttpSession session) {
+		
+		String result = mService.idSearch(m);
+		
+		if(result != null) {
+			
+			session.setAttribute("result", "회원님의 아이디는 " + result + " 입니다.");
+			return "success";
+			
+		}else {
+			
+			session.setAttribute("result", "회원님의 아이디를 찾을 수 없습니다.");
+			return "fail";
+			
+		}
+		
+	}
 
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session, Model model) {
 		
 		Member loginUser = mService.loginMember(m);
 		
-		if(loginUser == null) {
-			
-			session.setAttribute("alertMsg", "로그인실패");
-			return "mainpage/member/memberLoginForm";
+		if(loginUser.getMemberNo() != 1) {
+		
+			if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
+				
+				session.setAttribute("loginUser", loginUser);
+				return "mainpage/mainPage";
+				
+			}else {
+				
+				session.setAttribute("alertMsg", "로그인실패");
+				return "mainpage/member/memberLoginForm";
+				
+			}
 			
 		}else {
 			
 			session.setAttribute("loginUser", loginUser);
-			return "mainpage/mainPage";
+			return "admin/memberDataList";
 			
 		}
 		
@@ -168,10 +196,11 @@ public class MemberController {
 		int result = mService.insertMember(m);
 		
 		if(result>0) {
-			session.setAttribute("alertMsg", "성공적으로 회원가입되었습니다.");
-			return "";
+			session.setAttribute("alertMsg"  , "성공적으로 회원가입되었습니다.");
+			return "mainpage/member/memberLoginForm";
 		}else {
-			return "";
+			session.setAttribute("alertMsg"  , "회원가입에 실패했습니다.");
+			return "mainpage/member/memberEnrollForm";
 		}
 	}
 	

@@ -34,14 +34,18 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public String idSearch(Member m) {
+		return mDao.idSearch(sqlSession, m);
+	}
+	
+	@Override
 	public Member loginMember(Member m) {
 		return mDao.loginMember(sqlSession, m);
 	}
 	
 	@Override
 	public int insertMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mDao.insertMember(sqlSession, m);
 	}
 	
 

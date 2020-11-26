@@ -130,18 +130,18 @@
 
             <div class="content">
 
-                <form action="">
+                <form id="idSearchFrom" method="post">
                     <div class="form-group">
                         <label for="userName">이름</label>
-                        <input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력하세요" required>
+                        <input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름을 입력하세요" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">전화번호</label>
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" required>
                     </div>
-                    <button id="idB" type="submit" class="btn" data-toggle="modal" data-target="#exampleModalCenter">아이디 조회</button>
+                    <button id="idB" type="button" class="btn">아이디 조회</button>
                     <div class="modal fade" id="exampleModalCenter">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 300px;">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 400px;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">아이디 조회</h5>
@@ -150,12 +150,11 @@
                                 </div>
                                 <div class="modal-body" align="center">
                                     <br>
-                                    <h6>회원님의 아이디는 <b>user01</b> 입니다.</h6>
+                                    <h6>${ result }</h6>
                                     <br>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm">확인</button>
-                                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #84c8b9; border-color: #84c8b9;">로그인</button>
+                                    <button id="loginFrom" onclick="location.href='loginForm.me' " type="button" class="btn btn-primary btn-sm" style="background-color: #84c8b9; border-color: #84c8b9;" disabled>로그인</button>
                                 </div>
                             </div>
                         </div>
@@ -165,25 +164,90 @@
 
                 <br><br>
 
-                <form action="">
+                <form id="pwdSearchForm" method="post">
                     <div class="form-group">
                         <label for="userId">아이디</label>
-                        <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요" required>
+                        <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required>
                     </div>
                     <div class="form-group">
                         <label for="userName">이름</label>
-                        <input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력하세요" required>
+                        <input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름을 입력하세요" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">전화번호</label>
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" required>
                     </div>
-                    <a href="pwdUpdateForm.me" id="pwdB" type="submit" class="btn">비밀번호 변경</a>
+                    <button id="pwdB" type="button" class="btn">비밀번호 변경</button>
                 </form>
 
             </div>
 
         </div>
+        
+        <script>
+                	$("#idB").click(function(){
+                		
+                		var $name = $("#idSearchFrom input[name=memberName]");
+                		var $phone = $("#idSearchFrom input[name=phone]");
+                		
+                		$.ajax({
+                			url:"idSearch.me",
+                			data:{"memberName":$name.val(),"phone":$phone.val()},
+                			success:function(result){
+                				
+                				if(result == 'success'){
+                					
+                					$("#exampleModalCenter").html();
+                                    $('#exampleModalCenter').modal('toggle');
+                                    $("#loginFrom").removeAttr("disabled");
+                					
+                				}else{
+                					
+                					$("#exampleModalCenter").html();
+                                    $('#exampleModalCenter').modal('toggle');
+                                    $("#loginFrom").attr("disabled", true);
+                					
+                				}
+                				
+                			},error:function(){
+                				console.log("ajax통신 실패");
+                			}
+                		})
+                		
+                	})
+                	
+                	$("#pwdB").click(function(){
+                		
+                		var $id = $("#pwdSearchForm input[name=memberId]");
+                		var $name = $("#pwdSearchForm input[name=memberName]");
+                		var $phone = $("#pwdSearchForm input[name=phone]");
+                		
+                		$.ajax({
+                			url:"pwdSearch.me",
+                			data:{"memberName":$name.val(),"phone":$phone.val()},
+                			success:function(result){
+                				
+                				if(result == 'success'){
+                					
+                					$("#exampleModalCenter").html();
+                                    $('#exampleModalCenter').modal('toggle');
+                                    $("#loginFrom").removeAttr("disabled");
+                					
+                				}else{
+                					
+                					$("#exampleModalCenter").html();
+                                    $('#exampleModalCenter').modal('toggle');
+                                    $("#loginFrom").attr("disabled", true);
+                					
+                				}
+                				
+                			},error:function(){
+                				console.log("ajax통신 실패");
+                			}
+                		})
+                		
+                	})
+        </script>
 
         <img id="bug1" src="resources/images/bug.png">
 
