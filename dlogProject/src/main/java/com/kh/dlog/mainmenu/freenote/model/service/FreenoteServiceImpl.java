@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.dlog.admin.report.model.vo.Report;
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.mainmenu.freenote.model.dao.FreenoteDao;
 import com.kh.dlog.mainmenu.freenote.model.vo.Freenote;
@@ -15,6 +16,7 @@ import com.kh.dlog.mainmenu.freenote.model.vo.SearchCondition;
 @Service
 public class FreenoteServiceImpl implements FreenoteService {
 
+	// 프리노트 관련
 	@Autowired
 	private FreenoteDao fDao;
 	@Autowired
@@ -63,26 +65,7 @@ public class FreenoteServiceImpl implements FreenoteService {
 		return fDao.deleteFreenote(sqlSession, fno);
 	}
 
-	@Override
-	public int selectCommListCount(String topicName) {
-		return fDao.selectCommListCount(sqlSession, topicName);
-	}
-
-	@Override
-	public ArrayList<Freenote> selectCommList(String topicName, PageInfo pi) {
-		return fDao.selectCommList(sqlSession, topicName, pi);
-	}
-
-	@Override
-	public int selectSearchListCount(SearchCondition sc) {
-		return fDao.selectSearchListCount(sqlSession, sc);
-	}
-
-	@Override
-	public ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi) {
-		return fDao.selectSearchList(sqlSession, sc, pi);
-	}
-	
+	// 댓글 관련
 	@Override
 	public int selectReplyListCount(int fno) {
 		return fDao.selectReplyListCount(sqlSession, fno);
@@ -143,5 +126,37 @@ public class FreenoteServiceImpl implements FreenoteService {
 	public int dislikeReply(Reply r) {
 		return fDao.dislikeReply(sqlSession, r);
 	}
+	
+	// 커뮤니티 관련
+	@Override
+	public int selectCommListCount(String topicName) {
+		return fDao.selectCommListCount(sqlSession, topicName);
+	}
+
+	@Override
+	public ArrayList<Freenote> selectCommList(String topicName, PageInfo pi) {
+		return fDao.selectCommList(sqlSession, topicName, pi);
+	}
+
+	@Override
+	public int selectSearchListCount(SearchCondition sc) {
+		return fDao.selectSearchListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<Freenote> selectSearchList(SearchCondition sc, PageInfo pi) {
+		return fDao.selectSearchList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int checkReport(Report r) {
+		return fDao.checkReport(sqlSession, r);
+	}
+
+	@Override
+	public int insertReport(Report r) {
+		return fDao.insertReport(sqlSession, r);
+	}
+
 
 }

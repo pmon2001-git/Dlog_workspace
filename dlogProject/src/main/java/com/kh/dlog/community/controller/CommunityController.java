@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.dlog.admin.report.model.vo.Report;
 import com.kh.dlog.common.model.vo.PageInfo;
 import com.kh.dlog.common.template.Pagination;
 import com.kh.dlog.mainmenu.freenote.model.service.FreenoteService;
@@ -78,5 +80,21 @@ public class CommunityController {
 			return "common/errorPage";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="report.co", produces="text/html; charset=utf-8")
+	public String reportPost(Report r) {
+		System.out.println(r);
+		if(fService.checkReport(r)==0) {
+			return fService.insertReport(r) + "";
+		}else {
+			return "0";
+		}
+	}
 
 }
+
+
+
+
+
