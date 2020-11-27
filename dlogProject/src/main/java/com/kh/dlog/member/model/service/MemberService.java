@@ -12,7 +12,13 @@ public interface MemberService {
 	
 	String idSearch(Member m);
 	
+	String pwdSearch(Member m);
+	
+	int pwdUpdate(Member m);
+	
 	Member loginMember(Member m);
+	
+	ArrayList<Member> selectMemberList();
 	
 	int insertMember(Member m);
 	

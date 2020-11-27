@@ -41,7 +41,7 @@
 		   and phone = #{phone}
 	</select>
 	
-	<select id="pwdSearch" resultType="_int">
+	<select id="pwdSearch" parameterType="Member" resultType="string">
 		select 
 		       member_no
 		  from member
@@ -50,6 +50,13 @@
 		   and member_name = #{memberName}
 		   and phone = #{phone}
 	</select>
+	
+	<update id="pwdUpdate" parameterType="Member">
+		update
+		       member
+		   set member_pwd = #{memberPwd}
+		 where member_no = #{memberNo}
+	</update>
 	
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 		select
@@ -69,6 +76,20 @@
 		  from member
 		 where status = 'Y'
 		   and member_id = #{memberId}
+	</select>
+	
+	<select id="selectMemberList" resultMap="memberResultSet">
+		select 
+		       member_no
+		     , member_id
+		     , nickname
+		     , member_name
+		     , email
+		     , phone
+		     , enroll_date
+		     , status
+		  from member
+		 where member_no >= 2
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">

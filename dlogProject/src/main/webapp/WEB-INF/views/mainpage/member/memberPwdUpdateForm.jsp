@@ -1,5 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,13 +39,13 @@
             padding: 30px;
         }
 
-        .content form #changeB{
+        .content form #pwdChange{
             background-color: #84c8b9;
             color: white;
             width: 100%;
         }
 
-        .content form #changeB:hover{
+        .content form #pwdChange:hover{
             background-color:#79b6a9;
         }
 
@@ -118,21 +121,143 @@
 
             <div class="content">
 
-                <form action="">
+                <form action="" id="pwdUpdate" method="post">
+                <input type="hidden" name="memberNo" value="${ memberNo }">
                     <div class="form-group">
                         <label for="newPwd">새 비밀번호</label>
-                        <input type="password" class="form-control" id="newPwd" name="newPwd" placeholder="새 비밀번호를 입력하세요" required>
+                        <input type="password" class="form-control" id="memberPwd" name="memberPwd" placeholder="새 비밀번호를 입력하세요" required>
+                        <div id="checkPwdResult" style="font-size:0.8em; padding-top: 5px"></div>
                       </div>
                       <div class="form-group">
                         <label for="checkPwd">새 비밀번호 확인</label>
-                        <input type="password" class="form-control" id="checkPwd" name="checkPwd" placeholder="새 비밀번호를 입력하세요" required>
+                        <input type="password" class="form-control" id="comparePwd" name="comparePwd" placeholder="새 비밀번호를 입력하세요" required>
+                        <div id="comparePwdResult" style="font-size:0.8em; padding-top: 5px"></div>
                       </div>
-                      <button id="changeB" type="submit" class="btn">변경</button>
+                      <button id="pwdChange" type="button" class="btn" disabled>변경</button>
+                      <div class="modal fade" id="exampleModalCenter">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 400px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">비밀번호 변경</h5>
+                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <br>
+                                    <h6>${ resultChange }</h6>
+                                    <br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="loginFrom" onclick="location.href='loginForm.me' " type="button" class="btn btn-primary btn-sm" style="background-color: #84c8b9; border-color: #84c8b9;" disabled>로그인</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
 
             </div>
 
         </div>
+        
+        <script>
+	        var $pwdCheck = $("#pwdUpdate input[name=memberPwd]");
+			
+			$pwdCheck.keyup(function(){
+				
+				if($pwdCheck.val().length >= 8){
+					
+					$.ajax({
+						url:"pwdCheck.me",
+						data:{memberPwd:$pwdCheck.val()},
+						success:function(result){
+							
+							if(result != 'true'){
+	                            
+	                        	$("#checkPwdResult").show();
+	    						$("#checkPwdResult").css("color", "red").text("비밀번호가 유효하지 않습니다.다시 입력해 주세요.");
+	                            
+	                        }else{
+	                        	
+	                        	$("#checkPwdResult").show();
+	    						$("#checkPwdResult").css("color", "green").text("유효한 비밀번호입니다.");
+	    						$("#pwdChange").removeAttr("disabled");
+	                        	
+	                        }
+							
+						},error:function(){
+							console.log("ajax통신 실패");
+						}
+					})
+	
+	      		}else{
+	      			
+	      			$("#checkPwdResult").hide();
+					$("#pwdChange").attr("disabled", true);
+	      			
+	      		}
+	
+			})//비밀번호 체크
+			
+			var $pwdCompare = $("#pwdUpdate input[name=comparePwd]");
+			
+			$pwdCompare.keyup(function(){
+				
+				if($pwdCompare.val().length >= 8){
+				
+	    			if($pwdCheck.val() != $pwdCompare.val()){
+	    				
+	    				$("#comparePwdResult").show();
+						$("#comparePwdResult").css("color", "red").text("입력한 비밀번호가 일치하지 않습니다.다시 입력해 주세요.");
+	    				
+	    			}else{
+	    				
+	    				$("#comparePwdResult").show();
+						$("#comparePwdResult").css("color", "green").text("비밀번호가 일치합니다.");
+						$("#pwdChange").removeAttr("disabled");
+	    				
+	    			}
+	    			
+				}else{
+					
+					$("#comparePwdResult").hide();
+					$("#pwdChange").attr("disabled", true);
+					
+				}
+				
+			})//비밀번호 동일 체크
+			
+			$("#pwdChange").click(function(){
+        		
+        		var $memberPwd = $("#pwdUpdate input[name=memberPwd]");
+        		var $memberNo = $("#pwdUpdate input[name=memberNo]");
+
+        		$.ajax({
+        			url:"pwdUpdate.me",
+        			data:{"memberPwd":$memberPwd.val(),"memberNo":$memberNo.val()},
+        			success:function(result){
+        				
+        				if(result == 'success'){
+        					
+        					$("#exampleModalCenter").html();
+                            $('#exampleModalCenter').modal('toggle');
+                            $("#loginFrom").removeAttr("disabled");
+        					
+        				}else{
+        					
+        					$("#exampleModalCenter").html();
+                            $('#exampleModalCenter').modal('toggle');
+                            $("#loginFrom").attr("disabled", true);
+        					
+        				}
+        				
+        				
+        			},error:function(){
+        				console.log("ajax통신 실패");
+        			}
+        		})
+        		
+        	})
+        </script>
 
         <img id="bug1" src="resources/images/bug.png">
 

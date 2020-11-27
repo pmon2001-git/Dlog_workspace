@@ -90,7 +90,7 @@
                                 <span class="nav-text">회원 관리</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="url">회원조회</a></li>
+                                <li><a href="adminMember.me">회원조회</a></li>
                             </ul>
                         </li>
                         <li>
