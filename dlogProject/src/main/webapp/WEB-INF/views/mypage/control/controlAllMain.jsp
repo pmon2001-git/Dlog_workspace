@@ -336,29 +336,29 @@
                                 </select>
                                 <h4>
                                     <i class="icon-clock menu-icon"></i><span class="nav-text">&nbsp;&nbsp;&nbsp;디데이 </span>
-                                    <div class='toggleBG'>
-                                        <button class='toggleFG'></button>
+                                    <div class='toggleBG widgetController ddayCheck'>
+                                        <button class='toggleFG widgetController ddayCheck'></button>
                                     </div>
                                 </h4>
                                 <br><br>
                                 <h4>
                                     <i class="icon-speech menu-icon"></i><span class="nav-text">&nbsp;&nbsp;&nbsp;단어장</span>
-                                    <div class='toggleBG'>
-                                        <button class='toggleFG'></button>
+                                    <div class='toggleBG widgetController vocaCheck'>
+                                        <button id="" class='toggleFG widgetController vocaCheck'></button>
                                     </div>
                                 </h4>
                                 <br><br>
                                 <h4>
                                     <i class="icon-doc menu-icon"></i><span class="nav-text">&nbsp;&nbsp;&nbsp;메모장</span>
-                                    <div class='toggleBG'>
-                                        <button class='toggleFG'></button>
+                                    <div class='toggleBG widgetController memoCheck'>
+                                        <button id="" class='toggleFG widgetController memoCheck'></button>
                                     </div>
                                 </h4>
                                 <br><br>
                                 <h4>
                                     <i class="icon-grid menu-icon"></i><span class="nav-text">&nbsp;&nbsp;&nbsp;시간표</span>
-                                    <div class='toggleBG'>
-                                        <button class='toggleFG'></button>
+                                    <div class='toggleBG widgetController timetableCheck'>
+                                        <button id="" class='toggleFG widgetController timetableCheck'></button>
                                     </div>
                                 </h4>
 
@@ -552,12 +552,125 @@
             var toggleBG = $(this);
             var toggleFG = $(this).find('.toggleFG');
             var left = toggleFG.css('left');
-            if(left == '40px') {
+            if(left == '40px') { // 선택안함
                 toggleBG.css('background', '#CCCCCC');
                 toggleActionStart(toggleFG, 'TO_LEFT');
-            }else if(left == '0px') {
+                
+                if($(this).hasClass("widgetController")){
+                	
+                	if($("#privacy").val() == 1){
+                		
+    					var widget = "";
+    					if($(this).hasClass("ddayCheck")){
+    						widget = "dday";
+    					}else if($(this).hasClass("vocaCheck")){
+    						widget = "voca";
+    					}else if($(this).hasClass("memoCheck")){
+    						widget = "memo";
+    					}else if($(this).hasClass("timetableCheck")){
+    						widget = "timetable";
+    					}
+    					
+						$.ajax({
+	                		url:"activeWidget.ca",
+	                		type:"post",
+	                		data:{"widget":widget},
+	                		success:function(){
+	                			console.log("다이어리 공개 ajax성공");
+	                		},error:function(){
+	                			console.log("다이어리 공개 ajax실패");
+	                		}
+	                	});
+					
+	                }else if($("#privacy").val() == 2){
+	                	
+	                	var widget = "";
+    					if($(this).hasClass("ddayCheck")){
+    						widget = "dday";
+    					}else if($(this).hasClass("vocaCheck")){
+    						widget = "voca";
+    					}else if($(this).hasClass("memoCheck")){
+    						widget = "memo";
+    					}else if($(this).hasClass("timetableCheck")){
+    						widget = "timetable";
+    					}
+    					
+	                	$.ajax({
+	                		url:"activeWidget.ca",
+	                		type:"post",
+	                		data:{"widget":widget},
+	                		success:function(){
+	                			console.log("다이어리 공개 ajax성공");
+	                		},error:function(){
+	                			console.log("다이어리 공개 ajax실패");
+	                		}
+	                	});
+	                	
+	                }
+                }else{
+                	
+                }
+                
+            }else if(left == '0px') { // 선택함
                 toggleBG.css('background', '#53FF4C');
                 toggleActionStart(toggleFG, 'TO_RIGHT');
+                
+                
+                if($(this).hasClass("widgetController")){
+                	
+                	var widget = "";
+					if($(this).hasClass("ddayCheck")){
+						widget = "dday";
+					}else if($(this).hasClass("vocaCheck")){
+						widget = "voca";
+					}else if($(this).hasClass("memoCheck")){
+						widget = "memo";
+					}else if($(this).hasClass("timetableCheck")){
+						widget = "timetable";
+					}
+                	
+                	if($("#privacy").val() == 1){
+    					
+                		$.ajax({
+	                		url:"activeWidget.ca",
+	                		type:"post",
+	                		data:{"widget":widget},
+	                		success:function(){
+	                			console.log("다이어리 공개 ajax성공");
+	                		},error:function(){
+	                			console.log("다이어리 공개 ajax실패");
+	                		}
+	                	});
+					
+	                }else if($("#privacy").val() == 2){
+	                	
+	                	var widget = "";
+    					if($(this).hasClass("ddayCheck")){
+    						widget = "dday";
+    					}else if($(this).hasClass("vocaCheck")){
+    						widget = "voca";
+    					}else if($(this).hasClass("memoCheck")){
+    						widget = "memo";
+    					}else if($(this).hasClass("timetableCheck")){
+    						widget = "timetable";
+    					}
+	                	
+	                	$.ajax({
+	                		url:"activeWidget.ca",
+	                		type:"post",
+	                		data:{"widget":widget},
+	                		success:function(){
+	                			console.log("다이어리 공개 ajax성공");
+	                		},error:function(){
+	                			console.log("다이어리 공개 ajax실패");
+	                		}
+	                	});
+	                	
+	                }
+                }else{
+                	
+                }
+                
             }
         });
      
