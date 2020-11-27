@@ -66,8 +66,7 @@
 	                <div class="card" style="width:900px;">
 	                    <div class="card-body">
 	                        <form action="insert.fn" method="post">
-	      <!-- 로그인한 회원 번호로 수정필요!!!! -->
-	                        	<input type="hidden" name="freenoteWriter" value="1">
+	                        	<input type="hidden" name="freenoteWriter" value="${ loginUser.memberNo }">
 	                            <div align="center">
 	                                <input type="text" name="freenoteTitle" placeholder="제목을 작성해주세요" required>
 	                            </div>

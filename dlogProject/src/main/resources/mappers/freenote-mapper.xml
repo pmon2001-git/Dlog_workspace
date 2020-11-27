@@ -408,15 +408,15 @@
 		 where f.status = 'Y'
 		   and freenote_privacy_comm = 'Y'
 		 <choose>
-		 	<when test="title!= null">
-		    	and freenote_title like '%' || #{title} || '%'
+		 	<when test="condition == 'title'">
+		    	and freenote_title like '%' || #{keyword} || '%'
 		 	</when>
-		 	<when test="writer != null">
-		    	and nickname like '%' || #{writer} || '%'		 	
+		 	<when test="condition == 'writer'">
+		    	and nickname like '%' || #{keyword} || '%'		 	
 		 	</when>
 		 	<otherwise>
-		    	and (nickname like '%' || #{wirterTitle} || '%'
-		     	 or freenote_title like '%' || #{wirterTitle} || '%')		 	
+		    	and (nickname like '%' || #{keyword} || '%'
+		     	 or freenote_title like '%' || #{keyword} || '%')		 	
 		 	</otherwise>
 		 </choose>
 	</select>
@@ -439,15 +439,15 @@
 		 where f.status = 'Y'
 		   and freenote_privacy_comm = 'Y'
 		 <choose>
-		 	<when test="title!= null">
-		    	and freenote_title like '%' || #{title} || '%'
+		 	<when test="condition == 'title'">
+		    	and freenote_title like '%' || #{keyword} || '%'
 		 	</when>
-		 	<when test="writer != null">
-		    	and nickname like '%' || #{writer} || '%'		 	
+		 	<when test="condition == 'writer'">
+		    	and nickname like '%' || #{keyword} || '%'		 	
 		 	</when>
 		 	<otherwise>
-		    	and (nickname like '%' || #{wirterTitle} || '%'
-		     	 or freenote_title like '%' || #{wirterTitle} || '%')		 	
+		    	and (nickname like '%' || #{keyword} || '%'
+		     	 or freenote_title like '%' || #{keyword} || '%')		 	
 		 	</otherwise>
 		 </choose>
 			  order

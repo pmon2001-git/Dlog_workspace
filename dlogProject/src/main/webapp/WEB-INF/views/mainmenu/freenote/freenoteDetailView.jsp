@@ -122,6 +122,7 @@
 	                                <span id="count">0</span>/500&nbsp;&nbsp;<button class="btn btn-flat btn-success" onclick="addReply(0, 1);">등록</button>
 	                            </div>
                             </c:if>
+                            <br>
                         </div>
                     </div>
                 </div>

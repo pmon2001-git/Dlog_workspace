@@ -17,8 +17,8 @@ public class SearchCondition {
 	private String category;
 	private int boardLimit;
 	private String title;
-	private String writer;
-	private String wirterTitle;
 	private String sort;
+	private String condition;
+	private String keyword;
 
 }

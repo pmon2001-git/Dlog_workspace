@@ -38,9 +38,10 @@
                                 <table class="table table-striped table-bordered table-hover zero-configuration" id="listTable">
                                     <thead>
                                         <tr>
+                                        	<th><input type="checkbox" ></th>
                                             <th>글 번호</th>
-                                            <th>글 제목</th>
-                                            <th>작성자 아이디</th>
+                                            <th width="150">글 제목</th>
+                                            <th>작성자</th>
                                             <th>조회수</th>
                                             <th>댓글수</th>
                                             <th>작성일</th>
@@ -49,6 +50,7 @@
                                     <tbody>
                                     	<c:forEach var="fn" items="${ list }">
                                     		<tr>
+                                    			<td><input type="checkbox"></td>
                                                 <td>${ fn.freenoteNo }</td>
                                                 <td>${ fn.freenoteTitle }</td>
                                                 <td>${ fn.memberId }</td>
@@ -61,10 +63,10 @@
                                 </table>
                                 <script>
                                 	$(function(){
-                                		$("#listTable>tbody>tr").each(function(){
+                                		$("#listTable>tbody>tr").find("td:eq(2)").each(function(){
                                 			$(this).css("cursor", "pointer");
                                 			$(this).click(function(){
-                                				location.href="admin_detail.co?fno=" + $(this).find("td:eq(0)").text();
+                                				location.href="admin_detail.co?fno=" + $(this).prev().text();
                                 			});
                                 		});
                                 	});

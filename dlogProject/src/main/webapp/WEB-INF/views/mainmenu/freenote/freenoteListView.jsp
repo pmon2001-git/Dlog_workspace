@@ -101,6 +101,7 @@
 		                                        		<span class="badge badge-pill badge-light">&nbsp;비공개&nbsp;</span>
 		                                        	</c:if>
 		                                        </td>
+	                                    		<input type="hidden" value="${ f.freenotePrivacy }">
 		                                        <td>${ f.freenoteCategory }</td>
 		                                        <td>${ f.replyCount }</td>
 		                                        <td>${ f.createDate }</td>
@@ -117,7 +118,12 @@
 	                            			$(this).find("td:eq(1)").css("cursor", "pointer");
 	                            			
 	                            			$(this).find("td:eq(1)").click(function(){
-	                            				location.href="detail.fn?fno=" + $(this).prev().text();
+	                            				if($(this).next().val() == 'Y' || '${sc.mno}' == '${loginUser.memberNo}'){
+		                            				location.href="detail.fn?fno=" + $(this).prev().text();
+	                            				}else{
+	                            					alert("비공개 글 입니다.");
+	                            				}
+	                            				
 	                            			});
 	                            		});
 	                            	});

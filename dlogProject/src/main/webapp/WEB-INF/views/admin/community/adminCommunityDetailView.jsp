@@ -78,7 +78,9 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <td width="400"><b>${ fn.memberId }</b></td>
+                                    	
+                                        <td width="400"><img src="resources/images/default-profile-pic.jpg" class="rounded-circle" height="30" width="30"> 
+                            			&nbsp;<b>${ fn.memberId }&nbsp;(${ fn.freenoteWriter })</b></td>
                                         <td width="500" align="right">${fn.createDate}</td>
                                     </tr>
                                 </table>
@@ -94,7 +96,7 @@
                             <hr>
                             <div id="replyArea"></div>
                             <div id="replyPagination" align="center"></div>
-                            
+                            <br>
                         </div>
                     </div>
                 </div>

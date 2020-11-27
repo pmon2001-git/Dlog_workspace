@@ -79,7 +79,7 @@
                         <option value="writer">작성자</option>
                         <option value="title">제목</option>
                     </select>
-                    <input type="text" name="keyword" value="${ keyword }">
+                    <input type="text" name="keyword" value="${ sc.keyword }">
                     <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                 </form>
             </div>
@@ -89,7 +89,7 @@
             <table>
                 <tr>
                     <td width="900">
-                        "${ keyword }"에 대한 검색 결과 입니다. (${ pi.listCount }건)
+                        "${ sc.keyword }"에 대한 검색 결과 입니다. (${ pi.listCount }건)
                     </td>
                     <td>
                         <select name="sort" id="sortOpt">
@@ -101,87 +101,158 @@
             </table>
             <script>
             	$(function(){
-            		$("#searchForm option[value=${condition}]").attr("selected", true);
+            		$("#searchForm option[value=${ sc.condition }]").attr("selected", true);
             		
             		$("#sortOpt").change(function(){
             			var $sort = $("#sortOpt").val();
-            			location.href="search.co?condition=${ condition }&keyword=${ keyword }&sort=" + $sort;
+            			location.href="search.co?condition=${ sc.condition }&keyword=${ sc.keyword }&sort=" + $sort;
             		});
             		
-            		$("#sortOpt option[value='${ sort }']").attr("selected", true);
+            		$("#sortOpt option[value='${ sc.sort }']").attr("selected", true);
             		
             	});
             </script>
             
             <hr>
-            
 
-            <div id="listArea" align="center">
-                <c:forEach var="fn" items="${ list }">
-                	<div class="listCard">
-                		<input type="hidden" value="${ fn.freenoteNo }">
-	                    <table>
-	                        <tr>
-	                            <td width="790" height="40">
-	                                <img src="resources/images/default-profile-pic.jpg" width="40" height="40" class="rounded-circle">&nbsp;
-	                                ${ fn.freenoteWriter }
-	                            </td>
-	                            <td width="140" align="right">
-	                                <c:if test="${ fn.freenoteTopic ne '주제선택안함' }" >
-	                                	${ fn.freenoteTopic }
-	                                </c:if>
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                            <td colspan="2" height="40" style="font-size: 17px;">
-	                                ${ fn.freenoteTitle }
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                            <td colspan="2">
-	                                ${ fn.createDate } &emsp;좋아요 ${ fn.freenoteLike } &emsp; 댓글 ${ fn.replyCount }
-	                            </td>
-	                        </tr>
-	                    </table>
-	                </div>
-                </c:forEach>
-                <c:if test="${ empty list }">
-                	조회된 결과가 없습니다.
-                </c:if>
-                
-                <script>
-                	$(function(){
-                		$(".listCard").click(function(){
-                			location.href="detail.co?fno=" + $(this).find("input").val();
-                		});
-                	});
-                </script>
-                
-                <br><br>
-
-                <ul class="pagination pagination-lg justify-content-center">
-                    <c:if test="${ pi.currentPage ne 1 }">
-                    	<li class="page-item"><a class="page-link" href="search.co?condition=${ condition }&keyword=${ keyword }&sort=${ sort }&currentPage=${ pi.currentPage - 1 }">Previous</a></li>
-                    </c:if>
-                    
-                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    	<c:choose>
-                    		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="search.co?condition=${ condition }&keyword=${ keyword }&sort=${ sort }&currentPage=${ p }">${ p }</a></li>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<li class="page-item active"><a class="page-link">${ p }</a></li>
-                    		</c:otherwise>
-                    	</c:choose>
-                    </c:forEach>
-                    
-                    <c:if test="${ pi.currentPage ne pi.maxPage and pi.listCount > 0 }">
-                    	<li class="page-item"><a class="page-link" href="search.co?condition=${ condition }&keyword=${ keyword }&sort=${ sort }&currentPage=${ pi.currentPage + 1 }">Next</a></li>
-                    </c:if>
-                </ul>
-            </div>
+            <div id="listArea" align="center" style="min-height:200px;"></div>
+            <script>
+	           	$(function(){
+	           		$("#listArea").on("click", "div", function(){
+	           			location.href="detail.co?fno=" + $(this).find("input").val();
+	           		});
+	           	});
+            </script>
+            <br><br>
+			<div id="pagingArea"></div>
         </div>
     </section>
+    
+    <script>
+    	$(function(){
+    		loadList(1);
+    		
+    		// 스크롤링
+    		// 참고자료 1: https://dzone.com/articles/infinite-scroll-loading
+    		// 참고자료 2: https://stackoverflow.com/questions/10662528/load-ajax-when-scroll-reaches-80
+			var count = 1;
+    		$contentLoadTriggered = false;
+	
+    		$(window).scroll(function(){
+	    		if ($(window).scrollTop() >= ($(document).height() - $(window).height()) && $contentLoadTriggered == false){
+	    			$contentLoadTriggered = true;
+	    			count += 1;
+	    			loadListScroll(count);
+					$contentLoadTriggered = false;
+	    		}
+    		});
+    	});
+    		
+    	function loadListScroll(cPage){
+    		$.ajax({
+		    	url:"searchList.co",
+    			data:{
+	    			condition:'${sc.condition}',
+	    			keyword:'${sc.keyword}',
+	    			sort:'${sc.sort}',
+	    			currentPage:cPage
+    			}, success:function(result){
+    				
+    				if(result.list.length > 0){
+    					var listCard = "";
+    					for(var i in result.list){
+    						listCard +=
+    							"<div class='listCard'>" +
+		                    		"<input type='hidden' value='" + result.list[i].freenoteNo + "'>" +
+		    	                    "<table>" +
+		    	                        "<tr>" +
+		    	                            "<td width='790' height='40'>" +
+		    	                                "<img src='resources/images/default-profile-pic.jpg' width='40' height='40' class='rounded-circle'>&nbsp;" +
+		    	                                result.list[i].freenoteWriter +
+		    	                            "</td>" +
+		    	                            "<td width='140' align='right'>";
+                            if(result.list[i].freenoteTopic != '주제선택안함'){
+                            	listCard += result.list[i].freenoteTopic;
+                            }
+		    	            listCard +=     "</td>" +
+		    	                        "</tr>" +
+		    	                        "<tr>" +
+		    	                            "<td colspan='2' height='40' style='font-size: 17px;'>" +
+		    	                            	result.list[i].freenoteTitle +
+		    	                            "</td>" +
+		    	                        "</tr>" +
+		    	                        "<tr>" +
+		    	                            "<td colspan='2'>" +
+		    	                            	result.list[i].createDate + "&emsp;좋아요" +  result.list[i].freenoteLike + "&emsp; 댓글 " + result.list[i].replyCount +
+		    	                            "</td>" +
+		    	                        "</tr>" +
+		    	                    "</table>" +
+		    	                "</div>";
+    					}
+    					$("#listArea").append(listCard);
+    					
+    				}
+    			}, error:function(){
+    				console.log('커뮤니티 검색리스트 조회 ajax 통신 실패');
+    			}
+    		});
+    	}
+    	
+    	function loadList(cPage){
+    		$.ajax({
+		    	url:"searchList.co",
+    			data:{
+	    			condition:'${sc.condition}',
+	    			keyword:'${sc.keyword}',
+	    			sort:'${sc.sort}',
+	    			currentPage:cPage
+    			}, success:function(result){
+    				
+    				if(result.list.length > 0){
+    					var listCard = "";
+    					for(var i in result.list){
+    						listCard +=
+    							"<div class='listCard'>" +
+		                    		"<input type='hidden' value='" + result.list[i].freenoteNo + "'>" +
+		    	                    "<table>" +
+		    	                        "<tr>" +
+		    	                            "<td width='790' height='40'>" +
+		    	                                "<img src='resources/images/default-profile-pic.jpg' width='40' height='40' class='rounded-circle'>&nbsp;" +
+		    	                                result.list[i].freenoteWriter +
+		    	                            "</td>" +
+		    	                            "<td width='140' align='right'>";
+                            if(result.list[i].freenoteTopic != '주제선택안함'){
+                            	listCard += result.list[i].freenoteTopic;
+                            }
+		    	            listCard +=     "</td>" +
+		    	                        "</tr>" +
+		    	                        "<tr>" +
+		    	                            "<td colspan='2' height='40' style='font-size: 17px;'>" +
+		    	                            	result.list[i].freenoteTitle +
+		    	                            "</td>" +
+		    	                        "</tr>" +
+		    	                        "<tr>" +
+		    	                            "<td colspan='2'>" +
+		    	                            	result.list[i].createDate + "&emsp;좋아요" +  result.list[i].freenoteLike + "&emsp; 댓글 " + result.list[i].replyCount +
+		    	                            "</td>" +
+		    	                        "</tr>" +
+		    	                    "</table>" +
+		    	                "</div>";
+    					}
+    					$("#listArea").html(listCard);
+    					
+    				}else{
+    					$("#listArea").html('조회된 결과가 없습니다.');
+    				}
+    			}, error:function(){
+    				console.log('커뮤니티 검색리스트 조회 ajax 통신 실패');
+    			}
+    		});
+    	}
+    	
+    	
+    </script>
+    
 	
 	<jsp:include page="../../common/mainFooter.jsp" />
 
