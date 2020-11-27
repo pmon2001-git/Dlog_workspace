@@ -183,7 +183,10 @@
 		    	                        "</tr>" +
 		    	                        "<tr>" +
 		    	                            "<td colspan='2'>" +
-		    	                            	result.list[i].createDate + "&emsp;좋아요" +  result.list[i].freenoteLike + "&emsp; 댓글 " + result.list[i].replyCount +
+		    	                            	result.list[i].createDate + 
+		    	                            	"&emsp;조회수&nbsp;" + result.list[i].freenoteCount +
+		    	                            	"&emsp;좋아요&nbsp;" +  result.list[i].freenoteLike + 
+		    	                            	"&emsp;댓글&nbsp;" + result.list[i].replyCount +
 		    	                            "</td>" +
 		    	                        "</tr>" +
 		    	                    "</table>" +
@@ -233,7 +236,10 @@
 		    	                        "</tr>" +
 		    	                        "<tr>" +
 		    	                            "<td colspan='2'>" +
-		    	                            	result.list[i].createDate + "&emsp;좋아요" +  result.list[i].freenoteLike + "&emsp; 댓글 " + result.list[i].replyCount +
+		    	                            	result.list[i].createDate + 
+		    	                            	"&emsp;조회수&nbsp;" + result.list[i].freenoteCount +
+		    	                            	"&emsp;좋아요&nbsp;" +  result.list[i].freenoteLike + 
+		    	                            	"&emsp;댓글&nbsp;" + result.list[i].replyCount +
 		    	                            "</td>" +
 		    	                        "</tr>" +
 		    	                    "</table>" +

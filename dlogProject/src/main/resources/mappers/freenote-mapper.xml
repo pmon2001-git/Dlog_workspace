@@ -386,6 +386,7 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		     , freenote_topic
+		     , freenote_count
 			 , (select count(*)
                   from reply
                  where ref_fno = freenote_no
@@ -429,6 +430,7 @@
 		     , freenote_like
 		     , to_char(create_date, 'yyyy-mm-dd') as create_date
 		     , freenote_topic
+		     , freenote_count
 		     , (select count(*)
                   from reply
                  where ref_fno = freenote_no

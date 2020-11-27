@@ -89,7 +89,7 @@
 	            <ul class="nav nav-tabs nav-justified" id="topicNav">
 	            </ul>
 			</div>
-            <div id="listArea" align="center"></div>
+            <div id="listArea" align="center"  style="min-height:200px;"></div>
             <script>
 	        	$(function(){
 	         		$("#listArea").on("click", "div", function(){
@@ -153,7 +153,10 @@
 		    	                        "</tr>" +
 		    	                        "<tr>" +
 		    	                            "<td colspan='2'>" +
-		    	                            	result.list[i].createDate + "&emsp;좋아요" +  result.list[i].freenoteLike + "&emsp; 댓글 " + result.list[i].replyCount +
+		    	                            	result.list[i].createDate + 
+		    	                            	"&emsp;조회수&nbsp;" + result.list[i].freenoteCount +
+		    	                            	"&emsp;좋아요&nbsp;" +  result.list[i].freenoteLike + 
+		    	                            	"&emsp;댓글&nbsp;" + result.list[i].replyCount +
 		    	                            "</td>" +
 		    	                        "</tr>" +
 		    	                    "</table>" +
