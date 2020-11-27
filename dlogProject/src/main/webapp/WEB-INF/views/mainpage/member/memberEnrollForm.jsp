@@ -151,6 +151,7 @@
                         <label for="email">이메일</label>
                         <input type="email" class="form-control" id="email" name="email" required placeholder="이메일를 입력하세요">
                     </div>
+                    
                     <div class="form-group">
                         <label for="phone">전화번호</label><br>
                         <input type="text" class="form-control" id="phoneNumber" name="phone" required placeholder="전화번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
@@ -161,7 +162,8 @@
                         <input type="text" class="form-control" id="inputCertifiedNumber" name="inputCertifiedNumber" required placeholder="인증번호를 입력하세요" style="width: 77%; float: left; margin-right: 10px;">
                         <button id="checkBtn" type="button" class="btn btn-secondary">인증확인</button>
                     </div>
-                      <button id="enrollBtn" type="submit" class="btn" disabled>회원가입</button>
+                   
+                      <button id="enrollBtn" type="submit" class="btn">회원가입</button>
                 </form>
 
                 <p>계정이 있습니까? <a href="loginForm.me">로그인</a>하세요</p>
@@ -191,7 +193,6 @@
         							
         							$("#checkResult").show();
         							$("#checkResult").css("color", "red").text("중복된 아이디가 존재합니다. 다시 입력해주세요");
-        							$("#enrollBtn").attr("disabled", true);
         							
         						}
         						
@@ -203,7 +204,6 @@
         			}else{
         				
         				$("#checkResult").hide();
-        				$("#enrollBtn").attr("disabled", true);
         				
         			}
         			
@@ -224,7 +224,6 @@
                                     
                                 	$("#checkPwdResult").show();
             						$("#checkPwdResult").css("color", "red").text("비밀번호가 유효하지 않습니다.다시 입력해 주세요.");
-            						$("#enrollBtn").attr("disabled", true);
                                     
                                 }else{
                                 	
@@ -242,7 +241,6 @@
               		}else{
               			
               			$("#checkPwdResult").hide();
-        				$("#enrollBtn").attr("disabled", true);
               			
               		}
 
@@ -258,7 +256,6 @@
 	        				
 	        				$("#comparePwdResult").show();
 							$("#comparePwdResult").css("color", "red").text("입력한 비밀번호가 일치하지 않습니다.다시 입력해 주세요.");
-							$("#enrollBtn").attr("disabled", true);
 	        				
 	        			}else{
 	        				
@@ -270,7 +267,6 @@
         			}else{
         				
         				$("#comparePwdResult").hide();
-        				$("#enrollBtn").attr("disabled", true);
         				
         			}
         			
@@ -308,7 +304,9 @@
     				})
         			
         		}//별명 중복체크
+    
         		
+        		/*
         		$('#sendPhoneNumber').click(function(){
                     var phoneNumber = $('#phoneNumber').val();
                     
@@ -343,8 +341,9 @@
                         }
                     })
                 });
-        		
+        		*/
         	}
+        	
         </script>
 
         <img id="bug1" src="resources/images/bug.png">

@@ -63,6 +63,21 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.insertMember(sqlSession, m);
 	}
 	
+	@Override
+	public int insertActive() {
+		return mDao.insertActive(sqlSession);
+	}
+
+	@Override
+	public int insertPrivacy() {
+		return mDao.insertPrivacy(sqlSession);
+	}
+
+	@Override
+	public int insertColor() {
+		return mDao.insertColor(sqlSession);
+	}
+	
 
 	@Override
 	public ArrayList<Member> infoList() {

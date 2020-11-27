@@ -42,6 +42,18 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
+	public int insertActive(SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("memberMapper.insertActive");
+	}
+	
+	public int insertPrivacy(SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("memberMapper.insertPrivacy");
+	}
+	
+	public int insertColor(SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("memberMapper.insertColor");
+	}
+	
 	
 	
 	public ArrayList<Member> infoList(SqlSessionTemplate sqlSession){

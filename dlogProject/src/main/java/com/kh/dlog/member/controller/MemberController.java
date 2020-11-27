@@ -106,7 +106,7 @@ public class MemberController {
 		
 	}
 	
-	
+	/*
 	@ResponseBody
 	@RequestMapping(value="sendSMS.me")
 	public String sendSMS(String phoneNumber) {
@@ -137,6 +137,7 @@ public class MemberController {
 	        return numStr;
 		
 	}
+	*/
 	
 	@ResponseBody
 	@RequestMapping("idSearch.me")
@@ -235,7 +236,7 @@ public class MemberController {
 		
 		int result = mService.insertMember(m);
 		
-		if(result>0) {
+		if(result > 0) {
 			session.setAttribute("alertMsg"  , "성공적으로 회원가입되었습니다.");
 			return "mainpage/member/memberLoginForm";
 		}else {

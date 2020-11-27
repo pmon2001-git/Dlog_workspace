@@ -22,6 +22,12 @@ public interface MemberService {
 	
 	int insertMember(Member m);
 	
+	int insertActive();
+	
+	int insertPrivacy();
+	
+	int insertColor();
+	
 	
 	ArrayList<Member> infoList();
 	

@@ -121,6 +121,76 @@
 		     , 'Y'
 		  )
 	</insert>
+	
+	<insert id="insertActive">
+		insert 
+		  into active
+		  (
+		       member_no
+		     , active_dday
+		     , active_voca
+		     , active_memo
+		     , active_timetable
+		  )
+		  values
+		  (
+		       seq_memberno.nextval
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		  )
+	</insert>
+	
+	<insert id="insertPrivacy">
+		insert 
+		  into privacy
+		  (
+		       member_no
+		     , privacy_calendar
+		     , privacy_diary
+		     , privacy_freenote
+		     , privacy_photo
+		     , privacy_account
+		     , privacy_dday
+		     , privacy_voca
+		     , privacy_memo
+		     , privacy_timetable
+		  )
+		  values
+		  (
+		       seq_memberno.nextval
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		     , 'Y'
+		  )
+	</insert>
+	
+	<insert id="insertColor">
+		insert 
+		  into my_color
+		  (
+		       member_no
+		     , my_color_logo
+		     , my_color_background
+		     , my_color_menubar
+		     , my_color_font
+		  )
+		  values
+		  (
+		       seq_memberno.nextval
+		     , '#84c8b9'
+		     , '#ffffff'	
+		     , '#ffffff'	
+		     , '#464a53'	
+		  )
+	</insert>
 
 	<select id="infoList" parameterType="Member" resultMap="memberResultSet">
 	select
