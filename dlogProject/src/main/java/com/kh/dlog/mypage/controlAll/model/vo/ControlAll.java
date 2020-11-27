@@ -26,4 +26,8 @@ public class ControlAll {
 	private String privacyVoca;
 	private String privacyMemo;
 	private String privacyTimetable;
+	private String myColorLogo;
+	private String myColorBackground;
+	private String myColorMebubar;
+	private String myColorFont;
 }

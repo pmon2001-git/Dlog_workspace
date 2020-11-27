@@ -574,7 +574,7 @@
 						$.ajax({
 	                		url:"activeWidget.ca",
 	                		type:"post",
-	                		data:{"widget":widget},
+	                		data:{"widget":widget,"status":"N"},
 	                		success:function(){
 	                			console.log("다이어리 공개 ajax성공");
 	                		},error:function(){
@@ -598,7 +598,7 @@
 	                	$.ajax({
 	                		url:"activeWidget.ca",
 	                		type:"post",
-	                		data:{"widget":widget},
+	                		data:{"widget":widget,"status":"N"},
 	                		success:function(){
 	                			console.log("다이어리 공개 ajax성공");
 	                		},error:function(){
@@ -634,7 +634,7 @@
                 		$.ajax({
 	                		url:"activeWidget.ca",
 	                		type:"post",
-	                		data:{"widget":widget},
+	                		data:{"widget":widget,"status":"Y"},
 	                		success:function(){
 	                			console.log("다이어리 공개 ajax성공");
 	                		},error:function(){
@@ -658,7 +658,7 @@
 	                	$.ajax({
 	                		url:"activeWidget.ca",
 	                		type:"post",
-	                		data:{"widget":widget},
+	                		data:{"widget":widget,"status":"Y"},
 	                		success:function(){
 	                			console.log("다이어리 공개 ajax성공");
 	                		},error:function(){

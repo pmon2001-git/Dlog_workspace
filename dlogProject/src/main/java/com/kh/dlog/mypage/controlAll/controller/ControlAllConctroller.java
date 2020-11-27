@@ -16,14 +16,16 @@ public class ControlAllConctroller {
 	
 	@RequestMapping("activeWidget.ca")
 	@ResponseBody
-	public void ActiveWidget(String widget) {
-		
+	public void ActiveWidget(String widget, String status) {
+		System.out.println(widget);
+		System.out.println(status);
 	}
 	
 	@RequestMapping("privacyWidget.ca")
 	@ResponseBody
-	public void PrivacyWidget(String widget) {
-		
+	public void PrivacyWidget(String widget, String status) {
+		System.out.println(widget);
+		System.out.println(status);
 	}
 	
 }
