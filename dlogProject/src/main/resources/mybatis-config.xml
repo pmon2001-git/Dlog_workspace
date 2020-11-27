@@ -19,6 +19,7 @@
 		<typeAlias type="com.kh.dlog.widget.timetable.model.vo.Timetable" alias="Timetable"/>
 		<typeAlias type="com.kh.dlog.widget.dday.model.vo.Dday" alias="Dday"/>
 		<typeAlias type="com.kh.dlog.admin.report.model.vo.Report" alias="Report" />
+		<typeAlias type="con.kh.dlog.mypage.controlAll.model.vo.ControlAll" alias="Ca"/>
 	</typeAliases>
 	
 	<!-- 
@@ -44,6 +45,7 @@
 		<mapper resource="/mappers/timetable-mapper.xml"/>
  		<mapper resource="/mappers/friend-mapper.xml"/>
  		<mapper resource="/mappers/dday-maaper.xml"/>
+ 		<mapper resource="/mappers/controlAll-maaper.xml"/>
  	</mappers>
  	
 </configuration>
